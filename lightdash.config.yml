@@ -1,3 +1,2 @@
-version: 1
-type: project
-name: lightdash_poc
+warehouse:
+  type: bigquery
