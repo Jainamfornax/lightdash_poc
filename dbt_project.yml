@@ -1,0 +1,6 @@
+name: 'lightdash_poc'
+version: '1.0.0'
+
+profile: 'lightdash_poc'
+
+model-paths: ["models"]
