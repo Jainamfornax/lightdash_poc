@@ -1,0 +1,154 @@
+type: model
+name: fact_sales_order_line
+sql_from: 'lyra-lab-analytics.production.fact_sales_order_line'
+description: "Sale order line details with quantities, pricing, and delivery status"
+
+dimensions:
+  - name: id
+    sql: ${TABLE}.id
+    type: number
+    description: "Primary key - sale order line ID"
+    hidden: true
+
+  - name: order_id
+    sql: ${TABLE}.order_id
+    type: number
+    description: "Foreign key to sale order"
+    hidden: true
+
+  - name: order_name
+    sql: ${TABLE}.order_name
+    type: string
+    description: "Sale order reference number"
+
+  - name: name
+    sql: ${TABLE}.name
+    type: string
+    description: "Sale order line name/description"
+
+  - name: product_id
+    sql: ${TABLE}.product_id
+    type: number
+    description: "Foreign key to product"
+    hidden: true
+
+  - name: product_name
+    sql: ${TABLE}.product_name
+    type: string
+    description: "Product name"
+
+  - name: company_name
+    sql: ${TABLE}.company_name
+    type: string
+    description: "Customer/company name"
+
+  - name: order_type
+    sql: ${TABLE}.order_type
+    type: string
+    description: "Type of sale order"
+
+  - name: sales_remark
+    sql: ${TABLE}.sales_remark
+    type: string
+    description: "Remarks on the sale order line"
+
+  - name: delivery_status
+    sql: ${TABLE}.delivery_status
+    type: string
+    description: "Delivery status of the order line"
+
+  - name: state
+    sql: ${TABLE}.state
+    type: string
+    description: "Order state (draft, sale, done, cancel)"
+
+  - name: customer_deadline
+    sql: ${TABLE}.customer_deadline
+    type: date
+    description: "Customer requested delivery date"
+    time_intervals: ['DAY', 'WEEK', 'MONTH', 'QUARTER', 'YEAR']
+
+  - name: ordered_qty
+    sql: ${TABLE}.ordered_qty
+    type: number
+    description: "Quantity ordered"
+
+  - name: qty_delivered
+    sql: ${TABLE}.qty_delivered
+    type: number
+    description: "Quantity delivered"
+
+  - name: qty_invoiced
+    sql: ${TABLE}.qty_invoiced
+    type: number
+    description: "Quantity invoiced"
+
+  - name: price_unit
+    sql: ${TABLE}.price_unit
+    type: number
+    description: "Unit price"
+
+  - name: price_tax
+    sql: ${TABLE}.price_tax
+    type: number
+    description: "Tax amount"
+
+  - name: price_total
+    sql: ${TABLE}.price_total
+    type: number
+    description: "Total price including tax"
+
+metrics:
+  total_revenue:
+    type: sum
+    sql: ${TABLE}.price_total
+    label: "Total Revenue"
+    description: "Sum of all order line totals"
+
+  avg_order_value:
+    type: average
+    sql: ${TABLE}.price_total
+    label: "Avg Order Value"
+    description: "Average order line total"
+
+  order_line_count:
+    type: count
+    sql: ${TABLE}.id
+    label: "Number of Order Lines"
+    description: "Count of order lines"
+
+  total_ordered_qty:
+    type: sum
+    sql: ${TABLE}.ordered_qty
+    label: "Total Ordered Qty"
+    description: "Sum of all ordered quantities"
+
+  avg_ordered_qty:
+    type: average
+    sql: ${TABLE}.ordered_qty
+    label: "Avg Ordered Qty"
+    description: "Average ordered quantity"
+
+  total_qty_delivered:
+    type: sum
+    sql: ${TABLE}.qty_delivered
+    label: "Total Qty Delivered"
+    description: "Sum of all delivered quantities"
+
+  total_qty_invoiced:
+    type: sum
+    sql: ${TABLE}.qty_invoiced
+    label: "Total Qty Invoiced"
+    description: "Sum of all invoiced quantities"
+
+  avg_unit_price:
+    type: average
+    sql: ${TABLE}.price_unit
+    label: "Avg Unit Price"
+    description: "Average unit price"
+
+  total_tax:
+    type: sum
+    sql: ${TABLE}.price_tax
+    label: "Total Tax"
+    description: "Sum of all tax amounts"
