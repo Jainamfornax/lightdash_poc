@@ -1,0 +1,110 @@
+version: 2
+
+models:
+  - name: sales_dummy
+    description: "Sales dummy data with customer, product, and order details"
+    meta:
+      label: "Sales Dummy"
+    columns:
+      - name: sale_id
+        description: "Unique sale identifier"
+        meta:
+          dimension:
+            type: string
+
+      - name: sale_date
+        description: "Date of the sale"
+        meta:
+          dimension:
+            type: date
+            time_intervals:
+              - DAY
+              - WEEK
+              - MONTH
+              - QUARTER
+              - YEAR
+
+      - name: customer_name
+        description: "Customer name"
+        meta:
+          dimension:
+            type: string
+
+      - name: customer_region
+        description: "Customer region"
+        meta:
+          dimension:
+            type: string
+
+      - name: product_name
+        description: "Product name"
+        meta:
+          dimension:
+            type: string
+
+      - name: product_category
+        description: "Product category"
+        meta:
+          dimension:
+            type: string
+
+      - name: quantity
+        description: "Quantity sold"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_quantity:
+              type: sum
+              label: "Total Quantity"
+            avg_quantity:
+              type: average
+              label: "Avg Quantity"
+
+      - name: unit_price
+        description: "Unit price"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_unit_price:
+              type: average
+              label: "Avg Unit Price"
+
+      - name: discount_pct
+        description: "Discount percentage"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_discount:
+              type: average
+              label: "Avg Discount %"
+
+      - name: total_amount
+        description: "Total sale amount"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_revenue:
+              type: sum
+              label: "Total Revenue"
+            avg_order_value:
+              type: average
+              label: "Avg Order Value"
+            order_count:
+              type: count
+              label: "Number of Orders"
+
+      - name: sales_rep
+        description: "Sales representative"
+        meta:
+          dimension:
+            type: string
+
+      - name: order_status
+        description: "Order status"
+        meta:
+          dimension:
+            type: string
