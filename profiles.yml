@@ -1,0 +1,9 @@
+lightdash_poc:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      method: oauth
+      project: lyra-lab-analytics
+      dataset: production
+      location: US
