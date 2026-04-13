@@ -59,6 +59,56 @@ models:
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
           label: "SPLY Units Sold"
 
+        # --- Prior Year To Date (PYTD) ---
+        pytd_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "PYTD Revenue"
+
+        pytd_gross_profit:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.gross_profit} ELSE 0 END"
+          label: "PYTD Gross Profit"
+
+        pytd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
+          label: "PYTD Units Sold"
+
+        # --- Prior Month To Date (PMTD) ---
+        pmtd_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${fact_sales.transaction_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "PMTD Revenue"
+
+        pmtd_gross_profit:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${fact_sales.transaction_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${fact_sales.gross_profit} ELSE 0 END"
+          label: "PMTD Gross Profit"
+
+        pmtd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${fact_sales.transaction_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
+          label: "PMTD Units Sold"
+
+        # --- Prior Quarter To Date (PQTD) ---
+        pqtd_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 QUARTER)) AND EXTRACT(QUARTER FROM ${fact_sales.transaction_date}) = EXTRACT(QUARTER FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 QUARTER)) AND ${fact_sales.transaction_date} <= DATE_SUB(CURRENT_DATE(), INTERVAL 1 QUARTER) + EXTRACT(DAY FROM CURRENT_DATE()) - 1 THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "PQTD Revenue"
+
+        # --- Full Prior Month ---
+        prior_month_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "Prior Month Revenue"
+
+        # --- Full Prior Year ---
+        prior_year_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "Prior Year Revenue"
+
     columns:
       # --- IDs ---
       - name: order_id
