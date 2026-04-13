@@ -4,6 +4,6 @@ lightdash_poc:
     prod:
       type: bigquery
       method: oauth
-      project: lyra-lab-analytics
-      dataset: production
+      project: linked-368910
+      dataset: lightdash_poc
       location: US

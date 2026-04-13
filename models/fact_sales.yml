@@ -1,0 +1,541 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: "FMCG sales transactions with product, customer, pricing, discount, and delivery details"
+    meta:
+      label: "Fact Sales"
+    columns:
+      # --- IDs (hidden) ---
+      - name: order_id
+        description: "Unique order identifier"
+        meta:
+          dimension:
+            type: string
+          metrics:
+            unique_order_count:
+              type: count_distinct
+              label: "Unique Orders"
+
+      - name: sku_code
+        description: "Product SKU code"
+        meta:
+          dimension:
+            type: string
+          metrics:
+            unique_products:
+              type: count_distinct
+              label: "Unique SKUs"
+
+      - name: customer_id
+        description: "Customer identifier"
+        meta:
+          dimension:
+            type: string
+            hidden: true
+          metrics:
+            unique_customers:
+              type: count_distinct
+              label: "Unique Customers"
+
+      - name: store_id
+        description: "Store identifier"
+        meta:
+          dimension:
+            type: string
+            hidden: true
+          metrics:
+            unique_stores:
+              type: count_distinct
+              label: "Unique Stores"
+
+      # --- Date ---
+      - name: transaction_date
+        description: "Date of the sale"
+        meta:
+          dimension:
+            type: date
+            time_intervals:
+              - DAY
+              - WEEK
+              - MONTH
+              - QUARTER
+              - YEAR
+
+      # --- Time Dimensions (from SQL) ---
+      - name: transaction_year
+        description: "Year of transaction"
+        meta:
+          dimension:
+            type: number
+
+      - name: transaction_quarter
+        description: "Quarter of transaction (1-4)"
+        meta:
+          dimension:
+            type: number
+
+      - name: transaction_month
+        description: "Month of transaction (1-12)"
+        meta:
+          dimension:
+            type: number
+
+      - name: transaction_month_name
+        description: "Month name (January, February, etc.)"
+        meta:
+          dimension:
+            type: string
+
+      - name: transaction_week
+        description: "Week number of the year"
+        meta:
+          dimension:
+            type: number
+
+      - name: transaction_day_name
+        description: "Day name (Monday, Tuesday, etc.)"
+        meta:
+          dimension:
+            type: string
+
+      # --- Period Flags ---
+      - name: is_ytd
+        description: "Year-to-date flag"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: is_mtd
+        description: "Month-to-date flag"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: is_qtd
+        description: "Quarter-to-date flag"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: is_sply
+        description: "Same period last year flag"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: is_last_30_days
+        description: "Last 30 days flag"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: is_last_90_days
+        description: "Last 90 days flag"
+        meta:
+          dimension:
+            type: boolean
+
+      # --- Product Dimensions ---
+      - name: product_name
+        description: "Product name"
+        meta:
+          dimension:
+            type: string
+
+      - name: brand
+        description: "Brand name"
+        meta:
+          dimension:
+            type: string
+
+      - name: sub_brand
+        description: "Sub-brand name"
+        meta:
+          dimension:
+            type: string
+
+      - name: flavor_variant
+        description: "Flavor or variant"
+        meta:
+          dimension:
+            type: string
+
+      - name: product_category
+        description: "Product category"
+        meta:
+          dimension:
+            type: string
+
+      - name: product_tier
+        description: "Product tier (premium, standard, etc.)"
+        meta:
+          dimension:
+            type: string
+
+      - name: product_lifecycle_stage
+        description: "Product lifecycle stage"
+        meta:
+          dimension:
+            type: string
+
+      - name: is_new_launch
+        description: "Whether the product is a new launch"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: pack_size
+        description: "Pack size"
+        meta:
+          dimension:
+            type: number
+
+      - name: pack_size_unit
+        description: "Pack size unit (ml, g, etc.)"
+        meta:
+          dimension:
+            type: string
+
+      - name: pack_size_weight_grams
+        description: "Pack size in grams"
+        meta:
+          dimension:
+            type: number
+
+      # --- Customer Dimensions ---
+      - name: customer_name
+        description: "Customer name"
+        meta:
+          dimension:
+            type: string
+
+      - name: customer_segment
+        description: "Customer segment"
+        meta:
+          dimension:
+            type: string
+
+      - name: customer_city
+        description: "Customer city"
+        meta:
+          dimension:
+            type: string
+
+      - name: customer_state
+        description: "Customer state"
+        meta:
+          dimension:
+            type: string
+
+      - name: customer_region
+        description: "Customer region"
+        meta:
+          dimension:
+            type: string
+
+      - name: customer_tier
+        description: "Customer tier"
+        meta:
+          dimension:
+            type: string
+
+      # --- Channel & Store Dimensions ---
+      - name: channel_type
+        description: "Sales channel type"
+        meta:
+          dimension:
+            type: string
+
+      - name: delivery_channel
+        description: "Delivery channel"
+        meta:
+          dimension:
+            type: string
+
+      - name: store_name
+        description: "Store name"
+        meta:
+          dimension:
+            type: string
+
+      - name: urban_rural_flag
+        description: "Urban or Rural"
+        meta:
+          dimension:
+            type: string
+
+      - name: market_zone
+        description: "Market zone"
+        meta:
+          dimension:
+            type: string
+
+      # --- Sales & Promo Dimensions ---
+      - name: discount_type
+        description: "Type of discount applied"
+        meta:
+          dimension:
+            type: string
+
+      - name: is_special_account
+        description: "Whether it's a special account"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: account_agreement_id
+        description: "Account agreement reference"
+        meta:
+          dimension:
+            type: string
+            hidden: true
+
+      - name: is_promo_sale
+        description: "Whether the sale had a promotion"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: promo_type
+        description: "Promotion type"
+        meta:
+          dimension:
+            type: string
+
+      - name: promo_code
+        description: "Promotion code"
+        meta:
+          dimension:
+            type: string
+
+      - name: order_status
+        description: "Order status"
+        meta:
+          dimension:
+            type: string
+
+      - name: dispatch_warehouse
+        description: "Dispatch warehouse"
+        meta:
+          dimension:
+            type: string
+
+      - name: sales_rep_name
+        description: "Sales representative"
+        meta:
+          dimension:
+            type: string
+
+      - name: sales_territory
+        description: "Sales territory"
+        meta:
+          dimension:
+            type: string
+
+      # --- Pricing ---
+      - name: unit_price
+        description: "Unit list price"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_unit_price:
+              type: average
+              label: "Avg Unit Price"
+
+      - name: net_realization_price
+        description: "Net realization price after discounts"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_net_realization_price:
+              type: average
+              label: "Avg Net Realization Price"
+
+      # --- Quantities ---
+      - name: quantity_units_sold
+        description: "Units sold"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_units_sold:
+              type: sum
+              label: "Total Units Sold"
+            avg_units_per_order:
+              type: average
+              label: "Avg Units per Order"
+
+      - name: quantity_cases_sold
+        description: "Cases sold"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_cases_sold:
+              type: sum
+              label: "Total Cases Sold"
+
+      - name: quantity_kg_sold
+        description: "Weight sold in kg"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_kg_sold:
+              type: sum
+              label: "Total Kg Sold"
+
+      - name: quantity_returned
+        description: "Units returned"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_units_returned:
+              type: sum
+              label: "Total Units Returned"
+
+      # --- Revenue & Profit ---
+      - name: net_revenue
+        description: "Net revenue"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_net_revenue:
+              type: sum
+              label: "Total Net Revenue"
+            avg_order_revenue:
+              type: average
+              label: "Avg Order Revenue"
+
+      - name: cogs_per_unit
+        description: "Cost of goods sold per unit"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_cogs_per_unit:
+              type: average
+              label: "Avg COGS per Unit"
+
+      - name: total_cogs
+        description: "Total cost of goods sold"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            sum_total_cogs:
+              type: sum
+              label: "Total COGS"
+
+      - name: freight_cost
+        description: "Freight/shipping cost"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_freight_cost:
+              type: sum
+              label: "Total Freight Cost"
+
+      - name: gross_profit
+        description: "Gross profit"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_gross_profit:
+              type: sum
+              label: "Total Gross Profit"
+
+      - name: gross_profit_pct
+        description: "Gross profit percentage"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_gross_profit_pct:
+              type: average
+              label: "Avg Gross Margin %"
+
+      # --- Discounts ---
+      - name: standard_discount_pct
+        description: "Standard discount percentage"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_standard_discount_pct:
+              type: average
+              label: "Avg Standard Discount %"
+
+      - name: standard_discount_amount
+        description: "Standard discount amount"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_standard_discount:
+              type: sum
+              label: "Total Standard Discount"
+
+      - name: contractual_discount_pct
+        description: "Contractual discount percentage"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_contractual_discount_pct:
+              type: average
+              label: "Avg Contractual Discount %"
+
+      - name: contractual_discount_amount
+        description: "Contractual discount amount"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_contractual_discount:
+              type: sum
+              label: "Total Contractual Discount"
+
+      - name: promo_discount_amount
+        description: "Promotional discount amount"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            total_promo_discount:
+              type: sum
+              label: "Total Promo Discount"
+
+      - name: total_discount_amount
+        description: "Total discount amount"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            sum_total_discount:
+              type: sum
+              label: "Total Discount Amount"
+
+      # --- Delivery ---
+      - name: delivery_lead_time_days
+        description: "Delivery lead time in days"
+        meta:
+          dimension:
+            type: number
+          metrics:
+            avg_delivery_lead_time:
+              type: average
+              label: "Avg Delivery Lead Time (Days)"
+            max_delivery_lead_time:
+              type: max
+              label: "Max Delivery Lead Time (Days)"
+            min_delivery_lead_time:
+              type: min
+              label: "Min Delivery Lead Time (Days)"
