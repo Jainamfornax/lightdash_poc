@@ -4,3 +4,7 @@ version: '1.0.0'
 profile: 'lightdash_poc'
 
 model-paths: ["models"]
+
+models:
+  lightdash_poc:
+    +materialized: table
