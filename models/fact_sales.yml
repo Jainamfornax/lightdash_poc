@@ -5,8 +5,62 @@ models:
     description: "FMCG sales transactions with product, customer, pricing, discount, and delivery details"
     meta:
       label: "Fact Sales"
+      metrics:
+        # --- Time Intelligence Metrics (Revenue) ---
+        ytd_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "YTD Revenue"
+
+        mtd_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "MTD Revenue"
+
+        qtd_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${fact_sales.transaction_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "QTD Revenue"
+
+        sply_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "SPLY Revenue"
+
+        last_30d_revenue:
+          type: sum
+          sql: "CASE WHEN ${fact_sales.transaction_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "Last 30 Days Revenue"
+
+        last_90d_revenue:
+          type: sum
+          sql: "CASE WHEN ${fact_sales.transaction_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY) THEN ${fact_sales.net_revenue} ELSE 0 END"
+          label: "Last 90 Days Revenue"
+
+        # --- Time Intelligence Metrics (Gross Profit) ---
+        ytd_gross_profit:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.gross_profit} ELSE 0 END"
+          label: "YTD Gross Profit"
+
+        sply_gross_profit:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.gross_profit} ELSE 0 END"
+          label: "SPLY Gross Profit"
+
+        # --- Time Intelligence Metrics (Units) ---
+        ytd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
+          label: "YTD Units Sold"
+
+        sply_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
+          label: "SPLY Units Sold"
+
     columns:
-      # --- IDs (hidden) ---
+      # --- IDs ---
       - name: order_id
         description: "Unique order identifier"
         meta:
@@ -61,80 +115,6 @@ models:
               - MONTH
               - QUARTER
               - YEAR
-
-      # --- Time Dimensions (from SQL) ---
-      - name: transaction_year
-        description: "Year of transaction"
-        meta:
-          dimension:
-            type: number
-
-      - name: transaction_quarter
-        description: "Quarter of transaction (1-4)"
-        meta:
-          dimension:
-            type: number
-
-      - name: transaction_month
-        description: "Month of transaction (1-12)"
-        meta:
-          dimension:
-            type: number
-
-      - name: transaction_month_name
-        description: "Month name (January, February, etc.)"
-        meta:
-          dimension:
-            type: string
-
-      - name: transaction_week
-        description: "Week number of the year"
-        meta:
-          dimension:
-            type: number
-
-      - name: transaction_day_name
-        description: "Day name (Monday, Tuesday, etc.)"
-        meta:
-          dimension:
-            type: string
-
-      # --- Period Flags ---
-      - name: is_ytd
-        description: "Year-to-date flag"
-        meta:
-          dimension:
-            type: boolean
-
-      - name: is_mtd
-        description: "Month-to-date flag"
-        meta:
-          dimension:
-            type: boolean
-
-      - name: is_qtd
-        description: "Quarter-to-date flag"
-        meta:
-          dimension:
-            type: boolean
-
-      - name: is_sply
-        description: "Same period last year flag"
-        meta:
-          dimension:
-            type: boolean
-
-      - name: is_last_30_days
-        description: "Last 30 days flag"
-        meta:
-          dimension:
-            type: boolean
-
-      - name: is_last_90_days
-        description: "Last 90 days flag"
-        meta:
-          dimension:
-            type: boolean
 
       # --- Product Dimensions ---
       - name: product_name
