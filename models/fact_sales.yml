@@ -11,103 +11,137 @@ models:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "YTD Revenue"
+          format: "usd"
+          round: 1
 
         mtd_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "MTD Revenue"
+          format: "usd"
+          round: 1
 
         qtd_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${fact_sales.transaction_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "QTD Revenue"
+          format: "usd"
+          round: 1
 
         sply_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "SPLY Revenue"
+          format: "usd"
+          round: 1
 
         last_30d_revenue:
           type: sum
           sql: "CASE WHEN ${fact_sales.transaction_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "Last 30 Days Revenue"
+          format: "usd"
+          round: 1
 
         last_90d_revenue:
           type: sum
           sql: "CASE WHEN ${fact_sales.transaction_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY) THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "Last 90 Days Revenue"
+          format: "usd"
+          round: 1
 
         # --- Time Intelligence Metrics (Gross Profit) ---
         ytd_gross_profit:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.gross_profit} ELSE 0 END"
           label: "YTD Gross Profit"
+          format: "usd"
+          round: 1
 
         sply_gross_profit:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.gross_profit} ELSE 0 END"
           label: "SPLY Gross Profit"
+          format: "usd"
+          round: 1
 
         # --- Time Intelligence Metrics (Units) ---
         ytd_units_sold:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${fact_sales.transaction_date} <= CURRENT_DATE() THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
           label: "YTD Units Sold"
+          round: 1
 
         sply_units_sold:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
           label: "SPLY Units Sold"
+          round: 1
 
         # --- Prior Year To Date (PYTD) ---
         pytd_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "PYTD Revenue"
+          format: "usd"
+          round: 1
 
         pytd_gross_profit:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.gross_profit} ELSE 0 END"
           label: "PYTD Gross Profit"
+          format: "usd"
+          round: 1
 
         pytd_units_sold:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND EXTRACT(DAYOFYEAR FROM ${fact_sales.transaction_date}) <= EXTRACT(DAYOFYEAR FROM CURRENT_DATE()) THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
           label: "PYTD Units Sold"
+          round: 1
 
         # --- Prior Month To Date (PMTD) ---
         pmtd_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${fact_sales.transaction_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "PMTD Revenue"
+          format: "usd"
+          round: 1
 
         pmtd_gross_profit:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${fact_sales.transaction_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${fact_sales.gross_profit} ELSE 0 END"
           label: "PMTD Gross Profit"
+          format: "usd"
+          round: 1
 
         pmtd_units_sold:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${fact_sales.transaction_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${fact_sales.quantity_units_sold} ELSE 0 END"
           label: "PMTD Units Sold"
+          round: 1
 
         # --- Prior Quarter To Date (PQTD) ---
         pqtd_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 QUARTER)) AND EXTRACT(QUARTER FROM ${fact_sales.transaction_date}) = EXTRACT(QUARTER FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 QUARTER)) AND ${fact_sales.transaction_date} <= DATE_SUB(CURRENT_DATE(), INTERVAL 1 QUARTER) + EXTRACT(DAY FROM CURRENT_DATE()) - 1 THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "PQTD Revenue"
+          format: "usd"
+          round: 1
 
         # --- Full Prior Month ---
         prior_month_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${fact_sales.transaction_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "Prior Month Revenue"
+          format: "usd"
+          round: 1
 
         # --- Full Prior Year ---
         prior_year_revenue:
           type: sum
           sql: "CASE WHEN EXTRACT(YEAR FROM ${fact_sales.transaction_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 THEN ${fact_sales.net_revenue} ELSE 0 END"
           label: "Prior Year Revenue"
+          format: "usd"
+          round: 1
 
     columns:
       # --- IDs ---
@@ -220,6 +254,7 @@ models:
         meta:
           dimension:
             type: number
+            round: 1
 
       - name: pack_size_unit
         description: "Pack size unit (ml, g, etc.)"
@@ -232,6 +267,7 @@ models:
         meta:
           dimension:
             type: number
+            round: 1
 
       # --- Customer Dimensions ---
       - name: customer_name
@@ -369,20 +405,28 @@ models:
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             avg_unit_price:
               type: average
               label: "Avg Unit Price"
+              format: "usd"
+              round: 1
 
       - name: net_realization_price
         description: "Net realization price after discounts"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             avg_net_realization_price:
               type: average
               label: "Avg Net Realization Price"
+              format: "usd"
+              round: 1
 
       # --- Quantities ---
       - name: quantity_units_sold
@@ -390,43 +434,52 @@ models:
         meta:
           dimension:
             type: number
+            round: 1
           metrics:
             total_units_sold:
               type: sum
               label: "Total Units Sold"
+              round: 1
             avg_units_per_order:
               type: average
               label: "Avg Units per Order"
+              round: 1
 
       - name: quantity_cases_sold
         description: "Cases sold"
         meta:
           dimension:
             type: number
+            round: 1
           metrics:
             total_cases_sold:
               type: sum
               label: "Total Cases Sold"
+              round: 1
 
       - name: quantity_kg_sold
         description: "Weight sold in kg"
         meta:
           dimension:
             type: number
+            round: 1
           metrics:
             total_kg_sold:
               type: sum
               label: "Total Kg Sold"
+              round: 1
 
       - name: quantity_returned
         description: "Units returned"
         meta:
           dimension:
             type: number
+            round: 1
           metrics:
             total_units_returned:
               type: sum
               label: "Total Units Returned"
+              round: 1
 
       # --- Revenue & Profit ---
       - name: net_revenue
@@ -434,63 +487,89 @@ models:
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             total_net_revenue:
               type: sum
               label: "Total Net Revenue"
+              format: "usd"
+              round: 1
             avg_order_revenue:
               type: average
               label: "Avg Order Revenue"
+              format: "usd"
+              round: 1
 
       - name: cogs_per_unit
         description: "Cost of goods sold per unit"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             avg_cogs_per_unit:
               type: average
               label: "Avg COGS per Unit"
+              format: "usd"
+              round: 1
 
       - name: total_cogs
         description: "Total cost of goods sold"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             sum_total_cogs:
               type: sum
               label: "Total COGS"
+              format: "usd"
+              round: 1
 
       - name: freight_cost
         description: "Freight/shipping cost"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             total_freight_cost:
               type: sum
               label: "Total Freight Cost"
+              format: "usd"
+              round: 1
 
       - name: gross_profit
         description: "Gross profit"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             total_gross_profit:
               type: sum
               label: "Total Gross Profit"
+              format: "usd"
+              round: 1
 
       - name: gross_profit_pct
         description: "Gross profit percentage"
         meta:
           dimension:
             type: number
+            format: "percent"
+            round: 1
           metrics:
             avg_gross_profit_pct:
               type: average
               label: "Avg Gross Margin %"
+              format: "percent"
+              round: 1
 
       # --- Discounts ---
       - name: standard_discount_pct
@@ -498,60 +577,84 @@ models:
         meta:
           dimension:
             type: number
+            format: "percent"
+            round: 1
           metrics:
             avg_standard_discount_pct:
               type: average
               label: "Avg Standard Discount %"
+              format: "percent"
+              round: 1
 
       - name: standard_discount_amount
         description: "Standard discount amount"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             total_standard_discount:
               type: sum
               label: "Total Standard Discount"
+              format: "usd"
+              round: 1
 
       - name: contractual_discount_pct
         description: "Contractual discount percentage"
         meta:
           dimension:
             type: number
+            format: "percent"
+            round: 1
           metrics:
             avg_contractual_discount_pct:
               type: average
               label: "Avg Contractual Discount %"
+              format: "percent"
+              round: 1
 
       - name: contractual_discount_amount
         description: "Contractual discount amount"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             total_contractual_discount:
               type: sum
               label: "Total Contractual Discount"
+              format: "usd"
+              round: 1
 
       - name: promo_discount_amount
         description: "Promotional discount amount"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             total_promo_discount:
               type: sum
               label: "Total Promo Discount"
+              format: "usd"
+              round: 1
 
       - name: total_discount_amount
         description: "Total discount amount"
         meta:
           dimension:
             type: number
+            format: "usd"
+            round: 1
           metrics:
             sum_total_discount:
               type: sum
               label: "Total Discount Amount"
+              format: "usd"
+              round: 1
 
       # --- Delivery ---
       - name: delivery_lead_time_days
@@ -559,13 +662,17 @@ models:
         meta:
           dimension:
             type: number
+            round: 1
           metrics:
             avg_delivery_lead_time:
               type: average
               label: "Avg Delivery Lead Time (Days)"
+              round: 1
             max_delivery_lead_time:
               type: max
               label: "Max Delivery Lead Time (Days)"
+              round: 1
             min_delivery_lead_time:
               type: min
               label: "Min Delivery Lead Time (Days)"
+              round: 1
