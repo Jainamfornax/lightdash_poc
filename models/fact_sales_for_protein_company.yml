@@ -100,6 +100,32 @@ models:
           label: "MTD Revenue"
           format: usd
 
+        previous_mtd_revenue:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+                 AND EXTRACT(MONTH FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+                 AND EXTRACT(DAY FROM ${fact_sales_for_protein_company.order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
+                THEN ${fact_sales_for_protein_company.revenue}
+                ELSE 0
+              END
+          label: "Previous MTD Revenue"
+          format: usd
+          round: 2
+
+        previous_mtd_gross_profit:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+                 AND EXTRACT(MONTH FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+                 AND EXTRACT(DAY FROM ${fact_sales_for_protein_company.order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
+                THEN ${fact_sales_for_protein_company.gross_profit}
+                ELSE 0
+              END
+          label: "Previous MTD Gross Profit"
+          format: usd
+          round: 2
+
         prior_year_revenue:
           type: sum
           sql: CASE
@@ -135,7 +161,12 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals: [DAY, WEEK, MONTH, QUARTER, YEAR]
+            time_intervals:
+              - DAY
+              - WEEK
+              - MONTH
+              - QUARTER
+              - YEAR
 
       - name: month
         meta:
