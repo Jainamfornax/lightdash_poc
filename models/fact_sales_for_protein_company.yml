@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: fact_sales_for_protein_company
-    description: "D2C protein supplement sales transactions across channels with customer lifecycle flags"
+    description: "D2C protein supplement sales transactions across channels"
 
     meta:
       label: "Protein Sales"
@@ -15,13 +15,6 @@ models:
           format: usd
           round: 2
 
-        total_gross_profit:
-          type: sum
-          sql: ${gross_profit}
-          label: "Total Gross Profit"
-          format: usd
-          round: 2
-
         ytd_revenue:
           type: sum
           sql: CASE
@@ -31,18 +24,6 @@ models:
                 ELSE 0
               END
           label: "YTD Revenue"
-          format: usd
-          round: 2
-
-        ytd_gross_profit:
-          type: sum
-          sql: CASE
-                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
-                 AND ${order_date} <= CURRENT_DATE()
-                THEN ${gross_profit}
-                ELSE 0
-              END
-          label: "YTD Gross Profit"
           format: usd
           round: 2
 
@@ -72,19 +53,6 @@ models:
           format: usd
           round: 2
 
-        previous_mtd_gross_profit:
-          type: sum
-          sql: CASE
-                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
-                 AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
-                 AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
-                THEN ${gross_profit}
-                ELSE 0
-              END
-          label: "Previous MTD Gross Profit"
-          format: usd
-          round: 2
-
         previous_year_revenue:
           type: sum
           sql: CASE
@@ -109,6 +77,78 @@ models:
                 ELSE 0
               END
           label: "Last 30D Revenue"
+          format: usd
+          round: 2
+
+        total_gross_profit:
+          type: sum
+          sql: ${gross_profit}
+          label: "Total Gross Profit"
+          format: usd
+          round: 2
+
+        ytd_gross_profit:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+                 AND ${order_date} <= CURRENT_DATE()
+                THEN ${gross_profit}
+                ELSE 0
+              END
+          label: "YTD Gross Profit"
+          format: usd
+          round: 2
+
+        mtd_gross_profit:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+                 AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+                 AND ${order_date} <= CURRENT_DATE()
+                THEN ${gross_profit}
+                ELSE 0
+              END
+          label: "MTD Gross Profit"
+          format: usd
+          round: 2
+
+        previous_mtd_gross_profit:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+                 AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+                 AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
+                THEN ${gross_profit}
+                ELSE 0
+              END
+          label: "Previous MTD Gross Profit"
+          format: usd
+          round: 2
+
+        previous_year_gross_profit:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1
+                 AND EXTRACT(MONTH FROM ${order_date}) <= EXTRACT(MONTH FROM CURRENT_DATE())
+                 AND (
+                      EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE())
+                      OR EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
+                 )
+                THEN ${gross_profit}
+                ELSE 0
+              END
+          label: "Previous Year Gross Profit"
+          format: usd
+          round: 2
+
+        last_30d_gross_profit:
+          type: sum
+          sql: CASE
+                WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+                THEN ${gross_profit}
+                ELSE 0
+              END
+          label: "Last 30D Gross Profit"
           format: usd
           round: 2
 
@@ -165,30 +205,6 @@ models:
           sql: SAFE_DIVIDE(${total_gross_profit}, ${total_revenue})
           label: "Gross Margin %"
           format: percent
-          round: 2
-
-        new_customers:
-          type: sum
-          sql: ${is_new_customer}
-          label: "New Customers"
-
-        repeat_customers:
-          type: sum
-          sql: ${is_repeat_customer}
-          label: "Repeat Customers"
-
-        new_customer_revenue:
-          type: sum
-          sql: CASE WHEN ${is_new_customer} = 1 THEN ${revenue} ELSE 0 END
-          label: "New Customer Revenue"
-          format: usd
-          round: 2
-
-        repeat_customer_revenue:
-          type: sum
-          sql: CASE WHEN ${is_repeat_customer} = 1 THEN ${revenue} ELSE 0 END
-          label: "Repeat Customer Revenue"
-          format: usd
           round: 2
 
     columns:
@@ -299,19 +315,3 @@ models:
           dimension:
             type: number
             round: 2
-
-      - name: customer_first_order_date
-        meta:
-          dimension:
-            type: date
-            time_intervals: [DAY, WEEK, MONTH, QUARTER, YEAR]
-
-      - name: is_new_customer
-        meta:
-          dimension:
-            type: number
-
-      - name: is_repeat_customer
-        meta:
-          dimension:
-            type: number
