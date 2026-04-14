@@ -1,0 +1,224 @@
+version: 2
+
+models:
+  - name: fact_sales_for_protein_company
+    description: "D2C protein supplement sales transactions across channels"
+
+    meta:
+      label: "Protein Sales"
+
+      metrics:
+        total_revenue:
+          type: sum
+          sql: ${fact_sales_for_protein_company.revenue}
+          label: "Total Revenue"
+          round: 1
+
+        total_gross_profit:
+          type: sum
+          sql: ${fact_sales_for_protein_company.gross_profit}
+          label: "Total Gross Profit"
+          round: 1
+
+        total_discount:
+          type: sum
+          sql: ${fact_sales_for_protein_company.discount}
+          label: "Total Discount"
+          round: 1
+
+        total_units_sold:
+          type: sum
+          sql: ${fact_sales_for_protein_company.units_sold}
+          label: "Total Units Sold"
+          round: 1
+
+        avg_unit_price:
+          type: average
+          sql: ${fact_sales_for_protein_company.unit_price}
+          label: "Avg Unit Price"
+          round: 2
+
+        avg_units_sold:
+          type: average
+          sql: ${fact_sales_for_protein_company.units_sold}
+          label: "Avg Units Sold"
+          round: 2
+
+        unique_orders:
+          type: count_distinct
+          sql: ${fact_sales_for_protein_company.order_id}
+          label: "Unique Orders"
+
+        unique_customers:
+          type: count_distinct
+          sql: ${fact_sales_for_protein_company.customer_name}
+          label: "Unique Customers"
+
+        unique_skus:
+          type: count_distinct
+          sql: ${fact_sales_for_protein_company.sku}
+          label: "Unique SKUs"
+
+        avg_order_value:
+          type: number
+          sql: SAFE_DIVIDE(${total_revenue}, ${unique_orders})
+          label: "Avg Order Value"
+          round: 2
+
+        gross_margin_pct:
+          type: number
+          sql: SAFE_DIVIDE(${total_gross_profit}, ${total_revenue})
+          label: "Gross Margin %"
+          format: percent
+          round: 2
+
+        ytd_revenue:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+                THEN ${fact_sales_for_protein_company.revenue}
+                ELSE 0
+              END
+          label: "YTD Revenue"
+
+        mtd_revenue:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+                 AND EXTRACT(MONTH FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+                THEN ${fact_sales_for_protein_company.revenue}
+                ELSE 0
+              END
+          label: "MTD Revenue"
+
+        prior_year_revenue:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1
+                THEN ${fact_sales_for_protein_company.revenue}
+                ELSE 0
+              END
+          label: "Prior Year Revenue"
+
+        last_30d_revenue:
+          type: sum
+          sql: CASE
+                WHEN ${fact_sales_for_protein_company.order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+                THEN ${fact_sales_for_protein_company.revenue}
+                ELSE 0
+              END
+          label: "Last 30D Revenue"
+
+    columns:
+      - name: order_id
+        meta:
+          dimension:
+            type: string
+
+      - name: order_date
+        meta:
+          dimension:
+            type: date
+            time_intervals:
+              - DAY
+              - WEEK
+              - MONTH
+              - QUARTER
+              - YEAR
+
+      - name: month
+        meta:
+          dimension:
+            type: string
+
+      - name: customer_name
+        meta:
+          dimension:
+            type: string
+
+      - name: region
+        meta:
+          dimension:
+            type: string
+
+      - name: channel
+        meta:
+          dimension:
+            type: string
+
+      - name: product_category
+        meta:
+          dimension:
+            type: string
+
+      - name: sku
+        meta:
+          dimension:
+            type: string
+
+      - name: product_name
+        meta:
+          dimension:
+            type: string
+
+      - name: pack_size
+        meta:
+          dimension:
+            type: string
+
+      - name: new_product_flag
+        meta:
+          dimension:
+            type: string
+
+      - name: ad_converted_flag
+        meta:
+          dimension:
+            type: string
+
+      - name: promo_code
+        meta:
+          dimension:
+            type: string
+
+      - name: units_sold
+        meta:
+          dimension:
+            type: number
+            round: 1
+
+      - name: unit_price
+        meta:
+          dimension:
+            type: number
+            round: 2
+
+      - name: revenue
+        meta:
+          dimension:
+            type: number
+            round: 2
+
+      - name: discount
+        meta:
+          dimension:
+            type: number
+            round: 2
+
+      - name: cogs
+        meta:
+          dimension:
+            type: number
+            round: 2
+
+      - name: channel_fee
+        meta:
+          dimension:
+            type: number
+            round: 2
+
+      - name: gross_profit
+        meta:
+          dimension:
+            type: number
+            round: 2
