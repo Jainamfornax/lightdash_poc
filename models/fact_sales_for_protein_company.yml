@@ -12,18 +12,21 @@ models:
           type: sum
           sql: ${fact_sales_for_protein_company.revenue}
           label: "Total Revenue"
+          format: usd
           round: 1
 
         total_gross_profit:
           type: sum
           sql: ${fact_sales_for_protein_company.gross_profit}
           label: "Total Gross Profit"
+          format: usd
           round: 1
 
         total_discount:
           type: sum
           sql: ${fact_sales_for_protein_company.discount}
           label: "Total Discount"
+          format: usd
           round: 1
 
         total_units_sold:
@@ -36,6 +39,7 @@ models:
           type: average
           sql: ${fact_sales_for_protein_company.unit_price}
           label: "Avg Unit Price"
+          format: usd
           round: 2
 
         avg_units_sold:
@@ -63,6 +67,7 @@ models:
           type: number
           sql: SAFE_DIVIDE(${total_revenue}, ${unique_orders})
           label: "Avg Order Value"
+          format: usd
           round: 2
 
         gross_margin_pct:
@@ -76,29 +81,39 @@ models:
           type: sum
           sql: CASE
                 WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+                 AND ${fact_sales_for_protein_company.order_date} <= CURRENT_DATE()
                 THEN ${fact_sales_for_protein_company.revenue}
                 ELSE 0
               END
           label: "YTD Revenue"
+          format: usd
 
         mtd_revenue:
           type: sum
           sql: CASE
                 WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
                  AND EXTRACT(MONTH FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+                 AND ${fact_sales_for_protein_company.order_date} <= CURRENT_DATE()
                 THEN ${fact_sales_for_protein_company.revenue}
                 ELSE 0
               END
           label: "MTD Revenue"
+          format: usd
 
         prior_year_revenue:
           type: sum
           sql: CASE
                 WHEN EXTRACT(YEAR FROM ${fact_sales_for_protein_company.order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1
+                 AND EXTRACT(MONTH FROM ${fact_sales_for_protein_company.order_date}) <= EXTRACT(MONTH FROM CURRENT_DATE())
+                 AND (
+                      EXTRACT(MONTH FROM ${fact_sales_for_protein_company.order_date}) < EXTRACT(MONTH FROM CURRENT_DATE())
+                      OR EXTRACT(DAY FROM ${fact_sales_for_protein_company.order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
+                 )
                 THEN ${fact_sales_for_protein_company.revenue}
                 ELSE 0
               END
-          label: "Prior Year Revenue"
+          label: "Previous Year Revenue"
+          format: usd
 
         last_30d_revenue:
           type: sum
@@ -108,6 +123,7 @@ models:
                 ELSE 0
               END
           label: "Last 30D Revenue"
+          format: usd
 
     columns:
       - name: order_id
@@ -119,12 +135,7 @@ models:
         meta:
           dimension:
             type: date
-            time_intervals:
-              - DAY
-              - WEEK
-              - MONTH
-              - QUARTER
-              - YEAR
+            time_intervals: [DAY, WEEK, MONTH, QUARTER, YEAR]
 
       - name: month
         meta:
