@@ -1,0 +1,865 @@
+version: 2
+
+# ═══════════════════════════════════════════════════════════════
+#  LIGHTDASH POC — Protein Brand D2C
+#  Model  : fact_sales_protein
+#  Warehouse: BigQuery  (project: linked-368910 / dataset: lightdash_poc)
+#  Covers : Revenue, CM1/CM2/CM3, New vs Repeat, Cohort, SKU, Marketing
+#  Note   : All SQL uses BigQuery dialect (DATE_SUB, EXTRACT, SAFE_DIVIDE)
+# ═══════════════════════════════════════════════════════════════
+
+models:
+  - name: fact_sales_protein
+    description: >
+      Wide denormalised sales fact table for the protein brand POC.
+      Each row = one order line item, joined with customer, product,
+      marketing spend allocation and operating cost allocation.
+      Covers Jan 2025 – Apr 2026 across Amazon, Shopify, TikTok, Flipkart.
+
+    meta:
+      label: "Protein Brand Sales"
+
+      # ─────────────────────────────────────────────────────────
+      #  METRICS
+      # ─────────────────────────────────────────────────────────
+      metrics:
+
+        # ── 1. REVENUE ─────────────────────────────────────────
+
+        total_gross_revenue:
+          type: sum
+          sql: ${gross_revenue_inr}
+          label: "Gross Revenue"
+          description: "Sum of gross revenue before discounts and returns"
+          format: "₹#,##0"
+          round: 0
+
+        total_net_revenue:
+          type: sum
+          sql: ${net_revenue_inr}
+          label: "Net Revenue"
+          description: "Gross revenue minus discounts and returns"
+          format: "₹#,##0"
+          round: 0
+
+        total_discount:
+          type: sum
+          sql: ${discount_amount_inr}
+          label: "Total Discount"
+          format: "₹#,##0"
+          round: 0
+
+        total_returns:
+          type: sum
+          sql: ${returns_amount_inr}
+          label: "Total Returns"
+          format: "₹#,##0"
+          round: 0
+
+        discount_rate_pct:
+          type: number
+          sql: SAFE_DIVIDE(${total_discount}, ${total_gross_revenue}) * 100
+          label: "Discount Rate %"
+          description: "Discounts as % of gross revenue"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        return_rate_pct:
+          type: number
+          sql: SAFE_DIVIDE(${total_returns}, ${total_gross_revenue}) * 100
+          label: "Return Rate %"
+          description: "Returns as % of gross revenue"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        # ── 2. REVENUE — TIME INTELLIGENCE ────────────────────
+
+        mtd_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
+               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+               AND ${order_date} <= CURRENT_DATE()
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "MTD Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        prev_mtd_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
+               AND EXTRACT(DAY   FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "Prev MTD Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        mom_revenue_pct:
+          type: number
+          sql: >
+            SAFE_DIVIDE(${mtd_revenue} - ${prev_mtd_revenue}, ${prev_mtd_revenue}) * 100
+          label: "MoM Revenue Growth %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        qtd_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR    FROM ${order_date}) = EXTRACT(YEAR    FROM CURRENT_DATE())
+               AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE())
+               AND ${order_date} <= CURRENT_DATE()
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "QTD Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        ytd_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+               AND ${order_date} <= CURRENT_DATE()
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "YTD Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        prev_ytd_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1
+               AND (
+                 EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE())
+                 OR (
+                   EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+                   AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
+                 )
+               )
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "Prev YTD Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        yoy_revenue_pct:
+          type: number
+          sql: >
+            SAFE_DIVIDE(${ytd_revenue} - ${prev_ytd_revenue}, ${prev_ytd_revenue}) * 100
+          label: "YoY Revenue Growth %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        last_7d_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "Last 7D Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        last_30d_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "Last 30D Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        last_90d_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "Last 90D Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        prev_30d_revenue:
+          type: sum
+          sql: >
+            CASE
+              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 60 DAY)
+               AND ${order_date} <  DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+              THEN ${net_revenue_inr} ELSE 0
+            END
+          label: "Prev 30D Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        wow_revenue_pct:
+          type: number
+          sql: >
+            SAFE_DIVIDE(${last_7d_revenue} -
+              (SELECT SUM(net_revenue_inr) FROM ${TABLE}
+               WHERE order_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 14 DAY)
+                 AND order_date <  DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)),
+              (SELECT SUM(net_revenue_inr) FROM ${TABLE}
+               WHERE order_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 14 DAY)
+                 AND order_date <  DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY))
+            ) * 100
+          label: "WoW Revenue Growth %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        # ── 3. ORDERS ──────────────────────────────────────────
+
+        total_orders:
+          type: count_distinct
+          sql: ${order_id}
+          label: "Total Orders"
+
+        new_customer_orders:
+          type: sum
+          sql: CASE WHEN ${is_new_customer} = TRUE THEN 1 ELSE 0 END
+          label: "New Customer Orders"
+
+        repeat_customer_orders:
+          type: sum
+          sql: CASE WHEN ${is_new_customer} = FALSE THEN 1 ELSE 0 END
+          label: "Repeat Customer Orders"
+
+        repeat_order_rate_pct:
+          type: number
+          sql: SAFE_DIVIDE(${repeat_customer_orders}, ${total_orders}) * 100
+          label: "Repeat Order Rate %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        avg_order_value:
+          type: number
+          sql: SAFE_DIVIDE(${total_net_revenue}, ${total_orders})
+          label: "Avg Order Value (AOV)"
+          format: "₹#,##0"
+          round: 0
+
+        avg_order_value_new:
+          type: number
+          sql: >
+            SAFE_DIVIDE(
+              SUM(CASE WHEN ${is_new_customer} = TRUE THEN ${net_revenue_inr} ELSE 0 END),
+              SUM(CASE WHEN ${is_new_customer} = TRUE THEN 1 ELSE 0 END)
+            )
+          label: "AOV — New Customers"
+          format: "₹#,##0"
+          round: 0
+
+        avg_order_value_repeat:
+          type: number
+          sql: >
+            SAFE_DIVIDE(
+              SUM(CASE WHEN ${is_new_customer} = FALSE THEN ${net_revenue_inr} ELSE 0 END),
+              SUM(CASE WHEN ${is_new_customer} = FALSE THEN 1 ELSE 0 END)
+            )
+          label: "AOV — Repeat Customers"
+          format: "₹#,##0"
+          round: 0
+
+        mtd_orders:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
+               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+              THEN 1 ELSE 0
+            END
+          label: "MTD Orders"
+
+        last_30d_orders:
+          type: sum
+          sql: >
+            CASE
+              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+              THEN 1 ELSE 0
+            END
+          label: "Last 30D Orders"
+
+        # ── 4. CUSTOMERS ───────────────────────────────────────
+
+        unique_customers:
+          type: count_distinct
+          sql: ${customer_id}
+          label: "Unique Customers"
+
+        new_customers:
+          type: count_distinct
+          sql: CASE WHEN ${is_new_customer} = TRUE THEN ${customer_id} ELSE NULL END
+          label: "New Customers"
+
+        repeat_customers:
+          type: count_distinct
+          sql: CASE WHEN ${is_new_customer} = FALSE THEN ${customer_id} ELSE NULL END
+          label: "Repeat Customers"
+
+        customer_repeat_rate_pct:
+          type: number
+          sql: SAFE_DIVIDE(${repeat_customers}, ${unique_customers}) * 100
+          label: "Customer Repeat Rate %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        avg_orders_per_customer:
+          type: number
+          sql: SAFE_DIVIDE(${total_orders}, ${unique_customers})
+          label: "Avg Orders per Customer"
+          round: 1
+
+        revenue_per_customer:
+          type: number
+          sql: SAFE_DIVIDE(${total_net_revenue}, ${unique_customers})
+          label: "Revenue per Customer"
+          format: "₹#,##0"
+          round: 0
+
+        mtd_new_customers:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
+               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+               AND ${is_new_customer} = TRUE
+              THEN 1 ELSE 0
+            END
+          label: "MTD New Customers"
+
+        # ── 5. MARGIN — CM1 ────────────────────────────────────
+
+        total_cogs:
+          type: sum
+          sql: ${cogs_inr}
+          label: "Total COGS"
+          format: "₹#,##0"
+          round: 0
+
+        cm1:
+          type: number
+          sql: ${total_net_revenue} - ${total_cogs}
+          label: "CM1 (Gross Margin)"
+          description: "Net Revenue minus COGS"
+          format: "₹#,##0"
+          round: 0
+
+        cm1_pct:
+          type: number
+          sql: SAFE_DIVIDE(${cm1}, ${total_net_revenue}) * 100
+          label: "CM1 %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        mtd_cm1:
+          type: number
+          sql: >
+            SAFE_DIVIDE(
+              SUM(CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+                 AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+                THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END),
+              1)
+          label: "MTD CM1"
+          format: "₹#,##0"
+          round: 0
+
+        ytd_cm1:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+               AND ${order_date} <= CURRENT_DATE()
+              THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0
+            END
+          label: "YTD CM1"
+          format: "₹#,##0"
+          round: 0
+
+        last_30d_cm1:
+          type: sum
+          sql: >
+            CASE
+              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+              THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0
+            END
+          label: "Last 30D CM1"
+          format: "₹#,##0"
+          round: 0
+
+        # ── 6. MARGIN — CM2 ────────────────────────────────────
+
+        allocated_marketing_spend:
+          type: sum
+          sql: ${allocated_mktg_spend_inr}
+          label: "Allocated Marketing Spend"
+          description: "Channel marketing spend allocated to each order"
+          format: "₹#,##0"
+          round: 0
+
+        cm2:
+          type: number
+          sql: ${cm1} - ${allocated_marketing_spend}
+          label: "CM2 (After Marketing)"
+          description: "CM1 minus variable marketing spend"
+          format: "₹#,##0"
+          round: 0
+
+        cm2_pct:
+          type: number
+          sql: SAFE_DIVIDE(${cm2}, ${total_net_revenue}) * 100
+          label: "CM2 %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        mtd_cm2:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
+               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0
+            END
+          label: "MTD CM2"
+          format: "₹#,##0"
+          round: 0
+
+        ytd_cm2:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+               AND ${order_date} <= CURRENT_DATE()
+              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0
+            END
+          label: "YTD CM2"
+          format: "₹#,##0"
+          round: 0
+
+        marketing_spend_pct_revenue:
+          type: number
+          sql: SAFE_DIVIDE(${allocated_marketing_spend}, ${total_net_revenue}) * 100
+          label: "Marketing Spend % of Revenue"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        roas:
+          type: number
+          sql: SAFE_DIVIDE(${total_net_revenue}, ${allocated_marketing_spend})
+          label: "ROAS"
+          description: "Net Revenue ÷ Marketing Spend"
+          round: 2
+
+        cac:
+          type: number
+          sql: SAFE_DIVIDE(${allocated_marketing_spend}, ${new_customers})
+          label: "CAC (Cost per New Customer)"
+          format: "₹#,##0"
+          round: 0
+
+        # ── 7. MARGIN — CM3 ────────────────────────────────────
+
+        allocated_ops_cost:
+          type: sum
+          sql: ${allocated_ops_cost_inr}
+          label: "Allocated Ops Cost"
+          description: "Monthly operating costs allocated to each order"
+          format: "₹#,##0"
+          round: 0
+
+        cm3:
+          type: number
+          sql: ${cm2} - ${allocated_ops_cost}
+          label: "CM3 (Operating Margin)"
+          description: "CM2 minus operating costs"
+          format: "₹#,##0"
+          round: 0
+
+        cm3_pct:
+          type: number
+          sql: SAFE_DIVIDE(${cm3}, ${total_net_revenue}) * 100
+          label: "CM3 %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        mtd_cm3:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
+               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
+              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0
+            END
+          label: "MTD CM3"
+          format: "₹#,##0"
+          round: 0
+
+        ytd_cm3:
+          type: sum
+          sql: >
+            CASE
+              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
+               AND ${order_date} <= CURRENT_DATE()
+              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0
+            END
+          label: "YTD CM3"
+          format: "₹#,##0"
+          round: 0
+
+        ops_cost_pct_revenue:
+          type: number
+          sql: SAFE_DIVIDE(${allocated_ops_cost}, ${total_net_revenue}) * 100
+          label: "Ops Cost % of Revenue"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        ltv_cac_ratio:
+          type: number
+          sql: SAFE_DIVIDE(${revenue_per_customer}, ${cac})
+          label: "LTV : CAC Ratio"
+          description: "Revenue per customer ÷ CAC. Target > 3x"
+          round: 2
+
+        # ── 8. PRODUCT / SKU ───────────────────────────────────
+
+        total_units_sold:
+          type: sum
+          sql: ${quantity}
+          label: "Total Units Sold"
+
+        avg_unit_price:
+          type: average
+          sql: ${unit_price_inr}
+          label: "Avg Unit Price"
+          format: "₹#,##0"
+          round: 0
+
+        unique_skus_sold:
+          type: count_distinct
+          sql: ${product_id}
+          label: "Unique SKUs Sold"
+
+        revenue_per_unit:
+          type: number
+          sql: SAFE_DIVIDE(${total_net_revenue}, ${total_units_sold})
+          label: "Revenue per Unit"
+          format: "₹#,##0"
+          round: 0
+
+        cm1_per_unit:
+          type: number
+          sql: SAFE_DIVIDE(${cm1}, ${total_units_sold})
+          label: "CM1 per Unit"
+          format: "₹#,##0"
+          round: 0
+
+        protein_mix_revenue:
+          type: sum
+          sql: CASE WHEN ${category} = 'Protein Mix' THEN ${net_revenue_inr} ELSE 0 END
+          label: "Protein Mix Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        protein_snack_revenue:
+          type: sum
+          sql: CASE WHEN ${category} = 'Protein Snack' THEN ${net_revenue_inr} ELSE 0 END
+          label: "Protein Snack Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        protein_mix_revenue_pct:
+          type: number
+          sql: SAFE_DIVIDE(${protein_mix_revenue}, ${total_net_revenue}) * 100
+          label: "Protein Mix Revenue %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        # ── 9. CHANNEL ─────────────────────────────────────────
+
+        amazon_revenue:
+          type: sum
+          sql: CASE WHEN ${channel} = 'Amazon'   THEN ${net_revenue_inr} ELSE 0 END
+          label: "Amazon Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        shopify_revenue:
+          type: sum
+          sql: CASE WHEN ${channel} = 'Shopify'  THEN ${net_revenue_inr} ELSE 0 END
+          label: "Shopify Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        tiktok_revenue:
+          type: sum
+          sql: CASE WHEN ${channel} = 'TikTok'   THEN ${net_revenue_inr} ELSE 0 END
+          label: "TikTok Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        flipkart_revenue:
+          type: sum
+          sql: CASE WHEN ${channel} = 'Flipkart' THEN ${net_revenue_inr} ELSE 0 END
+          label: "Flipkart Revenue"
+          format: "₹#,##0"
+          round: 0
+
+        tiktok_revenue_pct:
+          type: number
+          sql: SAFE_DIVIDE(${tiktok_revenue}, ${total_net_revenue}) * 100
+          label: "TikTok Revenue %"
+          description: "TikTok share of total revenue — should be growing"
+          format: "#,##0.0\"%\""
+          round: 1
+
+        flipkart_revenue_pct:
+          type: number
+          sql: SAFE_DIVIDE(${flipkart_revenue}, ${total_net_revenue}) * 100
+          label: "Flipkart Revenue %"
+          format: "#,##0.0\"%\""
+          round: 1
+
+      # ─────────────────────────────────────────────────────────
+      #  DIMENSIONS
+      # ─────────────────────────────────────────────────────────
+    columns:
+
+      # ── IDs ──────────────────────────────────────────────────
+      - name: order_id
+        description: "Unique order identifier"
+        meta:
+          dimension:
+            type: string
+            label: "Order ID"
+
+      - name: customer_id
+        description: "Unique customer identifier"
+        meta:
+          dimension:
+            type: string
+            label: "Customer ID"
+
+      - name: product_id
+        description: "SKU identifier incl. pack size suffix"
+        meta:
+          dimension:
+            type: string
+            label: "Product ID / SKU"
+
+      # ── DATE / TIME ──────────────────────────────────────────
+      - name: order_date
+        description: "Date the order was placed"
+        meta:
+          dimension:
+            type: date
+            label: "Order Date"
+            time_intervals:
+              - DAY
+              - WEEK
+              - MONTH
+              - QUARTER
+              - YEAR
+
+      - name: cohort_month
+        description: "Month the customer placed their first ever order (YYYY-MM)"
+        meta:
+          dimension:
+            type: string
+            label: "Cohort Month"
+
+      - name: price_revision_period
+        description: "Which price epoch this order falls in: Base / May-25 / Sep-25 / Jan-26"
+        meta:
+          dimension:
+            type: string
+            label: "Price Revision Period"
+
+      # ── CUSTOMER ─────────────────────────────────────────────
+      - name: is_new_customer
+        description: "TRUE if this is the customer's first order"
+        meta:
+          dimension:
+            type: boolean
+            label: "New Customer?"
+
+      - name: customer_type
+        description: "Derived: New or Repeat"
+        meta:
+          dimension:
+            type: string
+            label: "Customer Type"
+            sql: CASE WHEN ${is_new_customer} = TRUE THEN 'New' ELSE 'Repeat' END
+
+      - name: acquisition_channel
+        description: "Channel through which the customer was first acquired"
+        meta:
+          dimension:
+            type: string
+            label: "Acquisition Channel"
+
+      - name: city
+        meta:
+          dimension:
+            type: string
+            label: "City"
+
+      - name: state
+        meta:
+          dimension:
+            type: string
+            label: "State"
+
+      - name: payment_method
+        meta:
+          dimension:
+            type: string
+            label: "Payment Method"
+
+      - name: order_status
+        meta:
+          dimension:
+            type: string
+            label: "Order Status"
+
+      # ── CHANNEL ──────────────────────────────────────────────
+      - name: channel
+        description: "Sales channel: Amazon / Shopify / TikTok / Flipkart"
+        meta:
+          dimension:
+            type: string
+            label: "Channel"
+
+      # ── PRODUCT ──────────────────────────────────────────────
+      - name: product_name
+        meta:
+          dimension:
+            type: string
+            label: "Product Name"
+
+      - name: flavour
+        meta:
+          dimension:
+            type: string
+            label: "Flavour"
+
+      - name: category
+        description: "Protein Mix or Protein Snack"
+        meta:
+          dimension:
+            type: string
+            label: "Category"
+
+      - name: pack_size
+        description: "Numeric pack size (2/4/8 for powder, 6/12/24/48 for snacks)"
+        meta:
+          dimension:
+            type: number
+            label: "Pack Size"
+
+      - name: pack_unit
+        description: "Unit of pack size: lbs or pcs"
+        meta:
+          dimension:
+            type: string
+            label: "Pack Unit"
+
+      - name: pack_size_label
+        description: "Derived display label e.g. '4 lbs' or '24 pcs'"
+        meta:
+          dimension:
+            type: string
+            label: "Pack Size (Label)"
+            sql: CONCAT(CAST(${pack_size} AS STRING), ' ', ${pack_unit})
+
+      - name: pack_tier
+        description: "Derived bucket: Small / Medium / Large"
+        meta:
+          dimension:
+            type: string
+            label: "Pack Tier"
+            sql: >
+              CASE
+                WHEN ${category} = 'Protein Mix'   AND ${pack_size} = 2  THEN 'Small (2 lbs)'
+                WHEN ${category} = 'Protein Mix'   AND ${pack_size} = 4  THEN 'Medium (4 lbs)'
+                WHEN ${category} = 'Protein Mix'   AND ${pack_size} = 8  THEN 'Large (8 lbs)'
+                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 6  THEN 'Small (6 pcs)'
+                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 12 THEN 'Medium (12 pcs)'
+                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 24 THEN 'Large (24 pcs)'
+                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 48 THEN 'XL (48 pcs)'
+                ELSE 'Unknown'
+              END
+
+      # ── FINANCIAL (raw columns, also available as dimensions) ─
+      - name: gross_revenue_inr
+        meta:
+          dimension:
+            type: number
+            label: "Gross Revenue (raw)"
+            hidden: true
+
+      - name: discount_amount_inr
+        meta:
+          dimension:
+            type: number
+            label: "Discount Amount (raw)"
+            hidden: true
+
+      - name: returns_amount_inr
+        meta:
+          dimension:
+            type: number
+            label: "Returns Amount (raw)"
+            hidden: true
+
+      - name: net_revenue_inr
+        meta:
+          dimension:
+            type: number
+            label: "Net Revenue (raw)"
+            hidden: true
+
+      - name: cogs_inr
+        meta:
+          dimension:
+            type: number
+            label: "COGS (raw)"
+            hidden: true
+
+      - name: allocated_mktg_spend_inr
+        meta:
+          dimension:
+            type: number
+            label: "Allocated Mktg Spend (raw)"
+            hidden: true
+
+      - name: allocated_ops_cost_inr
+        meta:
+          dimension:
+            type: number
+            label: "Allocated Ops Cost (raw)"
+            hidden: true
+
+      - name: unit_price_inr
+        meta:
+          dimension:
+            type: number
+            label: "Unit Price (raw)"
+            hidden: true
+
+      - name: quantity
+        meta:
+          dimension:
+            type: number
+            label: "Quantity"
