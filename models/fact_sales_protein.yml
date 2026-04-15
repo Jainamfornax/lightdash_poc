@@ -1,549 +1,938 @@
 version: 2
 
-# ═══════════════════════════════════════════════════════════════
+# ══════════════════════════════════════════════════════════════
 #  LIGHTDASH POC — Protein Brand D2C
-#  Model  : fact_sales_protein
-#  Warehouse: BigQuery  (project: linked-368910 / dataset: lightdash_poc)
-#  Covers : Revenue, CM1/CM2/CM3, New vs Repeat, Cohort, SKU, Marketing
-#  Note   : All SQL uses BigQuery dialect (DATE_SUB, EXTRACT, SAFE_DIVIDE)
-# ═══════════════════════════════════════════════════════════════
+#  Model     : fact_sales_protein
+#  Warehouse : BigQuery (linked-368910 / lightdash_poc)
+#  Currency  : USD
+#  Every metric group has: Total | MTD | Prev MTD | MoM% |
+#                          QTD | YTD | Prev YTD | YoY% | L7D | L30D | L90D
+# ══════════════════════════════════════════════════════════════
 
 models:
   - name: fact_sales_protein
     description: >
-      Wide denormalised sales fact table for the protein brand POC.
-      Each row = one order line item, joined with customer, product,
-      marketing spend allocation and operating cost allocation.
-      Covers Jan 2025 – Apr 2026 across Amazon, Shopify, TikTok, Flipkart.
+      Wide denormalised sales fact for the protein brand POC.
+      Jan 2025 to Apr 2026. Amazon, Shopify, TikTok, Flipkart.
 
     meta:
       label: "Protein Brand Sales"
-
-      # ─────────────────────────────────────────────────────────
-      #  METRICS
-      # ─────────────────────────────────────────────────────────
       metrics:
 
-        # ── 1. REVENUE ─────────────────────────────────────────
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  1. GROSS REVENUE                                           ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         total_gross_revenue:
           type: sum
           sql: ${gross_revenue_inr}
           label: "Gross Revenue"
-          description: "Sum of gross revenue before discounts and returns"
-          format: "₹#,##0"
+          description: "Revenue before discounts and returns"
+          format: "usd"
           round: 0
+
+        mtd_gross_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_gross_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_gross_revenue_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_gross_revenue} - ${prev_mtd_gross_revenue}, ${prev_mtd_gross_revenue}) * 100"
+          label: "Gross Revenue — MoM %"
+          round: 1
+
+        qtd_gross_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — QTD"
+          format: "usd"
+          round: 0
+
+        ytd_gross_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_gross_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — Prev YTD"
+          format: "usd"
+          round: 0
+
+        yoy_gross_revenue_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_gross_revenue} - ${prev_ytd_gross_revenue}, ${prev_ytd_gross_revenue}) * 100"
+          label: "Gross Revenue — YoY %"
+          round: 1
+
+        l7d_gross_revenue:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — Last 7D"
+          format: "usd"
+          round: 0
+
+        l30d_gross_revenue:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — Last 30D"
+          format: "usd"
+          round: 0
+
+        l90d_gross_revenue:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY) THEN ${gross_revenue_inr} ELSE 0 END"
+          label: "Gross Revenue — Last 90D"
+          format: "usd"
+          round: 0
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  2. NET REVENUE                                             ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         total_net_revenue:
           type: sum
           sql: ${net_revenue_inr}
           label: "Net Revenue"
           description: "Gross revenue minus discounts and returns"
-          format: "₹#,##0"
+          format: "usd"
           round: 0
+
+        mtd_net_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_net_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_net_revenue_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_net_revenue} - ${prev_mtd_net_revenue}, ${prev_mtd_net_revenue}) * 100"
+          label: "Net Revenue — MoM %"
+          round: 1
+
+        qtd_net_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — QTD"
+          format: "usd"
+          round: 0
+
+        ytd_net_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_net_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — Prev YTD"
+          format: "usd"
+          round: 0
+
+        yoy_net_revenue_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_net_revenue} - ${prev_ytd_net_revenue}, ${prev_ytd_net_revenue}) * 100"
+          label: "Net Revenue — YoY %"
+          round: 1
+
+        l7d_net_revenue:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — Last 7D"
+          format: "usd"
+          round: 0
+
+        l30d_net_revenue:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — Last 30D"
+          format: "usd"
+          round: 0
+
+        l90d_net_revenue:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Net Revenue — Last 90D"
+          format: "usd"
+          round: 0
+
+        wow_net_revenue_pct:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) THEN ${net_revenue_inr} ELSE 0 END) - SUM(CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 14 DAY) AND ${order_date} < DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) THEN ${net_revenue_inr} ELSE 0 END), SUM(CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 14 DAY) AND ${order_date} < DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) THEN ${net_revenue_inr} ELSE 0 END)) * 100"
+          label: "Net Revenue — WoW %"
+          round: 1
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  3. DISCOUNT                                                ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         total_discount:
           type: sum
           sql: ${discount_amount_inr}
-          label: "Total Discount"
-          format: "₹#,##0"
+          label: "Discount"
+          format: "usd"
           round: 0
 
-        total_returns:
+        mtd_discount:
           type: sum
-          sql: ${returns_amount_inr}
-          label: "Total Returns"
-          format: "₹#,##0"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${discount_amount_inr} ELSE 0 END"
+          label: "Discount — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_discount:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${discount_amount_inr} ELSE 0 END"
+          label: "Discount — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_discount_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_discount} - ${prev_mtd_discount}, ${prev_mtd_discount}) * 100"
+          label: "Discount — MoM %"
+          round: 1
+
+        ytd_discount:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${discount_amount_inr} ELSE 0 END"
+          label: "Discount — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_discount:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${discount_amount_inr} ELSE 0 END"
+          label: "Discount — Prev YTD"
+          format: "usd"
           round: 0
 
         discount_rate_pct:
           type: number
-          sql: SAFE_DIVIDE(${total_discount}, ${total_gross_revenue}) * 100
+          sql: "SAFE_DIVIDE(${total_discount}, ${total_gross_revenue}) * 100"
           label: "Discount Rate %"
-          description: "Discounts as % of gross revenue"
-          format: "#,##0.0\"%\""
           round: 1
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  4. RETURNS                                                 ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+        total_returns:
+          type: sum
+          sql: ${returns_amount_inr}
+          label: "Returns"
+          format: "usd"
+          round: 0
+
+        mtd_returns:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${returns_amount_inr} ELSE 0 END"
+          label: "Returns — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_returns:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${returns_amount_inr} ELSE 0 END"
+          label: "Returns — Prev MTD"
+          format: "usd"
+          round: 0
+
+        ytd_returns:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${returns_amount_inr} ELSE 0 END"
+          label: "Returns — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_returns:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${returns_amount_inr} ELSE 0 END"
+          label: "Returns — Prev YTD"
+          format: "usd"
+          round: 0
 
         return_rate_pct:
           type: number
-          sql: SAFE_DIVIDE(${total_returns}, ${total_gross_revenue}) * 100
+          sql: "SAFE_DIVIDE(${total_returns}, ${total_gross_revenue}) * 100"
           label: "Return Rate %"
-          description: "Returns as % of gross revenue"
-          format: "#,##0.0\"%\""
           round: 1
 
-        # ── 2. REVENUE — TIME INTELLIGENCE ────────────────────
-
-        mtd_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
-               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
-               AND ${order_date} <= CURRENT_DATE()
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "MTD Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        prev_mtd_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
-               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH))
-               AND EXTRACT(DAY   FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "Prev MTD Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        mom_revenue_pct:
-          type: number
-          sql: >
-            SAFE_DIVIDE(${mtd_revenue} - ${prev_mtd_revenue}, ${prev_mtd_revenue}) * 100
-          label: "MoM Revenue Growth %"
-          format: "#,##0.0\"%\""
-          round: 1
-
-        qtd_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR    FROM ${order_date}) = EXTRACT(YEAR    FROM CURRENT_DATE())
-               AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE())
-               AND ${order_date} <= CURRENT_DATE()
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "QTD Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        ytd_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
-               AND ${order_date} <= CURRENT_DATE()
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "YTD Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        prev_ytd_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1
-               AND (
-                 EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE())
-                 OR (
-                   EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
-                   AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE())
-                 )
-               )
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "Prev YTD Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        yoy_revenue_pct:
-          type: number
-          sql: >
-            SAFE_DIVIDE(${ytd_revenue} - ${prev_ytd_revenue}, ${prev_ytd_revenue}) * 100
-          label: "YoY Revenue Growth %"
-          format: "#,##0.0\"%\""
-          round: 1
-
-        last_7d_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "Last 7D Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        last_30d_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "Last 30D Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        last_90d_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "Last 90D Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        prev_30d_revenue:
-          type: sum
-          sql: >
-            CASE
-              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 60 DAY)
-               AND ${order_date} <  DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
-              THEN ${net_revenue_inr} ELSE 0
-            END
-          label: "Prev 30D Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        wow_revenue_pct:
-          type: number
-          sql: >
-            SAFE_DIVIDE(${last_7d_revenue} -
-              (SELECT SUM(net_revenue_inr) FROM ${TABLE}
-               WHERE order_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 14 DAY)
-                 AND order_date <  DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)),
-              (SELECT SUM(net_revenue_inr) FROM ${TABLE}
-               WHERE order_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 14 DAY)
-                 AND order_date <  DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY))
-            ) * 100
-          label: "WoW Revenue Growth %"
-          format: "#,##0.0\"%\""
-          round: 1
-
-        # ── 3. ORDERS ──────────────────────────────────────────
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  5. ORDERS                                                  ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         total_orders:
           type: count_distinct
           sql: ${order_id}
-          label: "Total Orders"
-
-        new_customer_orders:
-          type: sum
-          sql: CASE WHEN ${is_new_customer} = TRUE THEN 1 ELSE 0 END
-          label: "New Customer Orders"
-
-        repeat_customer_orders:
-          type: sum
-          sql: CASE WHEN ${is_new_customer} = FALSE THEN 1 ELSE 0 END
-          label: "Repeat Customer Orders"
-
-        repeat_order_rate_pct:
-          type: number
-          sql: SAFE_DIVIDE(${repeat_customer_orders}, ${total_orders}) * 100
-          label: "Repeat Order Rate %"
-          format: "#,##0.0\"%\""
-          round: 1
-
-        avg_order_value:
-          type: number
-          sql: SAFE_DIVIDE(${total_net_revenue}, ${total_orders})
-          label: "Avg Order Value (AOV)"
-          format: "₹#,##0"
-          round: 0
-
-        avg_order_value_new:
-          type: number
-          sql: >
-            SAFE_DIVIDE(
-              SUM(CASE WHEN ${is_new_customer} = TRUE THEN ${net_revenue_inr} ELSE 0 END),
-              SUM(CASE WHEN ${is_new_customer} = TRUE THEN 1 ELSE 0 END)
-            )
-          label: "AOV — New Customers"
-          format: "₹#,##0"
-          round: 0
-
-        avg_order_value_repeat:
-          type: number
-          sql: >
-            SAFE_DIVIDE(
-              SUM(CASE WHEN ${is_new_customer} = FALSE THEN ${net_revenue_inr} ELSE 0 END),
-              SUM(CASE WHEN ${is_new_customer} = FALSE THEN 1 ELSE 0 END)
-            )
-          label: "AOV — Repeat Customers"
-          format: "₹#,##0"
-          round: 0
+          label: "Orders"
 
         mtd_orders:
           type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
-               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
-              THEN 1 ELSE 0
-            END
-          label: "MTD Orders"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN 1 ELSE 0 END"
+          label: "Orders — MTD"
 
-        last_30d_orders:
+        prev_mtd_orders:
           type: sum
-          sql: >
-            CASE
-              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
-              THEN 1 ELSE 0
-            END
-          label: "Last 30D Orders"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN 1 ELSE 0 END"
+          label: "Orders — Prev MTD"
 
-        # ── 4. CUSTOMERS ───────────────────────────────────────
+        mom_orders_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_orders} - ${prev_mtd_orders}, ${prev_mtd_orders}) * 100"
+          label: "Orders — MoM %"
+          round: 1
+
+        qtd_orders:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) THEN 1 ELSE 0 END"
+          label: "Orders — QTD"
+
+        ytd_orders:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN 1 ELSE 0 END"
+          label: "Orders — YTD"
+
+        prev_ytd_orders:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN 1 ELSE 0 END"
+          label: "Orders — Prev YTD"
+
+        yoy_orders_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_orders} - ${prev_ytd_orders}, ${prev_ytd_orders}) * 100"
+          label: "Orders — YoY %"
+          round: 1
+
+        l7d_orders:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY) THEN 1 ELSE 0 END"
+          label: "Orders — Last 7D"
+
+        l30d_orders:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) THEN 1 ELSE 0 END"
+          label: "Orders — Last 30D"
+
+        new_customer_orders:
+          type: sum
+          sql: "CASE WHEN ${is_new_customer} = TRUE THEN 1 ELSE 0 END"
+          label: "Orders — New Customers"
+
+        repeat_customer_orders:
+          type: sum
+          sql: "CASE WHEN ${is_new_customer} = FALSE THEN 1 ELSE 0 END"
+          label: "Orders — Repeat Customers"
+
+        repeat_order_rate_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${repeat_customer_orders}, ${total_orders}) * 100"
+          label: "Repeat Order Rate %"
+          round: 1
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  6. AOV                                                     ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+        avg_order_value:
+          type: number
+          sql: "SAFE_DIVIDE(${total_net_revenue}, ${total_orders})"
+          label: "AOV"
+          format: "usd"
+          round: 0
+
+        mtd_aov:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_net_revenue}, ${mtd_orders})"
+          label: "AOV — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_aov:
+          type: number
+          sql: "SAFE_DIVIDE(${prev_mtd_net_revenue}, ${prev_mtd_orders})"
+          label: "AOV — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_aov_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_aov} - ${prev_mtd_aov}, ${prev_mtd_aov}) * 100"
+          label: "AOV — MoM %"
+          round: 1
+
+        ytd_aov:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_net_revenue}, ${ytd_orders})"
+          label: "AOV — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_aov:
+          type: number
+          sql: "SAFE_DIVIDE(${prev_ytd_net_revenue}, ${prev_ytd_orders})"
+          label: "AOV — Prev YTD"
+          format: "usd"
+          round: 0
+
+        yoy_aov_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_aov} - ${prev_ytd_aov}, ${prev_ytd_aov}) * 100"
+          label: "AOV — YoY %"
+          round: 1
+
+        aov_new_customers:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN ${is_new_customer} = TRUE THEN ${net_revenue_inr} ELSE 0 END), SUM(CASE WHEN ${is_new_customer} = TRUE THEN 1 ELSE 0 END))"
+          label: "AOV — New Customers"
+          format: "usd"
+          round: 0
+
+        aov_repeat_customers:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN ${is_new_customer} = FALSE THEN ${net_revenue_inr} ELSE 0 END), SUM(CASE WHEN ${is_new_customer} = FALSE THEN 1 ELSE 0 END))"
+          label: "AOV — Repeat Customers"
+          format: "usd"
+          round: 0
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  7. CUSTOMERS                                               ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         unique_customers:
           type: count_distinct
           sql: ${customer_id}
-          label: "Unique Customers"
+          label: "Customers"
 
         new_customers:
           type: count_distinct
-          sql: CASE WHEN ${is_new_customer} = TRUE THEN ${customer_id} ELSE NULL END
+          sql: "CASE WHEN ${is_new_customer} = TRUE THEN ${customer_id} ELSE NULL END"
           label: "New Customers"
 
         repeat_customers:
           type: count_distinct
-          sql: CASE WHEN ${is_new_customer} = FALSE THEN ${customer_id} ELSE NULL END
+          sql: "CASE WHEN ${is_new_customer} = FALSE THEN ${customer_id} ELSE NULL END"
           label: "Repeat Customers"
+
+        mtd_new_customers:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND ${is_new_customer} = TRUE THEN 1 ELSE 0 END"
+          label: "New Customers — MTD"
+
+        prev_mtd_new_customers:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) AND ${is_new_customer} = TRUE THEN 1 ELSE 0 END"
+          label: "New Customers — Prev MTD"
+
+        mom_new_customers_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_new_customers} - ${prev_mtd_new_customers}, ${prev_mtd_new_customers}) * 100"
+          label: "New Customers — MoM %"
+          round: 1
+
+        ytd_new_customers:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() AND ${is_new_customer} = TRUE THEN 1 ELSE 0 END"
+          label: "New Customers — YTD"
+
+        prev_ytd_new_customers:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) AND ${is_new_customer} = TRUE THEN 1 ELSE 0 END"
+          label: "New Customers — Prev YTD"
+
+        yoy_new_customers_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_new_customers} - ${prev_ytd_new_customers}, ${prev_ytd_new_customers}) * 100"
+          label: "New Customers — YoY %"
+          round: 1
 
         customer_repeat_rate_pct:
           type: number
-          sql: SAFE_DIVIDE(${repeat_customers}, ${unique_customers}) * 100
+          sql: "SAFE_DIVIDE(${repeat_customers}, ${unique_customers}) * 100"
           label: "Customer Repeat Rate %"
-          format: "#,##0.0\"%\""
           round: 1
 
         avg_orders_per_customer:
           type: number
-          sql: SAFE_DIVIDE(${total_orders}, ${unique_customers})
+          sql: "SAFE_DIVIDE(${total_orders}, ${unique_customers})"
           label: "Avg Orders per Customer"
           round: 1
 
         revenue_per_customer:
           type: number
-          sql: SAFE_DIVIDE(${total_net_revenue}, ${unique_customers})
+          sql: "SAFE_DIVIDE(${total_net_revenue}, ${unique_customers})"
           label: "Revenue per Customer"
-          format: "₹#,##0"
+          format: "usd"
           round: 0
 
-        mtd_new_customers:
-          type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
-               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
-               AND ${is_new_customer} = TRUE
-              THEN 1 ELSE 0
-            END
-          label: "MTD New Customers"
-
-        # ── 5. MARGIN — CM1 ────────────────────────────────────
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  8. COGS                                                    ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         total_cogs:
           type: sum
           sql: ${cogs_inr}
-          label: "Total COGS"
-          format: "₹#,##0"
+          label: "COGS"
+          format: "usd"
           round: 0
+
+        mtd_cogs:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${cogs_inr} ELSE 0 END"
+          label: "COGS — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_cogs:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${cogs_inr} ELSE 0 END"
+          label: "COGS — Prev MTD"
+          format: "usd"
+          round: 0
+
+        ytd_cogs:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${cogs_inr} ELSE 0 END"
+          label: "COGS — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_cogs:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${cogs_inr} ELSE 0 END"
+          label: "COGS — Prev YTD"
+          format: "usd"
+          round: 0
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  9. CM1  (Net Revenue − COGS)                              ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         cm1:
           type: number
-          sql: ${total_net_revenue} - ${total_cogs}
-          label: "CM1 (Gross Margin)"
+          sql: "${total_net_revenue} - ${total_cogs}"
+          label: "CM1"
           description: "Net Revenue minus COGS"
-          format: "₹#,##0"
+          format: "usd"
           round: 0
 
         cm1_pct:
           type: number
-          sql: SAFE_DIVIDE(${cm1}, ${total_net_revenue}) * 100
+          sql: "SAFE_DIVIDE(${cm1}, ${total_net_revenue}) * 100"
           label: "CM1 %"
-          format: "#,##0.0\"%\""
           round: 1
 
         mtd_cm1:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END"
+          label: "CM1 — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_cm1:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END"
+          label: "CM1 — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_cm1_pct:
           type: number
-          sql: >
-            SAFE_DIVIDE(
-              SUM(CASE
-                WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
-                 AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
-                THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END),
-              1)
-          label: "MTD CM1"
-          format: "₹#,##0"
+          sql: "SAFE_DIVIDE(${mtd_cm1} - ${prev_mtd_cm1}, ${prev_mtd_cm1}) * 100"
+          label: "CM1 — MoM %"
+          round: 1
+
+        qtd_cm1:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END"
+          label: "CM1 — QTD"
+          format: "usd"
           round: 0
 
         ytd_cm1:
           type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
-               AND ${order_date} <= CURRENT_DATE()
-              THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0
-            END
-          label: "YTD CM1"
-          format: "₹#,##0"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END"
+          label: "CM1 — YTD"
+          format: "usd"
           round: 0
 
-        last_30d_cm1:
+        prev_ytd_cm1:
           type: sum
-          sql: >
-            CASE
-              WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
-              THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0
-            END
-          label: "Last 30D CM1"
-          format: "₹#,##0"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END"
+          label: "CM1 — Prev YTD"
+          format: "usd"
           round: 0
 
-        # ── 6. MARGIN — CM2 ────────────────────────────────────
+        yoy_cm1_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_cm1} - ${prev_ytd_cm1}, ${prev_ytd_cm1}) * 100"
+          label: "CM1 — YoY %"
+          round: 1
+
+        l30d_cm1:
+          type: sum
+          sql: "CASE WHEN ${order_date} >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY) THEN ${net_revenue_inr} - ${cogs_inr} ELSE 0 END"
+          label: "CM1 — Last 30D"
+          format: "usd"
+          round: 0
+
+        cm1_per_unit:
+          type: number
+          sql: "SAFE_DIVIDE(${cm1}, ${total_units_sold})"
+          label: "CM1 per Unit"
+          format: "usd"
+          round: 0
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  10. MARKETING SPEND                                        ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         allocated_marketing_spend:
           type: sum
           sql: ${allocated_mktg_spend_inr}
-          label: "Allocated Marketing Spend"
-          description: "Channel marketing spend allocated to each order"
-          format: "₹#,##0"
+          label: "Marketing Spend"
+          format: "usd"
           round: 0
 
-        cm2:
-          type: number
-          sql: ${cm1} - ${allocated_marketing_spend}
-          label: "CM2 (After Marketing)"
-          description: "CM1 minus variable marketing spend"
-          format: "₹#,##0"
-          round: 0
-
-        cm2_pct:
-          type: number
-          sql: SAFE_DIVIDE(${cm2}, ${total_net_revenue}) * 100
-          label: "CM2 %"
-          format: "#,##0.0\"%\""
-          round: 1
-
-        mtd_cm2:
+        mtd_marketing_spend:
           type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
-               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
-              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0
-            END
-          label: "MTD CM2"
-          format: "₹#,##0"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "Marketing Spend — MTD"
+          format: "usd"
           round: 0
 
-        ytd_cm2:
+        prev_mtd_marketing_spend:
           type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
-               AND ${order_date} <= CURRENT_DATE()
-              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0
-            END
-          label: "YTD CM2"
-          format: "₹#,##0"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "Marketing Spend — Prev MTD"
+          format: "usd"
+          round: 0
+
+        ytd_marketing_spend:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "Marketing Spend — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_marketing_spend:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "Marketing Spend — Prev YTD"
+          format: "usd"
           round: 0
 
         marketing_spend_pct_revenue:
           type: number
-          sql: SAFE_DIVIDE(${allocated_marketing_spend}, ${total_net_revenue}) * 100
+          sql: "SAFE_DIVIDE(${allocated_marketing_spend}, ${total_net_revenue}) * 100"
           label: "Marketing Spend % of Revenue"
-          format: "#,##0.0\"%\""
           round: 1
 
         roas:
           type: number
-          sql: SAFE_DIVIDE(${total_net_revenue}, ${allocated_marketing_spend})
+          sql: "SAFE_DIVIDE(${total_net_revenue}, ${allocated_marketing_spend})"
           label: "ROAS"
-          description: "Net Revenue ÷ Marketing Spend"
           round: 2
+
+        mtd_roas:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_net_revenue}, ${mtd_marketing_spend})"
+          label: "ROAS — MTD"
+          round: 2
+
+        prev_mtd_roas:
+          type: number
+          sql: "SAFE_DIVIDE(${prev_mtd_net_revenue}, ${prev_mtd_marketing_spend})"
+          label: "ROAS — Prev MTD"
+          round: 2
+
+        mom_roas_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_roas} - ${prev_mtd_roas}, ${prev_mtd_roas}) * 100"
+          label: "ROAS — MoM %"
+          round: 1
 
         cac:
           type: number
-          sql: SAFE_DIVIDE(${allocated_marketing_spend}, ${new_customers})
-          label: "CAC (Cost per New Customer)"
-          format: "₹#,##0"
+          sql: "SAFE_DIVIDE(${allocated_marketing_spend}, ${new_customers})"
+          label: "CAC"
+          format: "usd"
           round: 0
 
-        # ── 7. MARGIN — CM3 ────────────────────────────────────
+        mtd_cac:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_marketing_spend}, ${mtd_new_customers})"
+          label: "CAC — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_cac:
+          type: number
+          sql: "SAFE_DIVIDE(${prev_mtd_marketing_spend}, ${prev_mtd_new_customers})"
+          label: "CAC — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_cac_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_cac} - ${prev_mtd_cac}, ${prev_mtd_cac}) * 100"
+          label: "CAC — MoM %"
+          round: 1
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  11. CM2  (CM1 − Marketing Spend)                          ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+        cm2:
+          type: number
+          sql: "${cm1} - ${allocated_marketing_spend}"
+          label: "CM2"
+          description: "CM1 minus marketing spend"
+          format: "usd"
+          round: 0
+
+        cm2_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${cm2}, ${total_net_revenue}) * 100"
+          label: "CM2 %"
+          round: 1
+
+        mtd_cm2:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "CM2 — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_cm2:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "CM2 — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_cm2_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_cm2} - ${prev_mtd_cm2}, ${prev_mtd_cm2}) * 100"
+          label: "CM2 — MoM %"
+          round: 1
+
+        qtd_cm2:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "CM2 — QTD"
+          format: "usd"
+          round: 0
+
+        ytd_cm2:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "CM2 — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_cm2:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} ELSE 0 END"
+          label: "CM2 — Prev YTD"
+          format: "usd"
+          round: 0
+
+        yoy_cm2_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_cm2} - ${prev_ytd_cm2}, ${prev_ytd_cm2}) * 100"
+          label: "CM2 — YoY %"
+          round: 1
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  12. OPS COST & CM3  (CM2 − Ops Cost)                     ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         allocated_ops_cost:
           type: sum
           sql: ${allocated_ops_cost_inr}
-          label: "Allocated Ops Cost"
-          description: "Monthly operating costs allocated to each order"
-          format: "₹#,##0"
+          label: "Ops Cost"
+          format: "usd"
           round: 0
 
-        cm3:
-          type: number
-          sql: ${cm2} - ${allocated_ops_cost}
-          label: "CM3 (Operating Margin)"
-          description: "CM2 minus operating costs"
-          format: "₹#,##0"
-          round: 0
-
-        cm3_pct:
-          type: number
-          sql: SAFE_DIVIDE(${cm3}, ${total_net_revenue}) * 100
-          label: "CM3 %"
-          format: "#,##0.0\"%\""
-          round: 1
-
-        mtd_cm3:
+        mtd_ops_cost:
           type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR  FROM ${order_date}) = EXTRACT(YEAR  FROM CURRENT_DATE())
-               AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE())
-              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0
-            END
-          label: "MTD CM3"
-          format: "₹#,##0"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "Ops Cost — MTD"
+          format: "usd"
           round: 0
 
-        ytd_cm3:
+        prev_mtd_ops_cost:
           type: sum
-          sql: >
-            CASE
-              WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE())
-               AND ${order_date} <= CURRENT_DATE()
-              THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0
-            END
-          label: "YTD CM3"
-          format: "₹#,##0"
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "Ops Cost — Prev MTD"
+          format: "usd"
+          round: 0
+
+        ytd_ops_cost:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "Ops Cost — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_ops_cost:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "Ops Cost — Prev YTD"
+          format: "usd"
           round: 0
 
         ops_cost_pct_revenue:
           type: number
-          sql: SAFE_DIVIDE(${allocated_ops_cost}, ${total_net_revenue}) * 100
+          sql: "SAFE_DIVIDE(${allocated_ops_cost}, ${total_net_revenue}) * 100"
           label: "Ops Cost % of Revenue"
-          format: "#,##0.0\"%\""
+          round: 1
+
+        cm3:
+          type: number
+          sql: "${cm2} - ${allocated_ops_cost}"
+          label: "CM3"
+          description: "CM2 minus operating costs"
+          format: "usd"
+          round: 0
+
+        cm3_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${cm3}, ${total_net_revenue}) * 100"
+          label: "CM3 %"
+          round: 1
+
+        mtd_cm3:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "CM3 — MTD"
+          format: "usd"
+          round: 0
+
+        prev_mtd_cm3:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "CM3 — Prev MTD"
+          format: "usd"
+          round: 0
+
+        mom_cm3_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_cm3} - ${prev_mtd_cm3}, ${prev_mtd_cm3}) * 100"
+          label: "CM3 — MoM %"
+          round: 1
+
+        qtd_cm3:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(QUARTER FROM ${order_date}) = EXTRACT(QUARTER FROM CURRENT_DATE()) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "CM3 — QTD"
+          format: "usd"
+          round: 0
+
+        ytd_cm3:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "CM3 — YTD"
+          format: "usd"
+          round: 0
+
+        prev_ytd_cm3:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${net_revenue_inr} - ${cogs_inr} - ${allocated_mktg_spend_inr} - ${allocated_ops_cost_inr} ELSE 0 END"
+          label: "CM3 — Prev YTD"
+          format: "usd"
+          round: 0
+
+        yoy_cm3_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_cm3} - ${prev_ytd_cm3}, ${prev_ytd_cm3}) * 100"
+          label: "CM3 — YoY %"
           round: 1
 
         ltv_cac_ratio:
           type: number
-          sql: SAFE_DIVIDE(${revenue_per_customer}, ${cac})
+          sql: "SAFE_DIVIDE(${revenue_per_customer}, ${cac})"
           label: "LTV : CAC Ratio"
-          description: "Revenue per customer ÷ CAC. Target > 3x"
+          description: "Revenue per customer divided by CAC. Target above 3x"
           round: 2
 
-        # ── 8. PRODUCT / SKU ───────────────────────────────────
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  13. UNITS SOLD                                             ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         total_units_sold:
           type: sum
           sql: ${quantity}
-          label: "Total Units Sold"
+          label: "Units Sold"
+
+        mtd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${quantity} ELSE 0 END"
+          label: "Units Sold — MTD"
+
+        prev_mtd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM DATE_SUB(CURRENT_DATE(), INTERVAL 1 MONTH)) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()) THEN ${quantity} ELSE 0 END"
+          label: "Units Sold — Prev MTD"
+
+        mom_units_sold_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${mtd_units_sold} - ${prev_mtd_units_sold}, ${prev_mtd_units_sold}) * 100"
+          label: "Units Sold — MoM %"
+          round: 1
+
+        ytd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${quantity} ELSE 0 END"
+          label: "Units Sold — YTD"
+
+        prev_ytd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) - 1 AND (EXTRACT(MONTH FROM ${order_date}) < EXTRACT(MONTH FROM CURRENT_DATE()) OR (EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) AND EXTRACT(DAY FROM ${order_date}) <= EXTRACT(DAY FROM CURRENT_DATE()))) THEN ${quantity} ELSE 0 END"
+          label: "Units Sold — Prev YTD"
+
+        yoy_units_sold_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${ytd_units_sold} - ${prev_ytd_units_sold}, ${prev_ytd_units_sold}) * 100"
+          label: "Units Sold — YoY %"
+          round: 1
 
         avg_unit_price:
           type: average
           sql: ${unit_price_inr}
           label: "Avg Unit Price"
-          format: "₹#,##0"
+          format: "usd"
+          round: 0
+
+        revenue_per_unit:
+          type: number
+          sql: "SAFE_DIVIDE(${total_net_revenue}, ${total_units_sold})"
+          label: "Revenue per Unit"
+          format: "usd"
           round: 0
 
         unique_skus_sold:
@@ -551,92 +940,163 @@ models:
           sql: ${product_id}
           label: "Unique SKUs Sold"
 
-        revenue_per_unit:
-          type: number
-          sql: SAFE_DIVIDE(${total_net_revenue}, ${total_units_sold})
-          label: "Revenue per Unit"
-          format: "₹#,##0"
-          round: 0
-
-        cm1_per_unit:
-          type: number
-          sql: SAFE_DIVIDE(${cm1}, ${total_units_sold})
-          label: "CM1 per Unit"
-          format: "₹#,##0"
-          round: 0
-
-        protein_mix_revenue:
-          type: sum
-          sql: CASE WHEN ${category} = 'Protein Mix' THEN ${net_revenue_inr} ELSE 0 END
-          label: "Protein Mix Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        protein_snack_revenue:
-          type: sum
-          sql: CASE WHEN ${category} = 'Protein Snack' THEN ${net_revenue_inr} ELSE 0 END
-          label: "Protein Snack Revenue"
-          format: "₹#,##0"
-          round: 0
-
-        protein_mix_revenue_pct:
-          type: number
-          sql: SAFE_DIVIDE(${protein_mix_revenue}, ${total_net_revenue}) * 100
-          label: "Protein Mix Revenue %"
-          format: "#,##0.0\"%\""
-          round: 1
-
-        # ── 9. CHANNEL ─────────────────────────────────────────
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  14. CHANNEL REVENUE                                        ║
+# ╚══════════════════════════════════════════════════════════════╝
 
         amazon_revenue:
           type: sum
-          sql: CASE WHEN ${channel} = 'Amazon'   THEN ${net_revenue_inr} ELSE 0 END
-          label: "Amazon Revenue"
-          format: "₹#,##0"
+          sql: "CASE WHEN ${channel} = 'Amazon' THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Amazon — Revenue"
+          format: "usd"
+          round: 0
+
+        amazon_mtd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'Amazon' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Amazon — MTD Revenue"
+          format: "usd"
+          round: 0
+
+        amazon_ytd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'Amazon' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Amazon — YTD Revenue"
+          format: "usd"
           round: 0
 
         shopify_revenue:
           type: sum
-          sql: CASE WHEN ${channel} = 'Shopify'  THEN ${net_revenue_inr} ELSE 0 END
-          label: "Shopify Revenue"
-          format: "₹#,##0"
+          sql: "CASE WHEN ${channel} = 'Shopify' THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Shopify — Revenue"
+          format: "usd"
+          round: 0
+
+        shopify_mtd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'Shopify' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Shopify — MTD Revenue"
+          format: "usd"
+          round: 0
+
+        shopify_ytd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'Shopify' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Shopify — YTD Revenue"
+          format: "usd"
           round: 0
 
         tiktok_revenue:
           type: sum
-          sql: CASE WHEN ${channel} = 'TikTok'   THEN ${net_revenue_inr} ELSE 0 END
-          label: "TikTok Revenue"
-          format: "₹#,##0"
+          sql: "CASE WHEN ${channel} = 'TikTok' THEN ${net_revenue_inr} ELSE 0 END"
+          label: "TikTok — Revenue"
+          format: "usd"
+          round: 0
+
+        tiktok_mtd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'TikTok' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "TikTok — MTD Revenue"
+          format: "usd"
+          round: 0
+
+        tiktok_ytd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'TikTok' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} ELSE 0 END"
+          label: "TikTok — YTD Revenue"
+          format: "usd"
           round: 0
 
         flipkart_revenue:
           type: sum
-          sql: CASE WHEN ${channel} = 'Flipkart' THEN ${net_revenue_inr} ELSE 0 END
-          label: "Flipkart Revenue"
-          format: "₹#,##0"
+          sql: "CASE WHEN ${channel} = 'Flipkart' THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Flipkart — Revenue"
+          format: "usd"
+          round: 0
+
+        flipkart_mtd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'Flipkart' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Flipkart — MTD Revenue"
+          format: "usd"
+          round: 0
+
+        flipkart_ytd_revenue:
+          type: sum
+          sql: "CASE WHEN ${channel} = 'Flipkart' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Flipkart — YTD Revenue"
+          format: "usd"
           round: 0
 
         tiktok_revenue_pct:
           type: number
-          sql: SAFE_DIVIDE(${tiktok_revenue}, ${total_net_revenue}) * 100
-          label: "TikTok Revenue %"
-          description: "TikTok share of total revenue — should be growing"
-          format: "#,##0.0\"%\""
+          sql: "SAFE_DIVIDE(${tiktok_revenue}, ${total_net_revenue}) * 100"
+          label: "TikTok — Revenue %"
           round: 1
 
         flipkart_revenue_pct:
           type: number
-          sql: SAFE_DIVIDE(${flipkart_revenue}, ${total_net_revenue}) * 100
-          label: "Flipkart Revenue %"
-          format: "#,##0.0\"%\""
+          sql: "SAFE_DIVIDE(${flipkart_revenue}, ${total_net_revenue}) * 100"
+          label: "Flipkart — Revenue %"
           round: 1
 
-      # ─────────────────────────────────────────────────────────
-      #  DIMENSIONS
-      # ─────────────────────────────────────────────────────────
+# ╔══════════════════════════════════════════════════════════════╗
+# ║  15. CATEGORY REVENUE                                       ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+        protein_mix_revenue:
+          type: sum
+          sql: "CASE WHEN ${category} = 'Protein Mix' THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Protein Mix — Revenue"
+          format: "usd"
+          round: 0
+
+        protein_mix_mtd_revenue:
+          type: sum
+          sql: "CASE WHEN ${category} = 'Protein Mix' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Protein Mix — MTD Revenue"
+          format: "usd"
+          round: 0
+
+        protein_mix_ytd_revenue:
+          type: sum
+          sql: "CASE WHEN ${category} = 'Protein Mix' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Protein Mix — YTD Revenue"
+          format: "usd"
+          round: 0
+
+        protein_snack_revenue:
+          type: sum
+          sql: "CASE WHEN ${category} = 'Protein Snack' THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Protein Snack — Revenue"
+          format: "usd"
+          round: 0
+
+        protein_snack_mtd_revenue:
+          type: sum
+          sql: "CASE WHEN ${category} = 'Protein Snack' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND EXTRACT(MONTH FROM ${order_date}) = EXTRACT(MONTH FROM CURRENT_DATE()) THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Protein Snack — MTD Revenue"
+          format: "usd"
+          round: 0
+
+        protein_snack_ytd_revenue:
+          type: sum
+          sql: "CASE WHEN ${category} = 'Protein Snack' AND EXTRACT(YEAR FROM ${order_date}) = EXTRACT(YEAR FROM CURRENT_DATE()) AND ${order_date} <= CURRENT_DATE() THEN ${net_revenue_inr} ELSE 0 END"
+          label: "Protein Snack — YTD Revenue"
+          format: "usd"
+          round: 0
+
+        protein_mix_revenue_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${protein_mix_revenue}, ${total_net_revenue}) * 100"
+          label: "Protein Mix — Revenue %"
+          round: 1
+
+# ══════════════════════════════════════════════════════════════
+#  DIMENSIONS
+# ══════════════════════════════════════════════════════════════
     columns:
 
-      # ── IDs ──────────────────────────────────────────────────
       - name: order_id
         description: "Unique order identifier"
         meta:
@@ -645,50 +1105,41 @@ models:
             label: "Order ID"
 
       - name: customer_id
-        description: "Unique customer identifier"
         meta:
           dimension:
             type: string
             label: "Customer ID"
 
       - name: product_id
-        description: "SKU identifier incl. pack size suffix"
+        description: "SKU ID including pack size suffix"
         meta:
           dimension:
             type: string
             label: "Product ID / SKU"
 
-      # ── DATE / TIME ──────────────────────────────────────────
       - name: order_date
         description: "Date the order was placed"
         meta:
           dimension:
             type: date
             label: "Order Date"
-            time_intervals:
-              - DAY
-              - WEEK
-              - MONTH
-              - QUARTER
-              - YEAR
+            time_intervals: [DAY, WEEK, MONTH, QUARTER, YEAR]
 
       - name: cohort_month
-        description: "Month the customer placed their first ever order (YYYY-MM)"
+        description: "Customer first order month YYYY-MM"
         meta:
           dimension:
             type: string
             label: "Cohort Month"
 
       - name: price_revision_period
-        description: "Which price epoch this order falls in: Base / May-25 / Sep-25 / Jan-26"
+        description: "Period 1 Base / Period 2 +14% / Period 3 +18% / Period 4 +13%"
         meta:
           dimension:
             type: string
             label: "Price Revision Period"
 
-      # ── CUSTOMER ─────────────────────────────────────────────
       - name: is_new_customer
-        description: "TRUE if this is the customer's first order"
         meta:
           dimension:
             type: boolean
@@ -700,10 +1151,9 @@ models:
           dimension:
             type: string
             label: "Customer Type"
-            sql: CASE WHEN ${is_new_customer} = TRUE THEN 'New' ELSE 'Repeat' END
+            sql: "CASE WHEN ${is_new_customer} = TRUE THEN 'New' ELSE 'Repeat' END"
 
       - name: acquisition_channel
-        description: "Channel through which the customer was first acquired"
         meta:
           dimension:
             type: string
@@ -733,15 +1183,13 @@ models:
             type: string
             label: "Order Status"
 
-      # ── CHANNEL ──────────────────────────────────────────────
       - name: channel
-        description: "Sales channel: Amazon / Shopify / TikTok / Flipkart"
+        description: "Amazon / Shopify / TikTok / Flipkart"
         meta:
           dimension:
             type: string
             label: "Channel"
 
-      # ── PRODUCT ──────────────────────────────────────────────
       - name: product_name
         meta:
           dimension:
@@ -762,46 +1210,32 @@ models:
             label: "Category"
 
       - name: pack_size
-        description: "Numeric pack size (2/4/8 for powder, 6/12/24/48 for snacks)"
         meta:
           dimension:
             type: number
             label: "Pack Size"
 
       - name: pack_unit
-        description: "Unit of pack size: lbs or pcs"
+        description: "lbs or pcs"
         meta:
           dimension:
             type: string
             label: "Pack Unit"
 
       - name: pack_size_label
-        description: "Derived display label e.g. '4 lbs' or '24 pcs'"
         meta:
           dimension:
             type: string
             label: "Pack Size (Label)"
-            sql: CONCAT(CAST(${pack_size} AS STRING), ' ', ${pack_unit})
+            sql: "CONCAT(CAST(${pack_size} AS STRING), ' ', ${pack_unit})"
 
       - name: pack_tier
-        description: "Derived bucket: Small / Medium / Large"
         meta:
           dimension:
             type: string
             label: "Pack Tier"
-            sql: >
-              CASE
-                WHEN ${category} = 'Protein Mix'   AND ${pack_size} = 2  THEN 'Small (2 lbs)'
-                WHEN ${category} = 'Protein Mix'   AND ${pack_size} = 4  THEN 'Medium (4 lbs)'
-                WHEN ${category} = 'Protein Mix'   AND ${pack_size} = 8  THEN 'Large (8 lbs)'
-                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 6  THEN 'Small (6 pcs)'
-                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 12 THEN 'Medium (12 pcs)'
-                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 24 THEN 'Large (24 pcs)'
-                WHEN ${category} = 'Protein Snack' AND ${pack_size} = 48 THEN 'XL (48 pcs)'
-                ELSE 'Unknown'
-              END
+            sql: "CASE WHEN ${category} = 'Protein Mix' AND ${pack_size} = 2 THEN 'Small (2 lbs)' WHEN ${category} = 'Protein Mix' AND ${pack_size} = 4 THEN 'Medium (4 lbs)' WHEN ${category} = 'Protein Mix' AND ${pack_size} = 8 THEN 'Large (8 lbs)' WHEN ${category} = 'Protein Snack' AND ${pack_size} = 6 THEN 'Small (6 pcs)' WHEN ${category} = 'Protein Snack' AND ${pack_size} = 12 THEN 'Medium (12 pcs)' WHEN ${category} = 'Protein Snack' AND ${pack_size} = 24 THEN 'Large (24 pcs)' WHEN ${category} = 'Protein Snack' AND ${pack_size} = 48 THEN 'XL (48 pcs)' ELSE 'Unknown' END"
 
-      # ── FINANCIAL (raw columns, also available as dimensions) ─
       - name: gross_revenue_inr
         meta:
           dimension:
@@ -841,14 +1275,14 @@ models:
         meta:
           dimension:
             type: number
-            label: "Allocated Mktg Spend (raw)"
+            label: "Mktg Spend (raw)"
             hidden: true
 
       - name: allocated_ops_cost_inr
         meta:
           dimension:
             type: number
-            label: "Allocated Ops Cost (raw)"
+            label: "Ops Cost (raw)"
             hidden: true
 
       - name: unit_price_inr
