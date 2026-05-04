@@ -233,12 +233,12 @@ models:
 
         first_time_customers:
           type: count_distinct
-          sql: CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END
+          sql: CASE WHEN ${is_first_time_customer} = TRUE THEN ${customer_id} END
           label: "First Time Customers"
 
         returning_customers:
           type: count_distinct
-          sql: CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${customer_id} END
+          sql: CASE WHEN ${is_first_time_customer} = FALSE THEN ${customer_id} END
           label: "Returning Customers"
 
         repeat_purchase_rate:
@@ -482,8 +482,8 @@ models:
         cac_first_time:
           type: number
           sql: SAFE_DIVIDE(
-                SUM(CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${ad_spend_allocated} ELSE 0 END),
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+                SUM(CASE WHEN ${is_first_time_customer} = TRUE THEN ${ad_spend_allocated} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${customer_id} END)
               )
           label: "CAC - First Time"
           format: usd
@@ -499,8 +499,8 @@ models:
         cy_cac_first_time:
           type: number
           sql: SAFE_DIVIDE(
-                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = 'TRUE' THEN ${ad_spend_allocated} ELSE 0 END),
-                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = TRUE THEN ${ad_spend_allocated} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = TRUE THEN ${customer_id} END)
               )
           label: "CY CAC - First Time"
           format: usd
@@ -509,8 +509,8 @@ models:
         py_ytd_cac_first_time:
           type: number
           sql: SAFE_DIVIDE(
-                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = 'TRUE' THEN ${ad_spend_allocated} ELSE 0 END),
-                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = TRUE THEN ${ad_spend_allocated} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = TRUE THEN ${customer_id} END)
               )
           label: "PY YTD CAC - First Time"
           format: usd
@@ -518,14 +518,14 @@ models:
 
         cy_paid_cac:
           type: number
-          sql: SAFE_DIVIDE(${cy_ad_spend}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END))
+          sql: SAFE_DIVIDE(${cy_ad_spend}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = TRUE THEN ${customer_id} END))
           label: "CY Paid CAC"
           format: usd
           round: 1
 
         py_ytd_paid_cac:
           type: number
-          sql: SAFE_DIVIDE(${py_ytd_ad_spend}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END))
+          sql: SAFE_DIVIDE(${py_ytd_ad_spend}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = TRUE THEN ${customer_id} END))
           label: "PY YTD Paid CAC"
           format: usd
           round: 1
@@ -598,8 +598,8 @@ models:
         purchase_frequency_new_customers:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${order_id} END),
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${customer_id} END)
               )
           label: "Purchase Frequency - New Customers"
           round: 2
@@ -607,8 +607,8 @@ models:
         purchase_frequency_returning:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${order_id} END),
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${customer_id} END)
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${customer_id} END)
               )
           label: "Purchase Frequency - Returning"
           round: 2
@@ -620,7 +620,7 @@ models:
         pct_new_customer_orders:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${order_id} END),
                 ${total_orders}
               )
           label: "% New Customer Orders"
@@ -630,7 +630,7 @@ models:
         pct_returning_customer_orders:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${order_id} END),
                 ${total_orders}
               )
           label: "% Returning Customer Orders"
@@ -640,7 +640,7 @@ models:
         pct_new_customer_per_product:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${customer_id} END),
                 ${unique_customers}
               )
           label: "% New Customers per Product"
@@ -650,7 +650,7 @@ models:
         pct_returning_customer_per_product:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${customer_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${customer_id} END),
                 ${unique_customers}
               )
           label: "% Returning Customers per Product"
@@ -664,8 +664,8 @@ models:
         aov_new_customers:
           type: number
           sql: SAFE_DIVIDE(
-                SUM(CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${line_total} ELSE 0 END),
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${order_id} END)
+                SUM(CASE WHEN ${is_first_time_customer} = TRUE THEN ${line_total} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${order_id} END)
               )
           label: "AOV - New Customers"
           format: usd
@@ -674,8 +674,8 @@ models:
         aov_returning_customers:
           type: number
           sql: SAFE_DIVIDE(
-                SUM(CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${line_total} ELSE 0 END),
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${order_id} END)
+                SUM(CASE WHEN ${is_first_time_customer} = FALSE THEN ${line_total} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${order_id} END)
               )
           label: "AOV - Returning Customers"
           format: usd
