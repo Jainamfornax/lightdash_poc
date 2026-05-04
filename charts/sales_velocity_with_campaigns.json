@@ -1,96 +1,46 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Sales Velocity Trend with Campaigns",
+  "title": "Sales Velocity Trend",
   "width": 1000,
   "height": 400,
-  "layer": [
-    {
-      "mark": "rect",
-      "data": {
-        "values": [
-          {
-            "start": "2025-11-24",
-            "end": "2025-12-02",
-            "campaign": "Black Friday"
-          },
-          {
-            "start": "2026-03-15",
-            "end": "2026-04-21",
-            "campaign": "Easter Special"
-          },
-          {
-            "start": "2025-01-01",
-            "end": "2026-04-28",
-            "campaign": "First-Time Discount"
-          }
-        ]
-      },
-      "encoding": {
-        "x": {
-          "field": "start",
-          "type": "temporal"
-        },
-        "x2": {
-          "field": "end"
-        },
-        "color": {
-          "field": "campaign",
-          "type": "nominal",
-          "scale": {
-            "domain": ["Black Friday", "Easter Special", "First-Time Discount"],
-            "range": ["#ffe6e6", "#e6f0ff", "#f4e8ff"]
-          },
-          "legend": {
-            "title": "Campaign"
-          }
-        },
-        "opacity": {
-          "value": 0.4
-        }
+  "mark": {
+    "type": "line",
+    "point": true,
+    "color": "#5B5BFF",
+    "tooltip": true
+  },
+  "encoding": {
+    "x": {
+      "field": "order_date_month",
+      "type": "temporal",
+      "title": "Date"
+    },
+    "y": {
+      "field": "total_revenue",
+      "type": "quantitative",
+      "title": "Revenue",
+      "axis": {
+        "format": "$,.0f"
       }
     },
-    {
-      "mark": {
-        "type": "line",
-        "point": true,
-        "color": "#5B5BFF",
-        "size": 3,
-        "tooltip": true
+    "tooltip": [
+      {
+        "field": "order_date_month",
+        "type": "temporal",
+        "title": "Date",
+        "format": "%B %Y"
       },
-      "encoding": {
-        "x": {
-          "field": "Order date month",
-          "type": "temporal",
-          "title": "Date"
-        },
-        "y": {
-          "field": "Total Revenue",
-          "type": "quantitative",
-          "title": "Revenue ($)"
-        },
-        "tooltip": [
-          {
-            "field": "Order date month",
-            "type": "temporal",
-            "title": "Date",
-            "format": "%b %Y"
-          },
-          {
-            "field": "Total Revenue",
-            "type": "quantitative",
-            "title": "Revenue",
-            "format": "$,.2f"
-          }
-        ]
+      {
+        "field": "total_revenue",
+        "type": "quantitative",
+        "title": "Revenue",
+        "format": "$,.2f"
       }
-    }
-  ],
+    ]
+  },
   "config": {
     "axis": {
-      "labelFontSize": 12
-    },
-    "legend": {
-      "orient": "top-right"
+      "labelFontSize": 11
     }
   }
 }
