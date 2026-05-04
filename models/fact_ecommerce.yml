@@ -649,20 +649,20 @@ models:
         pct_new_customer_per_product:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${customer_id} END),
-                ${unique_customers}
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${order_id} END),
+                COUNT(DISTINCT ${order_id})
               )
-          label: "% New Customers per Product"
+          label: "% New Customer Orders per Product"
           format: percent
           round: 2
 
         pct_returning_customer_per_product:
           type: number
           sql: SAFE_DIVIDE(
-                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${customer_id} END),
-                ${unique_customers}
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${order_id} END),
+                COUNT(DISTINCT ${order_id})
               )
-          label: "% Returning Customers per Product"
+          label: "% Returning Customer Orders per Product"
           format: percent
           round: 2
 
