@@ -201,18 +201,21 @@ models:
           sql: SAFE_DIVIDE(${total_revenue}, ${total_ad_spend})
           label: "Avg ROAS"
           round: 1
+          format: decimal
 
         cy_roas:
           type: number
           sql: SAFE_DIVIDE(${cy_revenue}, ${cy_ad_spend})
           label: "CY ROAS"
           round: 1
+          format: decimal
 
         py_ytd_roas:
           type: number
           sql: SAFE_DIVIDE(${py_ytd_revenue}, ${py_ytd_ad_spend})
           label: "PY YTD ROAS"
           round: 1
+          format: decimal
 
         # ============================================
         # ORDER & CUSTOMER METRICS
@@ -258,6 +261,42 @@ models:
           label: "CY AOV"
           format: usd
           round: 1
+
+        # ============================================
+        # SESSION & CONVERSION METRICS
+        # ============================================
+
+        total_sessions:
+          type: count_distinct
+          sql: ${session_id}
+          label: "Total Sessions"
+
+        conversion_rate:
+          type: number
+          sql: SAFE_DIVIDE(${total_orders}, ${total_sessions})
+          label: "Conversion Rate"
+          format: percent
+          round: 2
+
+        cy_conversion_rate:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${session_id} END)
+              )
+          label: "CY Conversion Rate"
+          format: percent
+          round: 2
+
+        py_ytd_conversion_rate:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${session_id} END)
+              )
+          label: "PY YTD Conversion Rate"
+          format: percent
+          round: 2
 
         # ============================================
         # DISCOUNT METRICS - BY CAMPAIGN
