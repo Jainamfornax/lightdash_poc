@@ -284,8 +284,7 @@ models:
         conversion_rate:
           type: number
           sql: SAFE_DIVIDE(${total_orders}, ${total_sessions})
-          label: "Conversion Rate"
-          format: percent
+          label: "Conversion Rate (Orders per Session)"
           round: 2
 
         cy_conversion_rate:
@@ -295,7 +294,6 @@ models:
                 COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${session_id} END)
               )
           label: "CY Conversion Rate"
-          format: percent
           round: 2
 
         py_ytd_conversion_rate:
@@ -305,7 +303,6 @@ models:
                 COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${session_id} END)
               )
           label: "PY YTD Conversion Rate"
-          format: percent
           round: 2
 
         # ============================================
