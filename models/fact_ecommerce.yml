@@ -1,0 +1,880 @@
+version: 2
+
+models:
+  - name: fact_ecommerce
+    description: "Complete e-commerce analytics with time intelligence, campaign tracking, and product performance"
+    sql_table_name: "`linked-368910.lightdash_poc.ecommerce_poc`"
+
+    meta:
+      label: "E-Commerce Analytics"
+
+      # ============================================
+      # REVENUE METRICS - BASELINE + TIME INTELLIGENCE
+      # ============================================
+      metrics:
+        # Baseline Revenue
+        total_revenue:
+          type: sum
+          sql: ${line_total}
+          label: "Total Revenue"
+          format: usd
+          round: 1
+
+        # Current Year Revenue
+        cy_revenue:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${line_total}
+                ELSE 0
+               END
+          label: "CY Revenue"
+          format: usd
+          round: 1
+
+        # Previous Year Revenue (up to current month)
+        py_ytd_revenue:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2025
+                  AND EXTRACT(MONTH FROM ${order_date}) <= 5
+                THEN ${line_total}
+                ELSE 0
+               END
+          label: "PY YTD Revenue"
+          format: usd
+          round: 1
+
+        # Revenue Growth YoY
+        revenue_yoy_growth_pct:
+          type: number
+          sql: SAFE_DIVIDE(
+                (${cy_revenue} - ${py_ytd_revenue}),
+                ${py_ytd_revenue}
+              )
+          label: "Revenue YoY Growth %"
+          format: percent
+          round: 2
+
+        # ============================================
+        # PROFIT METRICS - BASELINE + TIME INTELLIGENCE
+        # ============================================
+
+        total_profit:
+          type: sum
+          sql: ${line_gross_profit}
+          label: "Total Profit"
+          format: usd
+          round: 1
+
+        cy_profit:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${line_gross_profit}
+                ELSE 0
+               END
+          label: "CY Profit"
+          format: usd
+          round: 1
+
+        py_ytd_profit:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2025
+                  AND EXTRACT(MONTH FROM ${order_date}) <= 5
+                THEN ${line_gross_profit}
+                ELSE 0
+               END
+          label: "PY YTD Profit"
+          format: usd
+          round: 1
+
+        profit_margin_pct:
+          type: number
+          sql: SAFE_DIVIDE(${total_profit}, ${total_revenue})
+          label: "Profit Margin %"
+          format: percent
+          round: 2
+
+        # ============================================
+        # COGS METRICS - BASELINE + TIME INTELLIGENCE
+        # ============================================
+
+        total_cogs:
+          type: sum
+          sql: ${line_cogs}
+          label: "Total COGS"
+          format: usd
+          round: 1
+
+        cy_cogs:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${line_cogs}
+                ELSE 0
+               END
+          label: "CY COGS"
+          format: usd
+          round: 1
+
+        py_ytd_cogs:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2025
+                  AND EXTRACT(MONTH FROM ${order_date}) <= 5
+                THEN ${line_cogs}
+                ELSE 0
+               END
+          label: "PY YTD COGS"
+          format: usd
+          round: 1
+
+        # ============================================
+        # UNITS SOLD METRICS - BASELINE + TIME INTELLIGENCE
+        # ============================================
+
+        total_units_sold:
+          type: sum
+          sql: ${quantity}
+          label: "Total Units Sold"
+          round: 0
+
+        cy_units_sold:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${quantity}
+                ELSE 0
+               END
+          label: "CY Units Sold"
+          round: 0
+
+        py_ytd_units_sold:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2025
+                  AND EXTRACT(MONTH FROM ${order_date}) <= 5
+                THEN ${quantity}
+                ELSE 0
+               END
+          label: "PY YTD Units Sold"
+          round: 0
+
+        avg_units_per_order:
+          type: number
+          sql: SAFE_DIVIDE(${total_units_sold}, ${total_orders})
+          label: "Avg Units per Order"
+          round: 2
+
+        # ============================================
+        # MARKETING METRICS - ROAS + TIME INTELLIGENCE
+        # ============================================
+
+        total_ad_spend:
+          type: sum
+          sql: ${ad_spend_allocated}
+          label: "Total Ad Spend"
+          format: usd
+          round: 1
+
+        cy_ad_spend:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${ad_spend_allocated}
+                ELSE 0
+               END
+          label: "CY Ad Spend"
+          format: usd
+          round: 1
+
+        py_ytd_ad_spend:
+          type: sum
+          sql: CASE
+                WHEN EXTRACT(YEAR FROM ${order_date}) = 2025
+                  AND EXTRACT(MONTH FROM ${order_date}) <= 5
+                THEN ${ad_spend_allocated}
+                ELSE 0
+               END
+          label: "PY YTD Ad Spend"
+          format: usd
+          round: 1
+
+        avg_roas:
+          type: number
+          sql: SAFE_DIVIDE(${total_revenue}, ${total_ad_spend})
+          label: "Avg ROAS"
+          round: 1
+
+        cy_roas:
+          type: number
+          sql: SAFE_DIVIDE(${cy_revenue}, ${cy_ad_spend})
+          label: "CY ROAS"
+          round: 1
+
+        py_ytd_roas:
+          type: number
+          sql: SAFE_DIVIDE(${py_ytd_revenue}, ${py_ytd_ad_spend})
+          label: "PY YTD ROAS"
+          round: 1
+
+        # ============================================
+        # ORDER & CUSTOMER METRICS
+        # ============================================
+
+        total_orders:
+          type: count_distinct
+          sql: ${order_id}
+          label: "Total Orders"
+
+        unique_customers:
+          type: count_distinct
+          sql: ${customer_id}
+          label: "Unique Customers"
+
+        first_time_customers:
+          type: count_distinct
+          sql: CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END
+          label: "First Time Customers"
+
+        returning_customers:
+          type: count_distinct
+          sql: CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${customer_id} END
+          label: "Returning Customers"
+
+        repeat_purchase_rate:
+          type: number
+          sql: SAFE_DIVIDE(${returning_customers}, ${unique_customers})
+          label: "Repeat Purchase Rate"
+          format: percent
+          round: 2
+
+        avg_order_value:
+          type: number
+          sql: SAFE_DIVIDE(${total_revenue}, ${total_orders})
+          label: "AOV"
+          format: usd
+          round: 1
+
+        cy_avg_order_value:
+          type: number
+          sql: SAFE_DIVIDE(${cy_revenue}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${order_id} END))
+          label: "CY AOV"
+          format: usd
+          round: 1
+
+        # ============================================
+        # DISCOUNT METRICS - BY CAMPAIGN
+        # ============================================
+
+        total_discount_amount:
+          type: sum
+          sql: ${line_discount}
+          label: "Total Discount Amount"
+          format: usd
+          round: 1
+
+        avg_discount_pct:
+          type: number
+          sql: SAFE_DIVIDE(${total_discount_amount}, ${line_subtotal})
+          label: "Avg Discount %"
+          format: percent
+          round: 2
+
+        black_friday_discount_amount:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'black_friday' THEN ${line_discount} ELSE 0 END
+          label: "Black Friday Discount"
+          format: usd
+          round: 1
+
+        easter_discount_amount:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'easter_special' THEN ${line_discount} ELSE 0 END
+          label: "Easter Discount"
+          format: usd
+          round: 1
+
+        first_time_discount_amount:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'first_time_customer' THEN ${line_discount} ELSE 0 END
+          label: "First Time Discount"
+          format: usd
+          round: 1
+
+        # ============================================
+        # PRODUCT CATEGORY PERFORMANCE
+        # ============================================
+
+        category_count:
+          type: count_distinct
+          sql: ${category}
+          label: "Unique Categories"
+
+        powder_revenue:
+          type: sum
+          sql: CASE WHEN ${category} = 'Powder' THEN ${line_total} ELSE 0 END
+          label: "Powder Revenue"
+          format: usd
+          round: 1
+
+        butter_revenue:
+          type: sum
+          sql: CASE WHEN ${category} = 'Butter' THEN ${line_total} ELSE 0 END
+          label: "Butter Revenue"
+          format: usd
+          round: 1
+
+        chips_revenue:
+          type: sum
+          sql: CASE WHEN ${category} = 'Chips' THEN ${line_total} ELSE 0 END
+          label: "Chips Revenue"
+          format: usd
+          round: 1
+
+        bars_revenue:
+          type: sum
+          sql: CASE WHEN ${category} = 'Bars' THEN ${line_total} ELSE 0 END
+          label: "Bars Revenue"
+          format: usd
+          round: 1
+
+        kits_revenue:
+          type: sum
+          sql: CASE WHEN ${category} = 'Kits' THEN ${line_total} ELSE 0 END
+          label: "Kits Revenue"
+          format: usd
+          round: 1
+
+        powder_units:
+          type: sum
+          sql: CASE WHEN ${category} = 'Powder' THEN ${quantity} ELSE 0 END
+          label: "Powder Units Sold"
+          round: 0
+
+        # ============================================
+        # CAMPAIGN PERFORMANCE
+        # ============================================
+
+        black_friday_revenue:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'black_friday' THEN ${line_total} ELSE 0 END
+          label: "Black Friday Revenue"
+          format: usd
+          round: 1
+
+        black_friday_orders:
+          type: count_distinct
+          sql: CASE WHEN ${campaign} = 'black_friday' THEN ${order_id} END
+          label: "Black Friday Orders"
+
+        black_friday_units:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'black_friday' THEN ${quantity} ELSE 0 END
+          label: "Black Friday Units"
+          round: 0
+
+        easter_revenue:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'easter_special' THEN ${line_total} ELSE 0 END
+          label: "Easter Special Revenue"
+          format: usd
+          round: 1
+
+        easter_orders:
+          type: count_distinct
+          sql: CASE WHEN ${campaign} = 'easter_special' THEN ${order_id} END
+          label: "Easter Orders"
+
+        first_time_revenue:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'first_time_customer' THEN ${line_total} ELSE 0 END
+          label: "First Time Campaign Revenue"
+          format: usd
+          round: 1
+
+        first_time_campaign_orders:
+          type: count_distinct
+          sql: CASE WHEN ${campaign} = 'first_time_customer' THEN ${order_id} END
+          label: "First Time Campaign Orders"
+
+        organic_revenue:
+          type: sum
+          sql: CASE WHEN ${campaign} = 'organic' THEN ${line_total} ELSE 0 END
+          label: "Organic Revenue"
+          format: usd
+          round: 1
+
+        # ============================================
+        # CHANNEL PERFORMANCE
+        # ============================================
+
+        amazon_revenue:
+          type: sum
+          sql: CASE WHEN ${channel} = 'Amazon' THEN ${line_total} ELSE 0 END
+          label: "Amazon Revenue"
+          format: usd
+          round: 1
+
+        shopify_revenue:
+          type: sum
+          sql: CASE WHEN ${channel} = 'Shopify' THEN ${line_total} ELSE 0 END
+          label: "Shopify Revenue"
+          format: usd
+          round: 1
+
+        amazon_orders:
+          type: count_distinct
+          sql: CASE WHEN ${channel} = 'Amazon' THEN ${order_id} END
+          label: "Amazon Orders"
+
+        shopify_orders:
+          type: count_distinct
+          sql: CASE WHEN ${channel} = 'Shopify' THEN ${order_id} END
+          label: "Shopify Orders"
+
+        # ============================================
+        # CUSTOMER ACQUISITION COST (CAC)
+        # ============================================
+
+        cac_first_time:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${ad_spend_allocated} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+              )
+          label: "CAC - First Time"
+          format: usd
+          round: 1
+
+        paid_customer_acquisition_cost:
+          type: number
+          sql: SAFE_DIVIDE(${total_ad_spend}, ${first_time_customers})
+          label: "Paid CAC"
+          format: usd
+          round: 1
+
+        # ============================================
+        # SOURCES & DEVICES
+        # ============================================
+
+        paid_search_revenue:
+          type: sum
+          sql: CASE WHEN ${source} = 'paid_search' THEN ${line_total} ELSE 0 END
+          label: "Paid Search Revenue"
+          format: usd
+          round: 1
+
+        paid_social_revenue:
+          type: sum
+          sql: CASE WHEN ${source} = 'paid_social' THEN ${line_total} ELSE 0 END
+          label: "Paid Social Revenue"
+          format: usd
+          round: 1
+
+        organic_source_revenue:
+          type: sum
+          sql: CASE WHEN ${source} = 'organic' THEN ${line_total} ELSE 0 END
+          label: "Organic Source Revenue"
+          format: usd
+          round: 1
+
+        mobile_revenue:
+          type: sum
+          sql: CASE WHEN ${device} = 'mobile' THEN ${line_total} ELSE 0 END
+          label: "Mobile Revenue"
+          format: usd
+          round: 1
+
+        desktop_revenue:
+          type: sum
+          sql: CASE WHEN ${device} = 'desktop' THEN ${line_total} ELSE 0 END
+          label: "Desktop Revenue"
+          format: usd
+          round: 1
+
+        mobile_orders:
+          type: count_distinct
+          sql: CASE WHEN ${device} = 'mobile' THEN ${order_id} END
+          label: "Mobile Orders"
+
+        # ============================================
+        # PRODUCT REVENUE CONTRIBUTION
+        # ============================================
+
+        product_revenue_contribution_pct:
+          type: number
+          sql: SAFE_DIVIDE(${total_revenue}, SUM(${total_revenue}) OVER ())
+          label: "Product Revenue Contribution %"
+          format: percent
+          round: 2
+
+        # ============================================
+        # PURCHASE FREQUENCY METRICS
+        # ============================================
+
+        total_purchase_frequency:
+          type: number
+          sql: SAFE_DIVIDE(${total_orders}, ${unique_customers})
+          label: "Avg Purchase Frequency"
+          round: 2
+
+        purchase_frequency_new_customers:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+              )
+          label: "Purchase Frequency - New Customers"
+          round: 2
+
+        purchase_frequency_returning:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${order_id} END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${customer_id} END)
+              )
+          label: "Purchase Frequency - Returning"
+          round: 2
+
+        # ============================================
+        # NEW vs RETURNING CUSTOMER METRICS
+        # ============================================
+
+        pct_new_customer_orders:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${order_id} END),
+                ${total_orders}
+              )
+          label: "% New Customer Orders"
+          format: percent
+          round: 2
+
+        pct_returning_customer_orders:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${order_id} END),
+                ${total_orders}
+              )
+          label: "% Returning Customer Orders"
+          format: percent
+          round: 2
+
+        pct_new_customer_per_product:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END),
+                ${unique_customers}
+              )
+          label: "% New Customers per Product"
+          format: percent
+          round: 2
+
+        pct_returning_customer_per_product:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${customer_id} END),
+                ${unique_customers}
+              )
+          label: "% Returning Customers per Product"
+          format: percent
+          round: 2
+
+        # ============================================
+        # AOV BY CUSTOMER TYPE
+        # ============================================
+
+        aov_new_customers:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${line_total} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'TRUE' THEN ${order_id} END)
+              )
+          label: "AOV - New Customers"
+          format: usd
+          round: 1
+
+        aov_returning_customers:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${line_total} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = 'FALSE' THEN ${order_id} END)
+              )
+          label: "AOV - Returning Customers"
+          format: usd
+          round: 1
+
+        aov_new_vs_returning_uplift:
+          type: number
+          sql: SAFE_DIVIDE(
+                (${aov_returning_customers} - ${aov_new_customers}),
+                ${aov_new_customers}
+              )
+          label: "AOV Uplift % (Returning vs New)"
+          format: percent
+          round: 2
+
+        # ============================================
+        # AOV TIME INTELLIGENCE
+        # ============================================
+
+        cy_aov:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${line_total} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${order_id} END)
+              )
+          label: "CY AOV"
+          format: usd
+          round: 1
+
+        cy_ytd_aov:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026
+                          AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${line_total} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026
+                          AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${order_id} END)
+              )
+          label: "CY YTD AOV"
+          format: usd
+          round: 1
+
+        py_ytd_aov:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025
+                          AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${line_total} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025
+                          AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${order_id} END)
+              )
+          label: "PY YTD AOV"
+          format: usd
+          round: 1
+
+        aov_growth_yoy:
+          type: number
+          sql: SAFE_DIVIDE(
+                (${cy_ytd_aov} - ${py_ytd_aov}),
+                ${py_ytd_aov}
+              )
+          label: "AOV Growth YoY %"
+          format: percent
+          round: 2
+
+        # ============================================
+        # LOST REVENUE DUE TO INVENTORY
+        # ============================================
+
+        total_lost_revenue_potential:
+          type: sum
+          sql: ${lost_revenue_potential}
+          label: "Lost Revenue Potential (Inventory)"
+          format: usd
+          round: 1
+
+        lost_revenue_pct_of_total:
+          type: number
+          sql: SAFE_DIVIDE(${total_lost_revenue_potential}, ${total_revenue})
+          label: "Lost Revenue % of Total"
+          format: percent
+          round: 2
+
+    columns:
+      # ============================================
+      # ORDER IDENTIFIERS
+      # ============================================
+      - name: order_id
+        description: "Unique order identifier"
+        meta:
+          dimension:
+            type: string
+
+      - name: order_line_id
+        description: "Unique line item identifier within order"
+        meta:
+          dimension:
+            type: number
+
+      - name: customer_id
+        description: "Unique customer identifier"
+        meta:
+          dimension:
+            type: string
+
+      # ============================================
+      # DATE DIMENSIONS
+      # ============================================
+      - name: order_date
+        description: "Order date"
+        meta:
+          dimension:
+            type: date
+            time_intervals: [DAY, WEEK, MONTH, QUARTER, YEAR]
+
+      - name: created_at
+        description: "Order creation date"
+        meta:
+          dimension:
+            type: date
+
+      # ============================================
+      # PRODUCT DIMENSIONS
+      # ============================================
+      - name: product_id
+        description: "Product ID"
+        meta:
+          dimension:
+            type: string
+
+      - name: product_name
+        description: "Product name"
+        meta:
+          dimension:
+            type: string
+
+      - name: category
+        description: "Product category (Powder, Butter, Chips, Bars, Kits)"
+        meta:
+          dimension:
+            type: string
+
+      - name: quantity
+        description: "Units ordered (ONE SKU PER ROW)"
+        meta:
+          dimension:
+            type: number
+
+      # ============================================
+      # FINANCIAL DIMENSIONS
+      # ============================================
+      - name: unit_price
+        description: "Unit price"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: line_subtotal
+        description: "Line subtotal before discount"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: discount_pct
+        description: "Discount percentage"
+        meta:
+          dimension:
+            type: number
+
+      - name: line_discount
+        description: "Line item discount amount"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: line_total
+        description: "Line total after discount"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: cogs_per_unit
+        description: "Cost per unit"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: line_cogs
+        description: "Line item COGS"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: line_gross_profit
+        description: "Line item gross profit"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: ad_spend_allocated
+        description: "Ad spend allocated to this line"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      # ============================================
+      # MARKETING DIMENSIONS
+      # ============================================
+      - name: campaign
+        description: "Marketing campaign"
+        meta:
+          dimension:
+            type: string
+
+      - name: channel
+        description: "Sales channel (Amazon, Shopify)"
+        meta:
+          dimension:
+            type: string
+
+      - name: source
+        description: "Traffic source"
+        meta:
+          dimension:
+            type: string
+
+      - name: device
+        description: "Device type"
+        meta:
+          dimension:
+            type: string
+
+      - name: session_id
+        description: "Session identifier"
+        meta:
+          dimension:
+            type: string
+
+      # ============================================
+      # CUSTOMER DIMENSIONS
+      # ============================================
+      - name: is_first_time_customer
+        description: "Is first time customer (TRUE/FALSE)"
+        meta:
+          dimension:
+            type: boolean
+
+      - name: cohort
+        description: "Customer acquisition cohort"
+        meta:
+          dimension:
+            type: string
+
+      - name: days_since_first
+        description: "Days since first order"
+        meta:
+          dimension:
+            type: number
+
+      - name: customer_lifetime_value
+        description: "Customer lifetime value"
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      # ============================================
+      # INVENTORY & LOST REVENUE
+      # ============================================
+      - name: lost_revenue_potential
+        description: "Potential lost revenue due to inventory shortage or missed sales"
+        meta:
+          dimension:
+            type: number
+            format: usd
