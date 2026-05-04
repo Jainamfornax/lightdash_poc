@@ -613,6 +613,15 @@ models:
           label: "Purchase Frequency - Returning"
           round: 2
 
+        purchase_frequency_per_product:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT ${order_id}),
+                COUNT(DISTINCT ${customer_id})
+              )
+          label: "Purchase Frequency per Product"
+          round: 2
+
         # ============================================
         # NEW vs RETURNING CUSTOMER METRICS
         # ============================================
