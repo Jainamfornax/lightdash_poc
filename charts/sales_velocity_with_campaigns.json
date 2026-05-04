@@ -1,11 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Sales Velocity Trend",
+  "title": "Sales Velocity Trend with Campaigns",
   "width": 1000,
   "height": 400,
-  "data": {
-    "url": "data-url"
-  },
   "layer": [
     {
       "mark": "rect",
@@ -20,6 +17,11 @@
             "start": "2026-03-15",
             "end": "2026-04-21",
             "campaign": "Easter Special"
+          },
+          {
+            "start": "2025-01-01",
+            "end": "2026-04-28",
+            "campaign": "First-Time Discount"
           }
         ]
       },
@@ -32,11 +34,18 @@
           "field": "end"
         },
         "color": {
-          "value": "#f4e8ff",
-          "legend": null
+          "field": "campaign",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Black Friday", "Easter Special", "First-Time Discount"],
+            "range": ["#ffe6e6", "#e6f0ff", "#f4e8ff"]
+          },
+          "legend": {
+            "title": "Campaign"
+          }
         },
         "opacity": {
-          "value": 0.5
+          "value": 0.4
         }
       }
     },
@@ -45,29 +54,29 @@
         "type": "line",
         "point": true,
         "color": "#5B5BFF",
-        "size": 2,
-        "strokeWidth": 2
+        "size": 3,
+        "tooltip": true
       },
       "encoding": {
         "x": {
-          "field": "order_date",
+          "field": "Order date month",
           "type": "temporal",
           "title": "Date"
         },
         "y": {
-          "field": "total_revenue",
+          "field": "Total Revenue",
           "type": "quantitative",
-          "title": "Revenue",
-          "format": "$,.0f"
+          "title": "Revenue ($)"
         },
         "tooltip": [
           {
-            "field": "order_date",
+            "field": "Order date month",
             "type": "temporal",
-            "title": "Date"
+            "title": "Date",
+            "format": "%b %Y"
           },
           {
-            "field": "total_revenue",
+            "field": "Total Revenue",
             "type": "quantitative",
             "title": "Revenue",
             "format": "$,.2f"
@@ -77,8 +86,11 @@
     }
   ],
   "config": {
-    "axisLeft": {
-      "labelExpr": "format(datum.value, '$,.0f')"
+    "axis": {
+      "labelFontSize": 12
+    },
+    "legend": {
+      "orient": "top-right"
     }
   }
 }
