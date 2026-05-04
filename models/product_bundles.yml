@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: product_bundles
+    description: "Product bundle analysis - identifies which products are frequently bought together with confidence scores"
+
+    meta:
+      label: "Product Bundles"
+
+      metrics:
+        # ============================================
+        # BUNDLE PERFORMANCE METRICS
+        # ============================================
+
+        bundle_order_count:
+          type: sum
+          sql: ${order_count}
+          label: "Bundle Order Count"
+          round: 0
+
+        avg_confidence_score:
+          type: average
+          sql: ${confidence_score}
+          label: "Avg Confidence Score"
+          format: decimal
+          round: 2
+
+        total_bundles:
+          type: count_distinct
+          sql: CONCAT(${main_sku}, '-', ${bundled_sku})
+          label: "Total Bundle Combinations"
+
+    columns:
+      # ============================================
+      # PRODUCT IDENTIFIERS
+      # ============================================
+      - name: main_sku
+        description: "Primary product in the bundle"
+        meta:
+          dimension:
+            type: string
+
+      - name: bundled_sku
+        description: "Product frequently bought with main SKU"
+        meta:
+          dimension:
+            type: string
+
+      # ============================================
+      # BUNDLE METRICS
+      # ============================================
+      - name: order_count
+        description: "Number of orders containing both products"
+        meta:
+          dimension:
+            type: number
+
+      - name: confidence_score
+        description: "Confidence score (0-1): how often bundled_sku is bought with main_sku. 1.0 = always together, 0.5 = 50% of the time"
+        meta:
+          dimension:
+            type: number
+            format: decimal
+
+      - name: bundle_percentage
+        description: "Percentage of all bundles this combination represents"
+        meta:
+          dimension:
+            type: number
+            format: percent
