@@ -3,7 +3,6 @@ version: 2
 models:
   - name: fact_ecommerce
     description: "Complete e-commerce analytics with time intelligence, campaign tracking, and product performance"
-    sql_table_name: "`linked-368910.lightdash_poc.ecommerce_poc`"
 
     meta:
       label: "E-Commerce Analytics"

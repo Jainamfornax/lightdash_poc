@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: lightdash_poc
+    description: "Raw e-commerce data from BigQuery"
+    database: linked-368910
+    schema: lightdash_poc
+    tables:
+      - name: ecommerce_poc
+        description: "Raw e-commerce orders and line items"
+        columns:
+          - name: order_id
+            description: "Unique order identifier"
+          - name: customer_id
+            description: "Customer ID"
+          - name: order_date
+            description: "Order date"

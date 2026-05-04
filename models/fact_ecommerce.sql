@@ -1,6 +1,5 @@
 {{ config(
-    materialized='table',
-    schema='lightdash_poc'
+    materialized='table'
 ) }}
 
 -- E-Commerce Analytics Fact Table
@@ -37,8 +36,9 @@ SELECT
     customer_lifetime_value,
     lost_revenue_potential
 FROM
-    `linked-368910.lightdash_poc.ecommerce_poc`
+    {{ source('lightdash_poc', 'ecommerce_poc') }}
 WHERE
     1 = 1
     -- Add any filters or transformations here as needed
+
 
