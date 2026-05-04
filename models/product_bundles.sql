@@ -1,9 +1,15 @@
+{{ config(
+    materialized='table',
+    description='Product bundle analysis - identifies which products are frequently bought together'
+) }}
+
+-- Product Bundle Analysis: Which products are frequently bought together
 SELECT
   o1.product_name as main_sku,
   o2.product_name as bundled_sku,
   COUNT(DISTINCT o1.order_id) as order_count,
-  ROUND(COUNT(DISTINCT o1.order_id) / COUNT(DISTINCT o1.order_id) OVER (PARTITION BY o1.product_name), 2) as confidence_score,
-  ROUND(COUNT(DISTINCT o1.order_id) / COUNT(DISTINCT o1.order_id) OVER () * 100, 2) as bundle_percentage
+  ROUND(COUNT(DISTINCT o1.order_id) / COUNT(DISTINCT o1.product_id), 2) as confidence_score,
+  ROUND(COUNT(DISTINCT o1.order_id) / SUM(COUNT(DISTINCT o1.order_id)) OVER (PARTITION BY o1.product_name) * 100, 2) as bundle_percentage
 FROM `linked-368910.lightdash_poc.ecommerce_order` o1
 INNER JOIN `linked-368910.lightdash_poc.ecommerce_order` o2
   ON o1.order_id = o2.order_id
