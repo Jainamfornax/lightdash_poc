@@ -15,14 +15,14 @@
       "encoding": {
         "x": {"field": "start", "type": "temporal"},
         "x2": {"field": "end"},
-        "color": {"field": "campaign", "type": "nominal", "scale": {"scheme": "set2"}}
+        "color": {"field": "campaign", "type": "nominal", "scale": {"scheme": "set2"}, "legend": null}
       }
     },
     {
-      "mark": {"type": "line", "point": true, "color": "#5B5BFF", "size": 3},
+      "mark": {"type": "line", "point": true, "color": "#5B5BFF", "size": 3, "strokeWidth": 2},
       "encoding": {
-        "x": {"field": "order_date_month", "type": "temporal", "title": "Date"},
-        "y": {"field": "total_revenue", "type": "quantitative", "title": "Revenue ($)", "axis": {"format": "$,.0f"}},
+        "x": {"field": "order_date_month", "type": "temporal", "title": "Date", "axis": {"grid": false}},
+        "y": {"field": "total_revenue", "type": "quantitative", "title": "Revenue ($)", "axis": {"format": "$,.0f", "grid": false}},
         "tooltip": [
           {"field": "order_date_month", "type": "temporal", "format": "%B %Y", "title": "Date"},
           {"field": "total_revenue", "type": "quantitative", "format": "$,.2f", "title": "Revenue"}
@@ -30,5 +30,8 @@
       }
     }
   ],
-  "config": {"axis": {"labelFontSize": 11}}
+  "config": {
+    "axis": {"labelFontSize": 11},
+    "view": {"strokeWidth": 0}
+  }
 }
