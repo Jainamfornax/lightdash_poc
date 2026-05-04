@@ -273,7 +273,7 @@ models:
 
         avg_discount_pct:
           type: number
-          sql: SAFE_DIVIDE(${total_discount_amount}, ${line_subtotal})
+          sql: SAFE_DIVIDE(SUM(${line_discount}), SUM(${line_subtotal}))
           label: "Avg Discount %"
           format: percent
           round: 2
