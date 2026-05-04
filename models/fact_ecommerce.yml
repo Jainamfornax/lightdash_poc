@@ -271,6 +271,16 @@ models:
           sql: ${session_id}
           label: "Total Sessions"
 
+        cy_sessions:
+          type: count_distinct
+          sql: CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${session_id} END
+          label: "CY Sessions"
+
+        py_ytd_sessions:
+          type: count_distinct
+          sql: CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 THEN ${session_id} END
+          label: "PY YTD Sessions"
+
         conversion_rate:
           type: number
           sql: SAFE_DIVIDE(${total_orders}, ${total_sessions})
@@ -486,6 +496,40 @@ models:
           type: number
           sql: SAFE_DIVIDE(${total_ad_spend}, ${first_time_customers})
           label: "Paid CAC"
+          format: usd
+          round: 1
+
+        cy_cac_first_time:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = 'TRUE' THEN ${ad_spend_allocated} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+              )
+          label: "CY CAC - First Time"
+          format: usd
+          round: 1
+
+        py_ytd_cac_first_time:
+          type: number
+          sql: SAFE_DIVIDE(
+                SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = 'TRUE' THEN ${ad_spend_allocated} ELSE 0 END),
+                COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END)
+              )
+          label: "PY YTD CAC - First Time"
+          format: usd
+          round: 1
+
+        cy_paid_cac:
+          type: number
+          sql: SAFE_DIVIDE(${cy_ad_spend}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END))
+          label: "CY Paid CAC"
+          format: usd
+          round: 1
+
+        py_ytd_paid_cac:
+          type: number
+          sql: SAFE_DIVIDE(${py_ytd_ad_spend}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 5 AND ${is_first_time_customer} = 'TRUE' THEN ${customer_id} END))
+          label: "PY YTD Paid CAC"
           format: usd
           round: 1
 
