@@ -690,13 +690,23 @@ models:
           format: usd
           round: 1
 
+        aov_uplift:
+          type: number
+          sql: SAFE_DIVIDE(
+                (${aov_new_customers} - ${aov_returning_customers}),
+                ${aov_returning_customers}
+              )
+          label: "AOV Uplift % (New vs Returning)"
+          format: percent
+          round: 2
+
         aov_new_vs_returning_uplift:
           type: number
           sql: SAFE_DIVIDE(
-                (${aov_returning_customers} - ${aov_new_customers}),
-                ${aov_new_customers}
+                (${aov_new_customers} - ${aov_returning_customers}),
+                ${aov_returning_customers}
               )
-          label: "AOV Uplift % (Returning vs New)"
+          label: "AOV Uplift (New Customer vs Returning)"
           format: percent
           round: 2
 
