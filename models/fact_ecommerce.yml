@@ -789,7 +789,7 @@ models:
 
         avg_discount_pct_per_product:
           type: average
-          sql: ${discount_pct}
+          sql: ${discount_pct} / 100
           label: "Avg Discount % per Product"
           format: percent
           round: 2
