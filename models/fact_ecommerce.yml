@@ -199,23 +199,20 @@ models:
         avg_roas:
           type: number
           sql: SAFE_DIVIDE(${total_revenue}, ${total_ad_spend})
-          label: "Avg ROAS"
+          label: "Blended ROAS"
           round: 1
-          format: decimal
 
         cy_roas:
           type: number
           sql: SAFE_DIVIDE(${cy_revenue}, ${cy_ad_spend})
           label: "CY ROAS"
           round: 1
-          format: decimal
 
         py_ytd_roas:
           type: number
           sql: SAFE_DIVIDE(${py_ytd_revenue}, ${py_ytd_ad_spend})
           label: "PY YTD ROAS"
           round: 1
-          format: decimal
 
         # ============================================
         # ORDER & CUSTOMER METRICS
