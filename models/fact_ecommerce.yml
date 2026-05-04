@@ -539,7 +539,7 @@ models:
 
         product_revenue_contribution_pct:
           type: number
-          sql: SAFE_DIVIDE(${total_revenue}, SUM(${total_revenue}) OVER ())
+          sql: SAFE_DIVIDE(SUM(${line_total}), SUM(SUM(${line_total})) OVER ())
           label: "Product Revenue Contribution %"
           format: percent
           round: 2
