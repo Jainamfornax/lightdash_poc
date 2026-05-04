@@ -759,6 +759,52 @@ models:
           round: 2
 
         # ============================================
+        # PRODUCT ANALYTICS - ENTRY PRODUCT & REPEAT
+        # ============================================
+
+        total_first_time_orders:
+          type: count_distinct
+          sql: CASE WHEN ${is_first_time_customer} = TRUE THEN ${order_id} END
+          label: "First Time Orders"
+
+        total_customers_per_product:
+          type: count_distinct
+          sql: ${customer_id}
+          label: "Customers per Product"
+
+        repeat_customers_per_product:
+          type: count_distinct
+          sql: CASE WHEN ${is_first_time_customer} = FALSE THEN ${customer_id} END
+          label: "Repeat Customers per Product"
+
+        repeat_purchase_rate_per_product:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = FALSE THEN ${customer_id} END),
+                COUNT(DISTINCT ${customer_id})
+              )
+          label: "Repeat Purchase Rate per Product"
+          format: percent
+          round: 2
+
+        avg_discount_pct_per_product:
+          type: average
+          sql: ${discount_pct}
+          label: "Avg Discount % per Product"
+          format: percent
+          round: 2
+
+        pct_orders_discounted:
+          type: number
+          sql: SAFE_DIVIDE(
+                COUNT(DISTINCT CASE WHEN ${discount_pct} > 0 THEN ${order_id} END),
+                COUNT(DISTINCT ${order_id})
+              )
+          label: "% Orders Discounted"
+          format: percent
+          round: 2
+
+        # ============================================
         # LOST REVENUE DUE TO INVENTORY
         # ============================================
 
