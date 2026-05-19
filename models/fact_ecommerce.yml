@@ -542,6 +542,27 @@ models:
             type: date
             time_intervals: [DAY, WEEK, MONTH, QUARTER, YEAR]
 
+      - name: order_year
+        description: "Year extracted from order date (2025 or 2026). Use as series/group-by to overlay CY vs PY trends."
+        meta:
+          dimension:
+            type: string
+            sql: "CAST(EXTRACT(YEAR FROM ${TABLE}.order_date) AS STRING)"
+
+      - name: order_month_number
+        description: "Month number (1-12) extracted from order date. Use on X-axis with order_year as series for CY vs PY overlay charts."
+        meta:
+          dimension:
+            type: number
+            sql: "EXTRACT(MONTH FROM ${TABLE}.order_date)"
+
+      - name: order_month_name
+        description: "Month name (Jan, Feb, etc). Use as X-axis label for CY vs PY overlay."
+        meta:
+          dimension:
+            type: string
+            sql: "FORMAT_DATE('%b', ${TABLE}.order_date)"
+
       - name: created_at
         description: "Order creation timestamp (same as order_date in this dataset)."
         meta:
