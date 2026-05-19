@@ -24,9 +24,9 @@ models:
 
         cy_revenue:
           type: sum
-          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${line_total} ELSE 0 END"
-          label: "CY Revenue"
-          description: "Current year (2026) revenue for year-over-year comparison."
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END"
+          label: "CY YTD Revenue"
+          description: "Current year (2026) revenue through April, for like-for-like YoY comparison with PY YTD."
           format: usd
           round: 1
 
@@ -57,9 +57,9 @@ models:
 
         cy_profit:
           type: sum
-          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${line_gross_profit} ELSE 0 END"
-          label: "CY Profit"
-          description: "Current year gross profit for year-over-year comparison."
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_gross_profit} ELSE 0 END"
+          label: "CY YTD Profit"
+          description: "Current year (2026) gross profit through April, for like-for-like YoY comparison."
           format: usd
           round: 1
 
@@ -104,9 +104,9 @@ models:
 
         cy_aov:
           type: number
-          sql: "SAFE_DIVIDE(${cy_revenue}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${order_id} END))"
-          label: "CY AOV"
-          description: "Current year average order value for YoY AOV trend."
+          sql: "SAFE_DIVIDE(${cy_revenue}, COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END))"
+          label: "CY YTD AOV"
+          description: "Current year YTD average order value for like-for-like YoY comparison."
           format: usd
           round: 1
 
@@ -238,9 +238,9 @@ models:
 
         cy_roas:
           type: number
-          sql: "SAFE_DIVIDE(${cy_revenue}, NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 THEN ${ad_spend_allocated} ELSE 0 END), 0))"
-          label: "CY ROAS"
-          description: "Current year ROAS for tracking marketing efficiency trend."
+          sql: "SAFE_DIVIDE(${cy_revenue}, NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${ad_spend_allocated} ELSE 0 END), 0))"
+          label: "CY YTD ROAS"
+          description: "Current year YTD ROAS for like-for-like marketing efficiency comparison."
           round: 1
 
         cac_first_time:
