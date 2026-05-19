@@ -25,6 +25,7 @@ SELECT
   is_first_time_customer,
   cohort,
   days_since_first,
+  days_since_last_order,
   customer_lifetime_value,
   payment_method
 FROM `linked-368910.lightdash_poc.ecommerce_order`

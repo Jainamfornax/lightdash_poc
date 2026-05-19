@@ -633,16 +633,22 @@ models:
             type: string
 
       - name: days_since_first
-        description: "Days between customer's first ever order and this order. 0 for first-time customers. Shows repurchase velocity."
+        description: "Days between customer's first ever order and this order. 0 for first-time customers."
+        meta:
+          dimension:
+            type: number
+
+      - name: days_since_last_order
+        description: "Days between this order and the customer's previous order. 0 for first-time customers. Reveals the natural reorder cycle."
         meta:
           dimension:
             type: number
           additional_dimensions:
-            repeat_purchase_bucket:
+            reorder_window:
               type: string
-              sql: "CASE WHEN ${days_since_first} = 0 THEN 'First Purchase' WHEN ${days_since_first} BETWEEN 1 AND 30 THEN '1-30 days' WHEN ${days_since_first} BETWEEN 31 AND 60 THEN '31-60 days' WHEN ${days_since_first} BETWEEN 61 AND 90 THEN '61-90 days' ELSE '90+ days' END"
-              label: "Repeat Purchase Window"
-              description: "How quickly customers come back: 1-30, 31-60, 61-90, or 90+ days. Excludes first purchases. Reveals the natural reorder cycle."
+              sql: "CASE WHEN ${days_since_last_order} = 0 THEN 'First Purchase' WHEN ${days_since_last_order} BETWEEN 1 AND 30 THEN '1-30 days' WHEN ${days_since_last_order} BETWEEN 31 AND 60 THEN '31-60 days' WHEN ${days_since_last_order} BETWEEN 61 AND 90 THEN '61-90 days' ELSE '90+ days' END"
+              label: "Reorder Window"
+              description: "How quickly customers reorder after their last purchase: 1-30, 31-60, 61-90, or 90+ days. Filter out First Purchase to see repeat behavior."
 
       - name: customer_lifetime_value
         description: "Total historical spend by this customer across all orders. VIP customers have LTV above $400."

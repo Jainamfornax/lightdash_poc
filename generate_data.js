@@ -131,7 +131,7 @@ Object.entries(monthlyNewCustomers).forEach(([mk, count]) => {
     const ltv = tier === 'vip' ? randInt(420, 680) : tier === 'regular' ? randInt(260, 460) : tier === 'occasional' ? randInt(130, 290) : randInt(55, 160);
     // Churn probability: one_timers always churn, others have a chance
     // Regulars/VIPs have a "repurchase gap" — they come back within X days
-    const repurchaseGapDays = tier === 'vip' ? randInt(28, 50) : tier === 'regular' ? randInt(40, 75) : tier === 'occasional' ? randInt(60, 120) : 999;
+    const repurchaseGapDays = tier === 'vip' ? randInt(15, 30) : tier === 'regular' ? randInt(25, 50) : tier === 'occasional' ? randInt(45, 75) : 999;
     custs.push({
       id: `C${String(custIdx).padStart(4, '0')}`,
       firstDate, tier, maxOrders, ltv, orders: 0,
@@ -160,7 +160,7 @@ const monthlyOrderTargets = {
   '2025-08': 28, '2025-09': 28, '2025-10': 48, // Big Billion Days
   '2025-11': 52, // Black Friday
   '2025-12': 28,
-  '2026-01': 36, '2026-02': 34, '2026-03': 38, '2026-04': 30,
+  '2026-01': 32, '2026-02': 30, '2026-03': 34, '2026-04': 28,
 };
 
 // Generate date slots per month based on targets
@@ -220,6 +220,9 @@ for (let dateIdx = 0; dateIdx < dateBuckets.length; dateIdx++) {
   }
 
   const isFirst = cust.orders === 0;
+  const daysSince = isFirst ? 0 : daysBtw(cust.firstDate, orderDate);
+  const daysSinceLast = (isFirst || !cust.lastOrderDate) ? 0 : daysBtw(cust.lastOrderDate, orderDate);
+
   orderNum++;
   cust.orders++;
   cust.lastOrderDate = orderDate;
@@ -233,12 +236,11 @@ for (let dateIdx = 0; dateIdx < dateBuckets.length; dateIdx++) {
   const discPct = getDiscount(campaign);
   const adSpend = getAdSpend(campaign, source, is2026);
   const payment = getPayment(isFirst, orderDate);
-  const daysSince = isFirst ? 0 : daysBtw(cust.firstDate, orderDate);
 
-  // 2026 slightly more single-item orders (AOV dip ~8-10%, not 16%)
+  // 2026 more single-item orders → AOV dips ~10-12%
   const numItems = is2026
-    ? wPick([1, 2, 3, 4], [35, 38, 20, 7])
-    : wPick([1, 2, 3, 4], [28, 38, 23, 11]);
+    ? wPick([1, 2, 3, 4], [44, 34, 16, 6])
+    : wPick([1, 2, 3, 4], [26, 38, 24, 12]);
 
   // Track for verification
   if (!ordersByMonth[mk]) ordersByMonth[mk] = { newOrders: 0, returnOrders: 0 };
@@ -266,13 +268,13 @@ for (let dateIdx = 0; dateIdx < dateBuckets.length; dateIdx++) {
       sub.toFixed(2), discPct, disc.toFixed(2), total.toFixed(2),
       prod.cogs.toFixed(2), cogs.toFixed(2), profit.toFixed(2), lineAd.toFixed(2),
       campaign, channel, source, device, sessionId,
-      isFirst ? 'TRUE' : 'FALSE', cust.cohort, daysSince,
+      isFirst ? 'TRUE' : 'FALSE', cust.cohort, daysSince, daysSinceLast,
       cust.ltv.toFixed(2), payment
     ].join(','));
   }
 }
 
-const headers = 'order_id,order_line_id,customer_id,order_date,created_at,product_id,product_name,category,quantity,unit_price,line_subtotal,discount_pct,line_discount,line_total,cogs_per_unit,line_cogs,line_gross_profit,ad_spend_allocated,campaign,channel,source,device,session_id,is_first_time_customer,cohort,days_since_first,customer_lifetime_value,payment_method';
+const headers = 'order_id,order_line_id,customer_id,order_date,created_at,product_id,product_name,category,quantity,unit_price,line_subtotal,discount_pct,line_discount,line_total,cogs_per_unit,line_cogs,line_gross_profit,ad_spend_allocated,campaign,channel,source,device,session_id,is_first_time_customer,cohort,days_since_first,days_since_last_order,customer_lifetime_value,payment_method';
 fs.writeFileSync('C:\\Users\\jaina\\OneDrive\\Desktop\\POC\\lightdash\\sample_data\\ecommerce_orders.csv', headers + '\n' + rows.join('\n') + '\n');
 
 // ─── VERIFY STORY ────────────────────────────────────
@@ -308,7 +310,7 @@ console.log('\n=== COD % BY QUARTER ===');
 const quarters = {};
 rows.forEach(r => {
   const f = r.split(',');
-  const d = f[3], pay = f[27];
+  const d = f[3], pay = f[28];
   const y = d.substring(0, 4);
   const m = parseInt(d.split('-')[1]);
   const q = `${y}-Q${Math.ceil(m/3)}`;
@@ -331,6 +333,19 @@ rows.forEach(r => {
   }
 });
 Object.entries(cohorts).sort().forEach(([k, v]) => console.log(`  ${k}: ${v} new customers`));
+
+// Reorder window distribution
+console.log('\n=== REORDER WINDOW (days_since_last_order) ===');
+const reorder = {'First Purchase':0, '1-30 days':0, '31-60 days':0, '61-90 days':0, '90+ days':0};
+rows.forEach(r => {
+  const d = parseInt(r.split(',')[26]);
+  if (d === 0) reorder['First Purchase']++;
+  else if (d <= 30) reorder['1-30 days']++;
+  else if (d <= 60) reorder['31-60 days']++;
+  else if (d <= 90) reorder['61-90 days']++;
+  else reorder['90+ days']++;
+});
+Object.entries(reorder).forEach(([k,v]) => console.log(`  ${k}: ${v}`));
 
 console.log(`\nTotal lines: ${rows.length}`);
 console.log(`Total orders: ${cntD(rows, 0)}`);
