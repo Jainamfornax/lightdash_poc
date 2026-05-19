@@ -637,6 +637,12 @@ models:
         meta:
           dimension:
             type: number
+          additional_dimensions:
+            repeat_purchase_bucket:
+              type: string
+              sql: "CASE WHEN ${days_since_first} = 0 THEN 'First Purchase' WHEN ${days_since_first} BETWEEN 1 AND 30 THEN '1-30 days' WHEN ${days_since_first} BETWEEN 31 AND 60 THEN '31-60 days' WHEN ${days_since_first} BETWEEN 61 AND 90 THEN '61-90 days' ELSE '90+ days' END"
+              label: "Repeat Purchase Window"
+              description: "How quickly customers come back: 1-30, 31-60, 61-90, or 90+ days. Excludes first purchases. Reveals the natural reorder cycle."
 
       - name: customer_lifetime_value
         description: "Total historical spend by this customer across all orders. VIP customers have LTV above $400."
