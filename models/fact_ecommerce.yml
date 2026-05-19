@@ -243,6 +243,13 @@ models:
           description: "Current year YTD ROAS for like-for-like marketing efficiency comparison."
           round: 1
 
+        py_ytd_roas:
+          type: number
+          sql: "SAFE_DIVIDE(${py_ytd_revenue}, NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${ad_spend_allocated} ELSE 0 END), 0))"
+          label: "PY YTD ROAS"
+          description: "Previous year YTD ROAS for like-for-like marketing efficiency comparison."
+          round: 1
+
         cac_first_time:
           type: number
           sql: "SAFE_DIVIDE(SUM(CASE WHEN ${is_first_time_customer} = TRUE THEN ${ad_spend_allocated} ELSE 0 END), COUNT(DISTINCT CASE WHEN ${is_first_time_customer} = TRUE THEN ${customer_id} END))"
