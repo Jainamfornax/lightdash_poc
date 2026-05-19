@@ -234,6 +234,71 @@ models:
           description: "Average number of orders per customer. Higher means stronger retention."
           round: 2
 
+        avg_customer_ltv:
+          type: average
+          sql: ${customer_lifetime_value}
+          label: "Avg Customer LTV"
+          description: "Average lifetime value across all customers. VIP customers are above $400. Use to assess long-term customer worth."
+          format: usd
+          round: 0
+
+        # ─── CY/PY CUSTOMER TYPE METRICS (for Section 2 charts) ───
+        cy_new_customers:
+          type: count_distinct
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = TRUE THEN ${customer_id} END"
+          label: "CY YTD New Customers"
+          description: "New customers acquired in current year YTD."
+
+        py_ytd_new_customers:
+          type: count_distinct
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = TRUE THEN ${customer_id} END"
+          label: "PY YTD New Customers"
+          description: "New customers acquired in previous year YTD. Compare with CY to track acquisition growth."
+
+        cy_returning_customers:
+          type: count_distinct
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = FALSE THEN ${customer_id} END"
+          label: "CY YTD Returning Customers"
+          description: "Returning customers in current year YTD."
+
+        py_ytd_returning_customers:
+          type: count_distinct
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = FALSE THEN ${customer_id} END"
+          label: "PY YTD Returning Customers"
+          description: "Returning customers in previous year YTD. Compare with CY to track retention growth."
+
+        cy_new_customer_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = TRUE THEN ${line_total} ELSE 0 END"
+          label: "CY YTD New Customer Revenue"
+          description: "Revenue from first-time buyers in current year YTD."
+          format: usd
+          round: 1
+
+        py_ytd_new_customer_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = TRUE THEN ${line_total} ELSE 0 END"
+          label: "PY YTD New Customer Revenue"
+          description: "Revenue from first-time buyers in previous year YTD."
+          format: usd
+          round: 1
+
+        cy_returning_customer_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = FALSE THEN ${line_total} ELSE 0 END"
+          label: "CY YTD Returning Customer Revenue"
+          description: "Revenue from repeat buyers in current year YTD. Growing faster than new = loyalty flywheel working."
+          format: usd
+          round: 1
+
+        py_ytd_returning_customer_revenue:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = FALSE THEN ${line_total} ELSE 0 END"
+          label: "PY YTD Returning Customer Revenue"
+          description: "Revenue from repeat buyers in previous year YTD."
+          format: usd
+          round: 1
+
         # ─── SESSIONS & CONVERSION ───────────────────
         total_sessions:
           type: count_distinct
