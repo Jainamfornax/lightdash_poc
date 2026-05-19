@@ -79,6 +79,22 @@ models:
           format: percent
           round: 1
 
+        cy_margin_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${cy_profit}, NULLIF(${cy_revenue}, 0))"
+          label: "CY YTD Margin %"
+          description: "Current year YTD gross margin for like-for-like comparison with previous year."
+          format: percent
+          round: 1
+
+        py_ytd_margin_pct:
+          type: number
+          sql: "SAFE_DIVIDE(${py_ytd_profit}, NULLIF(${py_ytd_revenue}, 0))"
+          label: "PY YTD Margin %"
+          description: "Previous year YTD gross margin for like-for-like comparison."
+          format: percent
+          round: 1
+
         total_cogs:
           type: sum
           sql: ${line_cogs}
@@ -93,6 +109,18 @@ models:
           sql: ${order_id}
           label: "Total Orders"
           description: "Count of unique orders. One order can contain multiple products."
+
+        cy_orders:
+          type: count_distinct
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END"
+          label: "CY YTD Orders"
+          description: "Current year YTD order count for like-for-like comparison."
+
+        py_ytd_orders:
+          type: count_distinct
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END"
+          label: "PY YTD Orders"
+          description: "Previous year YTD order count for like-for-like comparison."
 
         avg_order_value:
           type: number
