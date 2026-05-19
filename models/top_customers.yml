@@ -1,0 +1,109 @@
+version: 2
+
+models:
+  - name: top_customers
+    description: >
+      Customer-level summary table showing each customer's total orders, revenue, profit,
+      margin, and purchase history. Use this to build a Top Customers leaderboard table
+      sorted by revenue or LTV.
+
+    meta:
+      label: "Top Customers"
+
+      metrics:
+        avg_customer_revenue:
+          type: average
+          sql: ${total_revenue}
+          label: "Avg Customer Revenue"
+          description: "Average revenue per customer."
+          format: usd
+          round: 0
+
+        avg_customer_orders:
+          type: average
+          sql: ${total_orders}
+          label: "Avg Orders per Customer"
+          description: "Average number of orders per customer."
+          round: 1
+
+        customer_count:
+          type: count
+          label: "Customer Count"
+          description: "Total number of customers."
+
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier."
+        meta:
+          dimension:
+            type: string
+
+      - name: total_orders
+        description: "Total number of orders placed by this customer."
+        meta:
+          dimension:
+            type: number
+
+      - name: total_revenue
+        description: "Total revenue from this customer across all orders."
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: total_profit
+        description: "Total gross profit from this customer."
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: first_order_date
+        description: "Date of the customer's first order."
+        meta:
+          dimension:
+            type: date
+
+      - name: last_order_date
+        description: "Date of the customer's most recent order."
+        meta:
+          dimension:
+            type: date
+
+      - name: lifetime_value
+        description: "Customer lifetime value — total spend across all orders."
+        meta:
+          dimension:
+            type: number
+            format: usd
+
+      - name: is_repeat_customer
+        description: "TRUE if the customer has placed more than one order."
+        meta:
+          dimension:
+            type: boolean
+
+      - name: avg_margin_pct
+        description: "Average gross margin across all of this customer's orders."
+        meta:
+          dimension:
+            type: number
+            format: percent
+
+      - name: categories_purchased
+        description: "Comma-separated list of product categories this customer has bought."
+        meta:
+          dimension:
+            type: string
+
+      - name: channels_used
+        description: "Comma-separated list of channels (Amazon, Shopify) the customer ordered from."
+        meta:
+          dimension:
+            type: string
+
+      - name: cohort
+        description: "Customer acquisition cohort (YYYY-MM)."
+        meta:
+          dimension:
+            type: string

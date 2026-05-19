@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: customer_cohort_retention
+    description: >
+      Monthly cohort retention analysis. Each row represents one cohort-month combination showing
+      how many customers from that acquisition cohort were still active N months later.
+      Use cohort_month as rows, months_since_first as columns, and retention_rate as values
+      to build a retention heatmap.
+
+    meta:
+      label: "Cohort Retention"
+
+      metrics:
+        avg_retention_rate:
+          type: average
+          sql: ${retention_rate}
+          label: "Avg Retention Rate"
+          description: "Average retention rate across cohorts for a given month offset."
+          format: percent
+          round: 1
+
+        total_cohort_customers:
+          type: sum
+          sql: ${cohort_size}
+          label: "Total Cohort Customers"
+          description: "Sum of customers across all cohorts."
+
+        total_active_customers:
+          type: sum
+          sql: ${active_customers}
+          label: "Total Active Customers"
+          description: "Sum of active customers at a given retention month."
+
+    columns:
+      - name: cohort_month
+        description: "Customer acquisition month (YYYY-MM). The month the customer placed their first order."
+        meta:
+          dimension:
+            type: string
+
+      - name: months_since_first
+        description: "Number of months since the cohort's first purchase. 0 = acquisition month, 1 = first month after, etc."
+        meta:
+          dimension:
+            type: number
+
+      - name: cohort_size
+        description: "Number of unique customers who first purchased in this cohort month."
+        meta:
+          dimension:
+            type: number
+
+      - name: active_customers
+        description: "Number of customers from this cohort who placed an order in this retention month."
+        meta:
+          dimension:
+            type: number
+
+      - name: retention_rate
+        description: "Percentage of the cohort still active at this month offset (active_customers / cohort_size)."
+        meta:
+          dimension:
+            type: number
+            format: percent
