@@ -103,6 +103,54 @@ models:
           format: usd
           round: 1
 
+        cy_cogs:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_cogs} ELSE 0 END"
+          label: "CY YTD COGS"
+          description: "Current year YTD cost of goods sold."
+          format: usd
+          round: 1
+
+        py_ytd_cogs:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_cogs} ELSE 0 END"
+          label: "PY YTD COGS"
+          description: "Previous year YTD cost of goods sold."
+          format: usd
+          round: 1
+
+        # ─── CY/PY DISCOUNT METRICS ─────────────────
+        cy_discount_rate:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_discount} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_subtotal} ELSE 0 END), 0))"
+          label: "CY YTD Discount Rate"
+          description: "Current year YTD effective discount rate."
+          format: percent
+          round: 1
+
+        py_ytd_discount_rate:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_discount} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_subtotal} ELSE 0 END), 0))"
+          label: "PY YTD Discount Rate"
+          description: "Previous year YTD effective discount rate."
+          format: percent
+          round: 1
+
+        # ─── CY/PY UNITS SOLD ───────────────────────
+        cy_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END"
+          label: "CY YTD Units Sold"
+          description: "Current year YTD total units sold."
+          round: 0
+
+        py_ytd_units_sold:
+          type: sum
+          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END"
+          label: "PY YTD Units Sold"
+          description: "Previous year YTD total units sold."
+          round: 0
+
         # ─── ORDERS & AOV ────────────────────────────
         total_orders:
           type: count_distinct
