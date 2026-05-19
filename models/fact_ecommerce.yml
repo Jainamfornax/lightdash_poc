@@ -103,22 +103,6 @@ models:
           format: usd
           round: 1
 
-        cy_cogs:
-          type: sum
-          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_cogs} ELSE 0 END"
-          label: "CY YTD COGS"
-          description: "Current year YTD cost of goods sold."
-          format: usd
-          round: 1
-
-        py_ytd_cogs:
-          type: sum
-          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_cogs} ELSE 0 END"
-          label: "PY YTD COGS"
-          description: "Previous year YTD cost of goods sold."
-          format: usd
-          round: 1
-
         # ─── CY/PY DISCOUNT METRICS ─────────────────
         cy_discount_rate:
           type: number
@@ -136,20 +120,36 @@ models:
           format: percent
           round: 1
 
-        # ─── CY/PY UNITS SOLD ───────────────────────
-        cy_units_sold:
-          type: sum
-          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END"
-          label: "CY YTD Units Sold"
-          description: "Current year YTD total units sold."
-          round: 0
+        cy_pct_orders_discounted:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${discount_pct} > 0 THEN ${order_id} END), COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END))"
+          label: "CY YTD % Orders Discounted"
+          description: "Current year YTD share of orders that received any discount."
+          format: percent
+          round: 1
 
-        py_ytd_units_sold:
-          type: sum
-          sql: "CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END"
-          label: "PY YTD Units Sold"
-          description: "Previous year YTD total units sold."
-          round: 0
+        py_ytd_pct_orders_discounted:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${discount_pct} > 0 THEN ${order_id} END), COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END))"
+          label: "PY YTD % Orders Discounted"
+          description: "Previous year YTD share of orders that received any discount."
+          format: percent
+          round: 1
+
+        # ─── CY/PY CAMPAIGN NET ROI ─────────────────
+        cy_campaign_net_roi:
+          type: number
+          sql: "SAFE_DIVIDE((SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_gross_profit} ELSE 0 END) - SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${ad_spend_allocated} ELSE 0 END)), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${ad_spend_allocated} ELSE 0 END), 0))"
+          label: "CY YTD Campaign Net ROI"
+          description: "Current year YTD net return on marketing: (profit - ad spend) / ad spend. Above 1.0 = profitable."
+          round: 2
+
+        py_ytd_campaign_net_roi:
+          type: number
+          sql: "SAFE_DIVIDE((SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_gross_profit} ELSE 0 END) - SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${ad_spend_allocated} ELSE 0 END)), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${ad_spend_allocated} ELSE 0 END), 0))"
+          label: "PY YTD Campaign Net ROI"
+          description: "Previous year YTD net return on marketing. Compare with CY to track marketing efficiency."
+          round: 2
 
         # ─── ORDERS & AOV ────────────────────────────
         total_orders:

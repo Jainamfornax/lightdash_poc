@@ -49,7 +49,7 @@ function getDiscount(campaign) {
     black_friday: [[15, 20, 25], [40, 40, 20]],
     big_billion_days: [[12, 18, 22], [35, 40, 25]],
     prime_day: [[10, 15, 20], [30, 45, 25]],
-    easter_special: [[8, 10, 12], [30, 50, 20]],
+    easter_special: [[18, 22, 25], [30, 45, 25]],
     first_time_customer: [[5, 10, 0], [40, 35, 25]],
     organic: [[0, 0, 5], [75, 15, 10]],
   };
@@ -63,21 +63,21 @@ function getSource(campaign, is2026) {
       return wPick(['organic', 'paid_search', 'paid_social'], [40, 32, 28]);
     if (campaign === 'first_time_customer')
       return wPick(['organic', 'paid_search', 'paid_social'], [35, 35, 30]);
-    return wPick(['organic', 'paid_search', 'paid_social'], [68, 18, 14]);
+    return wPick(['organic', 'paid_search', 'paid_social'], [38, 34, 28]);
   }
   if (['black_friday', 'big_billion_days', 'prime_day'].includes(campaign))
-    return wPick(['organic', 'paid_search', 'paid_social'], [15, 42, 43]);
+    return wPick(['organic', 'paid_search', 'paid_social'], [10, 45, 45]);
   if (campaign === 'first_time_customer')
-    return wPick(['organic', 'paid_search', 'paid_social'], [12, 45, 43]);
-  return wPick(['organic', 'paid_search', 'paid_social'], [42, 30, 28]);
+    return wPick(['organic', 'paid_search', 'paid_social'], [8, 46, 46]);
+  return wPick(['organic', 'paid_search', 'paid_social'], [30, 36, 34]);
 }
 
 function getAdSpend(campaign, source, is2026) {
   if (source === 'organic') return 0;
-  const mult = is2026 ? 0.45 : 1.0;
+  const mult = is2026 ? 0.72 : 1.0;
   const ranges = {
-    black_friday: [22, 55], big_billion_days: [25, 58], prime_day: [18, 48],
-    easter_special: [15, 42], first_time_customer: [20, 48], organic: [0, 12],
+    black_friday: [45, 95], big_billion_days: [50, 100], prime_day: [40, 85],
+    easter_special: [100, 180], first_time_customer: [30, 60], organic: [18, 42],
   };
   const [lo, hi] = ranges[campaign] || [0, 0];
   return Math.round(randInt(lo, hi) * mult);
@@ -160,7 +160,7 @@ const monthlyOrderTargets = {
   '2025-08': 28, '2025-09': 28, '2025-10': 48, // Big Billion Days
   '2025-11': 52, // Black Friday
   '2025-12': 28,
-  '2026-01': 32, '2026-02': 30, '2026-03': 34, '2026-04': 28,
+  '2026-01': 34, '2026-02': 32, '2026-03': 36, '2026-04': 30,
 };
 
 // Generate date slots per month based on targets
@@ -237,9 +237,9 @@ for (let dateIdx = 0; dateIdx < dateBuckets.length; dateIdx++) {
   const adSpend = getAdSpend(campaign, source, is2026);
   const payment = getPayment(isFirst, orderDate);
 
-  // 2026 more single-item orders → AOV dips ~10-12%
+  // 2026 slightly more single-item orders → AOV dips ~8-10%
   const numItems = is2026
-    ? wPick([1, 2, 3, 4], [44, 34, 16, 6])
+    ? wPick([1, 2, 3, 4], [28, 38, 24, 10])
     : wPick([1, 2, 3, 4], [26, 38, 24, 12]);
 
   // Track for verification
