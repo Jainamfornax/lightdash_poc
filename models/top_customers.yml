@@ -28,6 +28,7 @@ models:
 
         customer_count:
           type: count
+          sql: ${customer_id}
           label: "Customer Count"
           description: "Total number of customers."
 
