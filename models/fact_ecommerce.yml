@@ -626,6 +626,23 @@ models:
           description: "Average number of orders per unique customer in PY YTD."
           round: 2
 
+        # Returning Customer Revenue Share %
+        cy_returning_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = FALSE THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "CY Returning Revenue Share %"
+          description: "Percentage of CY YTD revenue from returning customers. Higher = loyalty flywheel working."
+          format: percent
+          round: 1
+
+        py_ytd_returning_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${is_first_time_customer} = FALSE THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "PY Returning Revenue Share %"
+          description: "Percentage of PY YTD revenue from returning customers."
+          format: percent
+          round: 1
+
         # ─── SECTION 5: PRODUCT & CATALOG ─────────────
 
         # Avg Items per Order
