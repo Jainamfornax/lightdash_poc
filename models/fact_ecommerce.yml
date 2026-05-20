@@ -601,6 +601,89 @@ models:
           format: percent
           round: 1
 
+        # ─── SECTION 2: PURCHASE FREQUENCY ─────────────
+
+        # Avg Orders per Customer
+        cy_avg_orders_per_customer:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${customer_id} END), 0))"
+          label: "CY Avg Orders per Customer"
+          description: "Average number of orders per unique customer in CY YTD. Higher = stronger repeat behavior."
+          round: 2
+
+        py_ytd_avg_orders_per_customer:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${customer_id} END), 0))"
+          label: "PY Avg Orders per Customer"
+          description: "Average number of orders per unique customer in PY YTD."
+          round: 2
+
+        # ─── SECTION 5: PRODUCT & CATALOG ─────────────
+
+        # Avg Items per Order
+        cy_avg_items_per_order:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_line_id} END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END), 0))"
+          label: "CY Avg Items per Order"
+          description: "Average number of products per order in CY YTD. Higher = better cross-sell."
+          round: 2
+
+        py_ytd_avg_items_per_order:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_line_id} END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END), 0))"
+          label: "PY Avg Items per Order"
+          description: "Average number of products per order in PY YTD."
+          round: 2
+
+        # Powder Revenue Share % (top category concentration)
+        cy_top_category_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${category} = 'Powder' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "CY Powder Revenue Share %"
+          description: "Percentage of CY YTD revenue from Powder category. Measures catalog concentration risk."
+          format: percent
+          round: 1
+
+        py_ytd_top_category_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${category} = 'Powder' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "PY Powder Revenue Share %"
+          description: "Percentage of PY YTD revenue from Powder category."
+          format: percent
+          round: 1
+
+        # Avg Revenue per Unit
+        cy_avg_revenue_per_unit:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END), 0))"
+          label: "CY Avg Revenue per Unit"
+          description: "Average selling price per unit in CY YTD. Tracks pricing power."
+          format: usd
+          round: 2
+
+        py_ytd_avg_revenue_per_unit:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END), 0))"
+          label: "PY Avg Revenue per Unit"
+          description: "Average selling price per unit in PY YTD."
+          format: usd
+          round: 2
+
+        # Avg Categories per Customer
+        cy_avg_categories_per_customer:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN CONCAT(${customer_id}, '-', ${category}) END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${customer_id} END), 0))"
+          label: "CY Avg Categories per Customer"
+          description: "Average number of distinct categories each customer buys in CY YTD. Higher = better catalog exploration."
+          round: 2
+
+        py_ytd_avg_categories_per_customer:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN CONCAT(${customer_id}, '-', ${category}) END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${customer_id} END), 0))"
+          label: "PY Avg Categories per Customer"
+          description: "Average number of distinct categories each customer buys in PY YTD."
+          round: 2
+
     columns:
       # ─── ORDER IDENTIFIERS ─────────────────────────
       - name: order_id

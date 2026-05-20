@@ -1,0 +1,145 @@
+version: 2
+
+models:
+  - name: product_affinity
+    description: >
+      Product affinity analysis showing which products are frequently bought together.
+      Derived from order-level co-occurrence — every pair of products within the same order
+      creates a record. Use to identify natural bundles, cross-sell opportunities, and
+      category crossover patterns.
+    meta:
+      label: "Product Affinity"
+      order_fields_by: "label"
+      metrics:
+        # Core metrics
+        total_pair_orders:
+          type: sum
+          sql: ${times_bought_together}
+          label: "Total Pair Orders"
+          description: "Total number of orders containing this product pair."
+
+        avg_pair_margin:
+          type: average
+          sql: ${pair_margin_pct}
+          label: "Avg Pair Margin %"
+          description: "Average gross margin when these products are bought together."
+          format: percent
+          round: 1
+
+        sum_pair_revenue:
+          type: sum
+          sql: ${total_pair_revenue}
+          label: "Total Pair Revenue"
+          description: "Total combined revenue from this product pair across all orders."
+          format: usd
+          round: 0
+
+        sum_pair_profit:
+          type: sum
+          sql: ${total_pair_profit}
+          label: "Total Pair Profit"
+          description: "Total combined profit from this product pair across all orders."
+          format: usd
+          round: 0
+
+        pair_count:
+          type: count
+          sql: ${bundle_pair}
+          label: "Number of Pairs"
+          description: "Total distinct product pair combinations."
+
+    columns:
+      - name: product_a_id
+        description: "Product ID of the first product in the pair (alphabetically by ID)."
+        meta:
+          dimension:
+            type: string
+            hidden: true
+
+      - name: product_a_name
+        description: "Name of the first product in the pair."
+        meta:
+          dimension:
+            type: string
+            label: "Product A"
+
+      - name: category_a
+        description: "Category of the first product."
+        meta:
+          dimension:
+            type: string
+            label: "Category A"
+
+      - name: product_b_id
+        description: "Product ID of the second product in the pair."
+        meta:
+          dimension:
+            type: string
+            hidden: true
+
+      - name: product_b_name
+        description: "Name of the second product in the pair."
+        meta:
+          dimension:
+            type: string
+            label: "Product B"
+
+      - name: category_b
+        description: "Category of the second product."
+        meta:
+          dimension:
+            type: string
+            label: "Category B"
+
+      - name: bundle_pair
+        description: "Combined pair label: 'Product A + Product B'. Use as primary dimension for bundle charts."
+        meta:
+          dimension:
+            type: string
+            label: "Bundle Pair"
+
+      - name: bundle_type
+        description: "Whether the pair is Same Category or Cross Category. Cross-category bundles indicate better catalog exploration."
+        meta:
+          dimension:
+            type: string
+            label: "Bundle Type"
+
+      - name: times_bought_together
+        description: "Number of distinct orders where both products appeared together."
+        meta:
+          dimension:
+            type: number
+            label: "Times Bought Together"
+
+      - name: total_pair_revenue
+        description: "Combined revenue of both products across all co-occurring orders."
+        meta:
+          dimension:
+            type: number
+            format: usd
+            hidden: true
+
+      - name: total_pair_profit
+        description: "Combined profit of both products across all co-occurring orders."
+        meta:
+          dimension:
+            type: number
+            format: usd
+            hidden: true
+
+      - name: pair_margin_pct
+        description: "Gross margin percentage for this product pair."
+        meta:
+          dimension:
+            type: number
+            format: percent
+            label: "Pair Margin %"
+
+      - name: avg_pair_revenue
+        description: "Average combined revenue per order for this pair."
+        meta:
+          dimension:
+            type: number
+            format: usd
+            label: "Avg Pair Order Value"
