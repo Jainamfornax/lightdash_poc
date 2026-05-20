@@ -584,6 +584,23 @@ models:
           format: percent
           round: 1
 
+        # Mobile Revenue Share %
+        cy_mobile_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${device} = 'mobile' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "CY Mobile Revenue Share %"
+          description: "Percentage of CY YTD revenue from mobile devices."
+          format: percent
+          round: 1
+
+        py_ytd_mobile_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${device} = 'mobile' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "PY Mobile Revenue Share %"
+          description: "Percentage of PY YTD revenue from mobile devices."
+          format: percent
+          round: 1
+
     columns:
       # ─── ORDER IDENTIFIERS ─────────────────────────
       - name: order_id
