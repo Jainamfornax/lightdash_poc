@@ -896,6 +896,20 @@ models:
             type: number
             format: usd
 
+      # ─── BASKET ──────────────────────────────────────
+      - name: basket_size
+        description: "Number of distinct products in this order (1-4). Use for items-per-order distribution charts."
+        meta:
+          dimension:
+            type: number
+            label: "Basket Size"
+          additional_dimensions:
+            basket_bucket:
+              type: string
+              sql: "CASE WHEN ${TABLE}.basket_size = 1 THEN '1 item' WHEN ${TABLE}.basket_size = 2 THEN '2 items' WHEN ${TABLE}.basket_size = 3 THEN '3 items' ELSE '4+ items' END"
+              label: "Basket Bucket"
+              description: "Basket size grouped: 1 item, 2 items, 3 items, 4+ items. Use on X-axis for distribution chart."
+
       # ─── PAYMENT ───────────────────────────────────
       - name: payment_method
         description: "How the customer paid: Online (prepaid — credit card, UPI, net banking) or COD (cash on delivery). COD has higher return rates and operational cost."

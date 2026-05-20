@@ -269,7 +269,7 @@ for (let dateIdx = 0; dateIdx < dateBuckets.length; dateIdx++) {
       prod.cogs.toFixed(2), cogs.toFixed(2), profit.toFixed(2), lineAd.toFixed(2),
       campaign, channel, source, device, sessionId,
       isFirst ? 'TRUE' : 'FALSE', cust.cohort, daysSince, daysSinceLast,
-      cust.ltv.toFixed(2), payment
+      cust.ltv.toFixed(2), payment, numItems
     ].join(','));
   }
 }
@@ -289,7 +289,7 @@ for (let i = 0; i < rows.length; i++) {
   }
 }
 
-const headers = 'order_id,order_line_id,customer_id,order_date,created_at,product_id,product_name,category,quantity,unit_price,line_subtotal,discount_pct,line_discount,line_total,cogs_per_unit,line_cogs,line_gross_profit,ad_spend_allocated,campaign,channel,source,device,session_id,is_first_time_customer,cohort,days_since_first,days_since_last_order,customer_lifetime_value,payment_method';
+const headers = 'order_id,order_line_id,customer_id,order_date,created_at,product_id,product_name,category,quantity,unit_price,line_subtotal,discount_pct,line_discount,line_total,cogs_per_unit,line_cogs,line_gross_profit,ad_spend_allocated,campaign,channel,source,device,session_id,is_first_time_customer,cohort,days_since_first,days_since_last_order,customer_lifetime_value,payment_method,basket_size';
 fs.writeFileSync('C:\\Users\\jaina\\OneDrive\\Desktop\\POC\\lightdash\\sample_data\\ecommerce_orders.csv', headers + '\n' + rows.join('\n') + '\n');
 
 // ─── VERIFY STORY ────────────────────────────────────
