@@ -20,9 +20,9 @@ ORD000009,1,C0007,2025-01-20,2025-01-20,P008,Collagen Peptides - Berry,Powder,3,
 ORD000009,2,C0007,2025-01-20,2025-01-20,P004,Daily Plant Protein,Powder,4,52.00,208.00,10,20.80,187.20,20.00,80.00,107.20,20.00,first_time_customer,Amazon,paid_search,mobile,S00009,TRUE,2025-01,0,0,87.00,Online
 ORD000010,1,C0006,2025-01-20,2025-01-20,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,10,3.60,32.40,9.00,18.00,14.40,27.50,first_time_customer,Shopify,paid_search,mobile,S00010,TRUE,2025-01,0,0,124.00,Online
 ORD000010,2,C0006,2025-01-20,2025-01-20,P005,Almond Crunch Bars,Bars,4,24.00,96.00,10,9.60,86.40,11.00,44.00,42.40,27.50,first_time_customer,Shopify,paid_search,mobile,S00010,TRUE,2025-01,0,0,124.00,Online
-ORD000011,1,C0012,2025-01-23,2025-01-23,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,5,1.20,22.80,8.00,16.00,6.80,10.67,first_time_customer,Shopify,paid_search,tablet,S00011,TRUE,2025-01,0,0,183.00,COD
-ORD000011,2,C0012,2025-01-23,2025-01-23,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,5,4.50,85.50,18.00,36.00,49.50,10.67,first_time_customer,Shopify,paid_search,tablet,S00011,TRUE,2025-01,0,0,183.00,COD
-ORD000011,3,C0012,2025-01-23,2025-01-23,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,5,1.80,34.20,9.00,18.00,16.20,10.67,first_time_customer,Shopify,paid_search,tablet,S00011,TRUE,2025-01,0,0,183.00,COD
+ORD000011,1,C0012,2025-01-23,2025-01-23,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,5,1.20,22.80,8.00,16.00,6.80,10.67,first_time_customer,Shopify,paid_search,mobile,S00011,TRUE,2025-01,0,0,183.00,COD
+ORD000011,2,C0012,2025-01-23,2025-01-23,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,5,4.50,85.50,18.00,36.00,49.50,10.67,first_time_customer,Shopify,paid_search,mobile,S00011,TRUE,2025-01,0,0,183.00,COD
+ORD000011,3,C0012,2025-01-23,2025-01-23,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,5,1.80,34.20,9.00,18.00,16.20,10.67,first_time_customer,Shopify,paid_search,mobile,S00011,TRUE,2025-01,0,0,183.00,COD
 ORD000012,1,C0010,2025-01-24,2025-01-24,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,5,7.00,133.00,21.00,84.00,49.00,19.50,first_time_customer,Shopify,paid_search,desktop,S00012,TRUE,2025-01,0,0,131.00,COD
 ORD000012,2,C0010,2025-01-24,2025-01-24,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,5,0.60,11.40,8.00,8.00,3.40,19.50,first_time_customer,Shopify,paid_search,desktop,S00012,TRUE,2025-01,0,0,131.00,COD
 ORD000013,1,C0002,2025-01-25,2025-01-25,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,0.00,first_time_customer,Amazon,organic,tablet,S00013,TRUE,2025-01,0,0,321.00,COD
@@ -123,7 +123,7 @@ ORD000053,2,C0013,2025-03-18,2025-03-18,P006,Trial Discovery Kit,Kits,1,65.00,65
 ORD000053,3,C0013,2025-03-18,2025-03-18,P010,Mega Combo Box,Kits,2,89.00,178.00,22,39.16,138.84,35.00,70.00,68.84,57.33,easter_special,Shopify,paid_search,desktop,S00053,FALSE,2025-01,64,64,321.00,COD
 ORD000054,1,C0047,2025-03-21,2025-03-21,P002,Dark Choc Protein Butter,Butter,5,28.00,140.00,22,30.80,109.20,21.00,105.00,4.20,69.00,easter_special,Shopify,paid_social,mobile,S00054,TRUE,2025-03,0,0,622.00,COD
 ORD000054,2,C0047,2025-03-21,2025-03-21,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,22,3.96,14.04,9.00,9.00,5.04,69.00,easter_special,Shopify,paid_social,mobile,S00054,TRUE,2025-03,0,0,622.00,COD
-ORD000055,1,C0038,2025-03-22,2025-03-22,P004,Daily Plant Protein,Powder,3,52.00,156.00,22,34.32,121.68,20.00,60.00,61.68,52.67,easter_special,Amazon,paid_social,tablet,S00055,FALSE,2025-02,32,25,680.00,Online
+ORD000055,1,C0038,2025-03-22,2025-03-22,P004,Daily Plant Protein,Powder,3,52.00,156.00,22,34.32,121.68,20.00,60.00,61.68,52.67,easter_special,Amazon,paid_social,mobile,S00055,FALSE,2025-02,32,25,680.00,Online
 ORD000055,2,C0038,2025-03-22,2025-03-22,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,22,3.96,14.04,9.00,9.00,5.04,52.67,easter_special,Amazon,paid_social,tablet,S00055,FALSE,2025-02,32,25,680.00,Online
 ORD000055,3,C0038,2025-03-22,2025-03-22,P008,Collagen Peptides - Berry,Powder,5,58.00,290.00,22,63.80,226.20,23.00,115.00,111.20,52.67,easter_special,Amazon,paid_social,tablet,S00055,FALSE,2025-02,32,25,680.00,Online
 ORD000056,1,C0046,2025-03-23,2025-03-23,P005,Almond Crunch Bars,Bars,5,24.00,120.00,22,26.40,93.60,11.00,55.00,38.60,59.67,easter_special,Shopify,paid_social,mobile,S00056,TRUE,2025-03,0,0,653.00,COD
@@ -139,11 +139,11 @@ ORD000060,1,C0024,2025-03-27,2025-03-27,P002,Dark Choc Protein Butter,Butter,1,2
 ORD000060,2,C0024,2025-03-27,2025-03-27,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,18,2.16,9.84,8.00,8.00,1.84,49.33,easter_special,Shopify,paid_search,mobile,S00060,FALSE,2025-02,37,31,401.00,Online
 ORD000060,3,C0024,2025-03-27,2025-03-27,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,18,18.90,86.10,21.00,63.00,23.10,49.33,easter_special,Shopify,paid_search,mobile,S00060,FALSE,2025-02,37,31,401.00,Online
 ORD000061,1,C0003,2025-03-28,2025-03-28,P004,Daily Plant Protein,Powder,3,52.00,156.00,22,34.32,121.68,20.00,60.00,61.68,38.67,easter_special,Shopify,paid_social,tablet,S00061,FALSE,2025-01,59,44,418.00,Online
-ORD000061,2,C0003,2025-03-28,2025-03-28,P006,Trial Discovery Kit,Kits,2,65.00,130.00,22,28.60,101.40,22.00,44.00,57.40,38.67,easter_special,Shopify,paid_social,tablet,S00061,FALSE,2025-01,59,44,418.00,Online
-ORD000061,3,C0003,2025-03-28,2025-03-28,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,22,3.96,14.04,9.00,9.00,5.04,38.67,easter_special,Shopify,paid_social,tablet,S00061,FALSE,2025-01,59,44,418.00,Online
+ORD000061,2,C0003,2025-03-28,2025-03-28,P006,Trial Discovery Kit,Kits,2,65.00,130.00,22,28.60,101.40,22.00,44.00,57.40,38.67,easter_special,Shopify,paid_social,mobile,S00061,FALSE,2025-01,59,44,418.00,Online
+ORD000061,3,C0003,2025-03-28,2025-03-28,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,22,3.96,14.04,9.00,9.00,5.04,38.67,easter_special,Shopify,paid_social,mobile,S00061,FALSE,2025-01,59,44,418.00,Online
 ORD000062,1,C0051,2025-04-02,2025-04-02,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,25,6.00,18.00,8.00,16.00,2.00,81.50,easter_special,Amazon,paid_social,mobile,S00062,TRUE,2025-03,0,0,149.00,COD
 ORD000062,2,C0051,2025-04-02,2025-04-02,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,25,14.50,43.50,23.00,23.00,20.50,81.50,easter_special,Amazon,paid_social,mobile,S00062,TRUE,2025-03,0,0,149.00,COD
-ORD000063,1,C0028,2025-04-03,2025-04-03,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,22,7.92,28.08,9.00,18.00,10.08,145.00,easter_special,Shopify,paid_search,tablet,S00063,FALSE,2025-02,58,54,178.00,Online
+ORD000063,1,C0028,2025-04-03,2025-04-03,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,22,7.92,28.08,9.00,18.00,10.08,145.00,easter_special,Shopify,paid_search,mobile,S00063,FALSE,2025-02,58,54,178.00,Online
 ORD000064,1,C0050,2025-04-05,2025-04-05,P006,Trial Discovery Kit,Kits,4,65.00,260.00,22,57.20,202.80,22.00,88.00,114.80,87.00,easter_special,Amazon,paid_search,desktop,S00064,TRUE,2025-03,0,0,441.00,COD
 ORD000064,2,C0050,2025-04-05,2025-04-05,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,22,12.32,43.68,21.00,42.00,1.68,87.00,easter_special,Amazon,paid_search,desktop,S00064,TRUE,2025-03,0,0,441.00,COD
 ORD000065,1,C0054,2025-04-05,2025-04-05,P005,Almond Crunch Bars,Bars,3,24.00,72.00,22,15.84,56.16,11.00,33.00,23.16,76.50,easter_special,Amazon,paid_social,mobile,S00065,TRUE,2025-03,0,0,210.00,Online
@@ -153,17 +153,17 @@ ORD000067,1,C0052,2025-04-06,2025-04-06,P004,Daily Plant Protein,Powder,2,52.00,
 ORD000067,2,C0052,2025-04-06,2025-04-06,P005,Almond Crunch Bars,Bars,1,24.00,24.00,22,5.28,18.72,11.00,11.00,7.72,39.33,easter_special,Shopify,paid_social,desktop,S00067,TRUE,2025-03,0,0,98.00,Online
 ORD000067,3,C0052,2025-04-06,2025-04-06,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,22,19.80,70.20,18.00,36.00,34.20,39.33,easter_special,Shopify,paid_social,desktop,S00067,TRUE,2025-03,0,0,98.00,Online
 ORD000068,1,C0029,2025-04-06,2025-04-06,P010,Mega Combo Box,Kits,1,89.00,89.00,18,16.02,72.98,35.00,35.00,37.98,0.00,easter_special,Shopify,organic,mobile,S00068,FALSE,2025-02,56,52,375.00,Online
-ORD000069,1,C0055,2025-04-10,2025-04-10,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,22,10.56,37.44,8.00,32.00,5.44,174.00,easter_special,Shopify,paid_search,tablet,S00069,TRUE,2025-03,0,0,278.00,Online
+ORD000069,1,C0055,2025-04-10,2025-04-10,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,22,10.56,37.44,8.00,32.00,5.44,174.00,easter_special,Shopify,paid_search,mobile,S00069,TRUE,2025-03,0,0,278.00,Online
 ORD000070,1,C0034,2025-04-10,2025-04-10,P006,Trial Discovery Kit,Kits,1,65.00,65.00,22,14.30,50.70,22.00,22.00,28.70,45.00,easter_special,Amazon,paid_social,mobile,S00070,FALSE,2025-02,63,27,591.00,Online
 ORD000070,2,C0034,2025-04-10,2025-04-10,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,22,6.16,21.84,21.00,21.00,0.84,45.00,easter_special,Amazon,paid_social,mobile,S00070,FALSE,2025-02,63,27,591.00,Online
 ORD000070,3,C0034,2025-04-10,2025-04-10,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,22,5.28,18.72,8.00,16.00,2.72,45.00,easter_special,Amazon,paid_social,mobile,S00070,FALSE,2025-02,63,27,591.00,Online
 ORD000071,1,C0033,2025-04-10,2025-04-10,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,22,9.90,35.10,18.00,18.00,17.10,79.50,easter_special,Amazon,paid_social,mobile,S00071,FALSE,2025-02,58,54,436.00,COD
 ORD000071,2,C0033,2025-04-10,2025-04-10,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,22,7.70,27.30,21.00,21.00,6.30,79.50,easter_special,Amazon,paid_social,mobile,S00071,FALSE,2025-02,58,54,436.00,COD
-ORD000072,1,C0039,2025-04-12,2025-04-12,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,16.00,organic,Amazon,paid_search,tablet,S00072,FALSE,2025-02,44,39,352.00,Online
-ORD000072,2,C0039,2025-04-12,2025-04-12,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,16.00,organic,Amazon,paid_search,tablet,S00072,FALSE,2025-02,44,39,352.00,Online
-ORD000073,1,C0053,2025-04-14,2025-04-14,P005,Almond Crunch Bars,Bars,2,24.00,48.00,5,2.40,45.60,11.00,22.00,23.60,0.00,first_time_customer,Amazon,organic,tablet,S00073,TRUE,2025-03,0,0,104.00,COD
+ORD000072,1,C0039,2025-04-12,2025-04-12,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,16.00,organic,Amazon,paid_search,mobile,S00072,FALSE,2025-02,44,39,352.00,Online
+ORD000072,2,C0039,2025-04-12,2025-04-12,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,16.00,organic,Amazon,paid_search,mobile,S00072,FALSE,2025-02,44,39,352.00,Online
+ORD000073,1,C0053,2025-04-14,2025-04-14,P005,Almond Crunch Bars,Bars,2,24.00,48.00,5,2.40,45.60,11.00,22.00,23.60,0.00,first_time_customer,Amazon,organic,mobile,S00073,TRUE,2025-03,0,0,104.00,COD
 ORD000074,1,C0060,2025-04-15,2025-04-15,P004,Daily Plant Protein,Powder,5,52.00,260.00,0,0.00,260.00,20.00,100.00,160.00,57.00,first_time_customer,Amazon,paid_social,mobile,S00074,TRUE,2025-03,0,0,89.00,COD
-ORD000075,1,C0061,2025-04-16,2025-04-16,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,21.00,organic,Amazon,paid_search,tablet,S00075,TRUE,2025-04,0,0,209.00,Online
+ORD000075,1,C0061,2025-04-16,2025-04-16,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,21.00,organic,Amazon,paid_search,mobile,S00075,TRUE,2025-04,0,0,209.00,Online
 ORD000076,1,C0015,2025-04-18,2025-04-18,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,9.00,organic,Amazon,paid_social,desktop,S00076,FALSE,2025-01,81,81,214.00,Online
 ORD000076,2,C0015,2025-04-18,2025-04-18,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,9.00,organic,Amazon,paid_social,desktop,S00076,FALSE,2025-01,81,81,214.00,Online
 ORD000076,3,C0015,2025-04-18,2025-04-18,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,9.00,organic,Amazon,paid_social,desktop,S00076,FALSE,2025-01,81,81,214.00,Online
@@ -209,7 +209,7 @@ ORD000090,2,C0024,2025-05-02,2025-05-02,P001,Whey Isolate - Choc,Powder,2,45.00,
 ORD000090,3,C0024,2025-05-02,2025-05-02,P010,Mega Combo Box,Kits,2,89.00,178.00,0,0.00,178.00,35.00,70.00,108.00,8.00,organic,Shopify,paid_social,mobile,S00090,FALSE,2025-02,73,36,401.00,Online
 ORD000091,1,C0064,2025-05-02,2025-05-02,P005,Almond Crunch Bars,Bars,5,24.00,120.00,5,6.00,114.00,11.00,55.00,59.00,0.00,organic,Shopify,organic,tablet,S00091,TRUE,2025-04,0,0,426.00,COD
 ORD000091,2,C0064,2025-05-02,2025-05-02,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,5,1.80,34.20,8.00,24.00,10.20,0.00,organic,Shopify,organic,tablet,S00091,TRUE,2025-04,0,0,426.00,COD
-ORD000091,3,C0064,2025-05-02,2025-05-02,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,5,6.75,128.25,18.00,54.00,74.25,0.00,organic,Shopify,organic,tablet,S00091,TRUE,2025-04,0,0,426.00,COD
+ORD000091,3,C0064,2025-05-02,2025-05-02,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,5,6.75,128.25,18.00,54.00,74.25,0.00,organic,Shopify,organic,mobile,S00091,TRUE,2025-04,0,0,426.00,COD
 ORD000092,1,C0068,2025-05-03,2025-05-03,P004,Daily Plant Protein,Powder,4,52.00,208.00,0,0.00,208.00,20.00,80.00,128.00,0.00,organic,Shopify,organic,mobile,S00092,TRUE,2025-04,0,0,253.00,Online
 ORD000093,1,C0039,2025-05-05,2025-05-05,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,12.33,organic,Shopify,paid_social,desktop,S00093,FALSE,2025-02,67,23,352.00,COD
 ORD000093,2,C0039,2025-05-05,2025-05-05,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,0,0.00,18.00,9.00,9.00,9.00,12.33,organic,Shopify,paid_social,desktop,S00093,FALSE,2025-02,67,23,352.00,COD
@@ -239,28 +239,28 @@ ORD000102,2,C0010,2025-05-13,2025-05-13,P004,Daily Plant Protein,Powder,3,52.00,
 ORD000103,1,C0038,2025-05-15,2025-05-15,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,0.00,organic,Shopify,organic,mobile,S00103,FALSE,2025-02,86,21,680.00,COD
 ORD000104,1,C0026,2025-05-15,2025-05-15,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,6.33,organic,Shopify,paid_search,tablet,S00104,FALSE,2025-02,84,58,468.00,Online
 ORD000104,2,C0026,2025-05-15,2025-05-15,P006,Trial Discovery Kit,Kits,5,65.00,325.00,0,0.00,325.00,22.00,110.00,215.00,6.33,organic,Shopify,paid_search,tablet,S00104,FALSE,2025-02,84,58,468.00,Online
-ORD000104,3,C0026,2025-05-15,2025-05-15,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,0,0.00,18.00,9.00,9.00,9.00,6.33,organic,Shopify,paid_search,tablet,S00104,FALSE,2025-02,84,58,468.00,Online
-ORD000105,1,C0040,2025-05-16,2025-05-16,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,8.25,organic,Shopify,paid_social,tablet,S00105,FALSE,2025-02,104,68,218.00,Online
-ORD000105,2,C0040,2025-05-16,2025-05-16,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,8.25,organic,Shopify,paid_social,tablet,S00105,FALSE,2025-02,104,68,218.00,Online
-ORD000105,3,C0040,2025-05-16,2025-05-16,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,8.25,organic,Shopify,paid_social,tablet,S00105,FALSE,2025-02,104,68,218.00,Online
-ORD000105,4,C0040,2025-05-16,2025-05-16,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,8.25,organic,Shopify,paid_social,tablet,S00105,FALSE,2025-02,104,68,218.00,Online
+ORD000104,3,C0026,2025-05-15,2025-05-15,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,0,0.00,18.00,9.00,9.00,9.00,6.33,organic,Shopify,paid_search,mobile,S00104,FALSE,2025-02,84,58,468.00,Online
+ORD000105,1,C0040,2025-05-16,2025-05-16,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,8.25,organic,Shopify,paid_social,mobile,S00105,FALSE,2025-02,104,68,218.00,Online
+ORD000105,2,C0040,2025-05-16,2025-05-16,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,8.25,organic,Shopify,paid_social,mobile,S00105,FALSE,2025-02,104,68,218.00,Online
+ORD000105,3,C0040,2025-05-16,2025-05-16,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,8.25,organic,Shopify,paid_social,mobile,S00105,FALSE,2025-02,104,68,218.00,Online
+ORD000105,4,C0040,2025-05-16,2025-05-16,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,8.25,organic,Shopify,paid_social,mobile,S00105,FALSE,2025-02,104,68,218.00,Online
 ORD000106,1,C0072,2025-05-16,2025-05-16,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,5,2.25,42.75,18.00,18.00,24.75,18.00,first_time_customer,Shopify,paid_search,desktop,S00106,TRUE,2025-04,0,0,427.00,Online
 ORD000106,2,C0072,2025-05-16,2025-05-16,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,5,1.80,34.20,8.00,24.00,10.20,18.00,first_time_customer,Shopify,paid_search,desktop,S00106,TRUE,2025-04,0,0,427.00,Online
 ORD000107,1,C0016,2025-05-18,2025-05-18,P002,Dark Choc Protein Butter,Butter,4,28.00,112.00,0,0.00,112.00,21.00,84.00,28.00,0.00,organic,Amazon,organic,desktop,S00107,FALSE,2025-01,115,28,334.00,Online
 ORD000108,1,C0047,2025-05-19,2025-05-19,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,0,0.00,116.00,23.00,46.00,70.00,9.50,organic,Amazon,paid_social,mobile,S00108,FALSE,2025-03,62,25,622.00,Online
 ORD000108,2,C0047,2025-05-19,2025-05-19,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,9.50,organic,Amazon,paid_social,mobile,S00108,FALSE,2025-03,62,25,622.00,Online
 ORD000109,1,C0069,2025-05-20,2025-05-20,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,41.00,organic,Amazon,paid_social,mobile,S00109,TRUE,2025-04,0,0,440.00,COD
-ORD000110,1,C0074,2025-05-21,2025-05-21,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,0.00,organic,Amazon,organic,tablet,S00110,TRUE,2025-04,0,0,154.00,COD
-ORD000110,2,C0074,2025-05-21,2025-05-21,P009,Mango Protein Smoothie,Drinks,3,18.00,54.00,0,0.00,54.00,9.00,27.00,27.00,0.00,organic,Amazon,organic,tablet,S00110,TRUE,2025-04,0,0,154.00,COD
-ORD000110,3,C0074,2025-05-21,2025-05-21,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,0.00,organic,Amazon,organic,tablet,S00110,TRUE,2025-04,0,0,154.00,COD
+ORD000110,1,C0074,2025-05-21,2025-05-21,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,0.00,organic,Amazon,organic,mobile,S00110,TRUE,2025-04,0,0,154.00,COD
+ORD000110,2,C0074,2025-05-21,2025-05-21,P009,Mango Protein Smoothie,Drinks,3,18.00,54.00,0,0.00,54.00,9.00,27.00,27.00,0.00,organic,Amazon,organic,mobile,S00110,TRUE,2025-04,0,0,154.00,COD
+ORD000110,3,C0074,2025-05-21,2025-05-21,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,0.00,organic,Amazon,organic,mobile,S00110,TRUE,2025-04,0,0,154.00,COD
 ORD000111,1,C0063,2025-05-22,2025-05-22,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,19.50,organic,Shopify,paid_search,mobile,S00111,TRUE,2025-04,0,0,134.00,COD
 ORD000111,2,C0063,2025-05-22,2025-05-22,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,19.50,organic,Shopify,paid_search,mobile,S00111,TRUE,2025-04,0,0,134.00,COD
 ORD000112,1,C0076,2025-05-24,2025-05-24,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,19.00,organic,Amazon,paid_social,desktop,S00112,TRUE,2025-04,0,0,601.00,COD
 ORD000112,2,C0076,2025-05-24,2025-05-24,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,19.00,organic,Amazon,paid_social,desktop,S00112,TRUE,2025-04,0,0,601.00,COD
 ORD000113,1,C0033,2025-06-02,2025-06-02,P004,Daily Plant Protein,Powder,3,52.00,156.00,0,0.00,156.00,20.00,60.00,96.00,0.00,organic,Amazon,organic,mobile,S00113,FALSE,2025-02,111,53,436.00,Online
 ORD000113,2,C0033,2025-06-02,2025-06-02,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,0.00,organic,Amazon,organic,mobile,S00113,FALSE,2025-02,111,53,436.00,Online
-ORD000114,1,C0075,2025-06-03,2025-06-03,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,5,6.75,128.25,18.00,54.00,74.25,30.00,first_time_customer,Amazon,paid_social,tablet,S00114,TRUE,2025-04,0,0,282.00,Online
-ORD000114,2,C0075,2025-06-03,2025-06-03,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,5,1.40,26.60,21.00,21.00,5.60,30.00,first_time_customer,Amazon,paid_social,tablet,S00114,TRUE,2025-04,0,0,282.00,Online
+ORD000114,1,C0075,2025-06-03,2025-06-03,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,5,6.75,128.25,18.00,54.00,74.25,30.00,first_time_customer,Amazon,paid_social,mobile,S00114,TRUE,2025-04,0,0,282.00,Online
+ORD000114,2,C0075,2025-06-03,2025-06-03,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,5,1.40,26.60,21.00,21.00,5.60,30.00,first_time_customer,Amazon,paid_social,mobile,S00114,TRUE,2025-04,0,0,282.00,Online
 ORD000115,1,C0077,2025-06-03,2025-06-03,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,0,0.00,28.00,21.00,21.00,7.00,12.75,first_time_customer,Amazon,paid_social,mobile,S00115,TRUE,2025-05,0,0,258.00,Online
 ORD000115,2,C0077,2025-06-03,2025-06-03,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,12.75,first_time_customer,Amazon,paid_social,mobile,S00115,TRUE,2025-05,0,0,258.00,Online
 ORD000115,3,C0077,2025-06-03,2025-06-03,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,12.75,first_time_customer,Amazon,paid_social,mobile,S00115,TRUE,2025-05,0,0,258.00,Online
@@ -340,10 +340,10 @@ ORD000144,3,C0031,2025-07-04,2025-07-04,P003,Himalayan Salt Chips,Chips,3,12.00,
 ORD000145,1,C0034,2025-07-05,2025-07-05,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,23.00,organic,Amazon,paid_social,mobile,S00145,FALSE,2025-02,149,86,591.00,Online
 ORD000146,1,C0012,2025-07-06,2025-07-06,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,18.00,organic,Shopify,paid_search,desktop,S00146,FALSE,2025-01,167,66,183.00,Online
 ORD000146,2,C0012,2025-07-06,2025-07-06,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,18.00,organic,Shopify,paid_search,desktop,S00146,FALSE,2025-01,167,66,183.00,Online
-ORD000147,1,C0086,2025-07-07,2025-07-07,P004,Daily Plant Protein,Powder,2,52.00,104.00,5,5.20,98.80,20.00,40.00,58.80,10.67,first_time_customer,Amazon,paid_social,tablet,S00147,TRUE,2025-05,0,0,455.00,COD
-ORD000147,2,C0086,2025-07-07,2025-07-07,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,5,0.90,17.10,9.00,9.00,8.10,10.67,first_time_customer,Amazon,paid_social,tablet,S00147,TRUE,2025-05,0,0,455.00,COD
-ORD000147,3,C0086,2025-07-07,2025-07-07,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,5,0.60,11.40,8.00,8.00,3.40,10.67,first_time_customer,Amazon,paid_social,tablet,S00147,TRUE,2025-05,0,0,455.00,COD
-ORD000148,1,C0002,2025-07-07,2025-07-07,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,19.00,organic,Amazon,paid_search,tablet,S00148,FALSE,2025-01,163,67,321.00,COD
+ORD000147,1,C0086,2025-07-07,2025-07-07,P004,Daily Plant Protein,Powder,2,52.00,104.00,5,5.20,98.80,20.00,40.00,58.80,10.67,first_time_customer,Amazon,paid_social,mobile,S00147,TRUE,2025-05,0,0,455.00,COD
+ORD000147,2,C0086,2025-07-07,2025-07-07,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,5,0.90,17.10,9.00,9.00,8.10,10.67,first_time_customer,Amazon,paid_social,mobile,S00147,TRUE,2025-05,0,0,455.00,COD
+ORD000147,3,C0086,2025-07-07,2025-07-07,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,5,0.60,11.40,8.00,8.00,3.40,10.67,first_time_customer,Amazon,paid_social,mobile,S00147,TRUE,2025-05,0,0,455.00,COD
+ORD000148,1,C0002,2025-07-07,2025-07-07,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,19.00,organic,Amazon,paid_search,mobile,S00148,FALSE,2025-01,163,67,321.00,COD
 ORD000148,2,C0002,2025-07-07,2025-07-07,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,19.00,organic,Amazon,paid_search,tablet,S00148,FALSE,2025-01,163,67,321.00,COD
 ORD000149,1,C0047,2025-07-07,2025-07-07,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,16.50,organic,Amazon,paid_search,mobile,S00149,FALSE,2025-03,111,49,622.00,COD
 ORD000149,2,C0047,2025-07-07,2025-07-07,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,16.50,organic,Amazon,paid_search,mobile,S00149,FALSE,2025-03,111,49,622.00,COD
@@ -379,8 +379,8 @@ ORD000161,3,C0046,2025-07-14,2025-07-14,P007,Smooth Peanut Butter,Butter,2,35.00
 ORD000161,4,C0046,2025-07-14,2025-07-14,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,15,6.75,38.25,18.00,18.00,20.25,14.00,prime_day,Shopify,paid_social,mobile,S00161,FALSE,2025-03,113,113,653.00,COD
 ORD000162,1,C0038,2025-07-15,2025-07-15,P009,Mango Protein Smoothie,Drinks,3,18.00,54.00,15,8.10,45.90,9.00,27.00,18.90,0.00,prime_day,Amazon,organic,mobile,S00162,FALSE,2025-02,147,17,680.00,Online
 ORD000162,2,C0038,2025-07-15,2025-07-15,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,15,8.40,47.60,21.00,42.00,5.60,0.00,prime_day,Amazon,organic,mobile,S00162,FALSE,2025-02,147,17,680.00,Online
-ORD000163,1,C0026,2025-07-17,2025-07-17,P005,Almond Crunch Bars,Bars,3,24.00,72.00,10,7.20,64.80,11.00,33.00,31.80,0.00,prime_day,Shopify,organic,tablet,S00163,FALSE,2025-02,147,19,468.00,Online
-ORD000163,2,C0026,2025-07-17,2025-07-17,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,10,5.60,50.40,21.00,42.00,8.40,0.00,prime_day,Shopify,organic,tablet,S00163,FALSE,2025-02,147,19,468.00,Online
+ORD000163,1,C0026,2025-07-17,2025-07-17,P005,Almond Crunch Bars,Bars,3,24.00,72.00,10,7.20,64.80,11.00,33.00,31.80,0.00,prime_day,Shopify,organic,mobile,S00163,FALSE,2025-02,147,19,468.00,Online
+ORD000163,2,C0026,2025-07-17,2025-07-17,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,10,5.60,50.40,21.00,42.00,8.40,0.00,prime_day,Shopify,organic,mobile,S00163,FALSE,2025-02,147,19,468.00,Online
 ORD000164,1,C0036,2025-07-19,2025-07-19,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,15,13.50,76.50,18.00,36.00,40.50,42.00,prime_day,Amazon,paid_search,desktop,S00164,FALSE,2025-02,154,69,238.00,Online
 ORD000164,2,C0036,2025-07-19,2025-07-19,P006,Trial Discovery Kit,Kits,5,65.00,325.00,15,48.75,276.25,22.00,110.00,166.25,42.00,prime_day,Amazon,paid_search,desktop,S00164,FALSE,2025-02,154,69,238.00,Online
 ORD000165,1,C0093,2025-07-20,2025-07-20,P004,Daily Plant Protein,Powder,1,52.00,52.00,15,7.80,44.20,20.00,20.00,24.20,19.00,prime_day,Amazon,paid_social,desktop,S00165,TRUE,2025-06,0,0,412.00,Online
@@ -389,7 +389,7 @@ ORD000165,3,C0093,2025-07-20,2025-07-20,P009,Mango Protein Smoothie,Drinks,2,18.
 ORD000166,1,C0064,2025-07-21,2025-07-21,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,31.00,organic,Amazon,paid_search,tablet,S00166,FALSE,2025-04,95,80,426.00,Online
 ORD000167,1,C0099,2025-07-22,2025-07-22,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,21.00,organic,Amazon,paid_search,tablet,S00167,TRUE,2025-06,0,0,218.00,Online
 ORD000168,1,C0061,2025-07-22,2025-07-22,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,0.00,organic,Amazon,organic,tablet,S00168,FALSE,2025-04,97,97,209.00,Online
-ORD000168,2,C0061,2025-07-22,2025-07-22,P010,Mega Combo Box,Kits,4,89.00,356.00,0,0.00,356.00,35.00,140.00,216.00,0.00,organic,Amazon,organic,tablet,S00168,FALSE,2025-04,97,97,209.00,Online
+ORD000168,2,C0061,2025-07-22,2025-07-22,P010,Mega Combo Box,Kits,4,89.00,356.00,0,0.00,356.00,35.00,140.00,216.00,0.00,organic,Amazon,organic,mobile,S00168,FALSE,2025-04,97,97,209.00,Online
 ORD000169,1,C0054,2025-07-22,2025-07-22,P010,Mega Combo Box,Kits,1,89.00,89.00,0,0.00,89.00,35.00,35.00,54.00,11.00,organic,Amazon,paid_search,desktop,S00169,FALSE,2025-03,142,108,210.00,COD
 ORD000169,2,C0054,2025-07-22,2025-07-22,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,11.00,organic,Amazon,paid_search,desktop,S00169,FALSE,2025-03,142,108,210.00,COD
 ORD000170,1,C0098,2025-07-22,2025-07-22,P006,Trial Discovery Kit,Kits,1,65.00,65.00,5,3.25,61.75,22.00,22.00,39.75,0.00,first_time_customer,Amazon,organic,desktop,S00170,TRUE,2025-06,0,0,81.00,COD
@@ -431,9 +431,9 @@ ORD000186,1,C0105,2025-08-03,2025-08-03,P005,Almond Crunch Bars,Bars,3,24.00,72.
 ORD000186,2,C0105,2025-08-03,2025-08-03,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,7.75,organic,Amazon,paid_social,mobile,S00186,TRUE,2025-07,0,0,417.00,Online
 ORD000186,3,C0105,2025-08-03,2025-08-03,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,0,0.00,18.00,9.00,9.00,9.00,7.75,organic,Amazon,paid_social,mobile,S00186,TRUE,2025-07,0,0,417.00,Online
 ORD000186,4,C0105,2025-08-03,2025-08-03,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,7.75,organic,Amazon,paid_social,mobile,S00186,TRUE,2025-07,0,0,417.00,Online
-ORD000187,1,C0038,2025-08-05,2025-08-05,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,4.75,organic,Amazon,paid_search,tablet,S00187,FALSE,2025-02,168,21,680.00,COD
-ORD000187,2,C0038,2025-08-05,2025-08-05,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,4.75,organic,Amazon,paid_search,tablet,S00187,FALSE,2025-02,168,21,680.00,COD
-ORD000187,3,C0038,2025-08-05,2025-08-05,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,0,0.00,48.00,8.00,32.00,16.00,4.75,organic,Amazon,paid_search,tablet,S00187,FALSE,2025-02,168,21,680.00,COD
+ORD000187,1,C0038,2025-08-05,2025-08-05,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,4.75,organic,Amazon,paid_search,mobile,S00187,FALSE,2025-02,168,21,680.00,COD
+ORD000187,2,C0038,2025-08-05,2025-08-05,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,4.75,organic,Amazon,paid_search,mobile,S00187,FALSE,2025-02,168,21,680.00,COD
+ORD000187,3,C0038,2025-08-05,2025-08-05,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,0,0.00,48.00,8.00,32.00,16.00,4.75,organic,Amazon,paid_search,mobile,S00187,FALSE,2025-02,168,21,680.00,COD
 ORD000187,4,C0038,2025-08-05,2025-08-05,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,4.75,organic,Amazon,paid_search,tablet,S00187,FALSE,2025-02,168,21,680.00,COD
 ORD000188,1,C0102,2025-08-06,2025-08-06,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,15.00,organic,Shopify,paid_search,mobile,S00188,TRUE,2025-06,0,0,138.00,COD
 ORD000188,2,C0102,2025-08-06,2025-08-06,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,15.00,organic,Shopify,paid_search,mobile,S00188,TRUE,2025-06,0,0,138.00,COD
@@ -451,8 +451,8 @@ ORD000191,4,C0107,2025-08-07,2025-08-07,P005,Almond Crunch Bars,Bars,2,24.00,48.
 ORD000192,1,C0035,2025-08-07,2025-08-07,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,7.33,organic,Shopify,paid_search,mobile,S00192,FALSE,2025-02,181,92,133.00,Online
 ORD000192,2,C0035,2025-08-07,2025-08-07,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,7.33,organic,Shopify,paid_search,mobile,S00192,FALSE,2025-02,181,92,133.00,Online
 ORD000192,3,C0035,2025-08-07,2025-08-07,P008,Collagen Peptides - Berry,Powder,4,58.00,232.00,0,0.00,232.00,23.00,92.00,140.00,7.33,organic,Shopify,paid_search,mobile,S00192,FALSE,2025-02,181,92,133.00,Online
-ORD000193,1,C0104,2025-08-08,2025-08-08,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,15.00,organic,Shopify,paid_social,tablet,S00193,TRUE,2025-06,0,0,481.00,COD
-ORD000193,2,C0104,2025-08-08,2025-08-08,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,15.00,organic,Shopify,paid_social,tablet,S00193,TRUE,2025-06,0,0,481.00,COD
+ORD000193,1,C0104,2025-08-08,2025-08-08,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,15.00,organic,Shopify,paid_social,mobile,S00193,TRUE,2025-06,0,0,481.00,COD
+ORD000193,2,C0104,2025-08-08,2025-08-08,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,15.00,organic,Shopify,paid_social,mobile,S00193,TRUE,2025-06,0,0,481.00,COD
 ORD000194,1,C0113,2025-08-10,2025-08-10,P005,Almond Crunch Bars,Bars,3,24.00,72.00,5,3.60,68.40,11.00,33.00,35.40,23.50,first_time_customer,Shopify,paid_social,mobile,S00194,TRUE,2025-07,0,0,56.00,COD
 ORD000194,2,C0113,2025-08-10,2025-08-10,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,5,0.60,11.40,8.00,8.00,3.40,23.50,first_time_customer,Shopify,paid_social,mobile,S00194,TRUE,2025-07,0,0,56.00,COD
 ORD000195,1,C0044,2025-08-12,2025-08-12,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,0.00,organic,Amazon,organic,tablet,S00195,FALSE,2025-03,144,32,621.00,Online
@@ -469,9 +469,9 @@ ORD000198,4,C0066,2025-08-13,2025-08-13,P001,Whey Isolate - Choc,Powder,1,45.00,
 ORD000199,1,C0115,2025-08-14,2025-08-14,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,0,0.00,58.00,23.00,23.00,35.00,0.00,organic,Amazon,organic,mobile,S00199,TRUE,2025-07,0,0,320.00,Online
 ORD000199,2,C0115,2025-08-14,2025-08-14,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,0.00,organic,Amazon,organic,mobile,S00199,TRUE,2025-07,0,0,320.00,Online
 ORD000199,3,C0115,2025-08-14,2025-08-14,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,0.00,organic,Amazon,organic,mobile,S00199,TRUE,2025-07,0,0,320.00,Online
-ORD000200,1,C0026,2025-08-18,2025-08-18,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,12.00,organic,Shopify,paid_search,tablet,S00200,FALSE,2025-02,179,32,468.00,COD
-ORD000200,2,C0026,2025-08-18,2025-08-18,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,12.00,organic,Shopify,paid_search,tablet,S00200,FALSE,2025-02,179,32,468.00,COD
-ORD000200,3,C0026,2025-08-18,2025-08-18,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,12.00,organic,Shopify,paid_search,tablet,S00200,FALSE,2025-02,179,32,468.00,COD
+ORD000200,1,C0026,2025-08-18,2025-08-18,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,12.00,organic,Shopify,paid_search,mobile,S00200,FALSE,2025-02,179,32,468.00,COD
+ORD000200,2,C0026,2025-08-18,2025-08-18,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,12.00,organic,Shopify,paid_search,mobile,S00200,FALSE,2025-02,179,32,468.00,COD
+ORD000200,3,C0026,2025-08-18,2025-08-18,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,12.00,organic,Shopify,paid_search,mobile,S00200,FALSE,2025-02,179,32,468.00,COD
 ORD000201,1,C0070,2025-08-18,2025-08-18,P001,Whey Isolate - Choc,Powder,4,45.00,180.00,0,0.00,180.00,18.00,72.00,108.00,6.33,organic,Shopify,paid_search,desktop,S00201,FALSE,2025-04,127,58,433.00,Online
 ORD000201,2,C0070,2025-08-18,2025-08-18,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,6.33,organic,Shopify,paid_search,desktop,S00201,FALSE,2025-04,127,58,433.00,Online
 ORD000201,3,C0070,2025-08-18,2025-08-18,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,6.33,organic,Shopify,paid_search,desktop,S00201,FALSE,2025-04,127,58,433.00,Online
@@ -481,7 +481,7 @@ ORD000202,3,C0055,2025-08-19,2025-08-19,P007,Smooth Peanut Butter,Butter,1,35.00
 ORD000203,1,C0111,2025-08-20,2025-08-20,P005,Almond Crunch Bars,Bars,2,24.00,48.00,10,4.80,43.20,11.00,22.00,21.20,19.00,first_time_customer,Amazon,paid_search,desktop,S00203,TRUE,2025-07,0,0,596.00,COD
 ORD000203,2,C0111,2025-08-20,2025-08-20,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,10,13.50,121.50,18.00,54.00,67.50,19.00,first_time_customer,Amazon,paid_search,desktop,S00203,TRUE,2025-07,0,0,596.00,COD
 ORD000203,3,C0111,2025-08-20,2025-08-20,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,10,2.40,21.60,8.00,16.00,5.60,19.00,first_time_customer,Amazon,paid_search,desktop,S00203,TRUE,2025-07,0,0,596.00,COD
-ORD000204,1,C0108,2025-08-21,2025-08-21,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,5,3.50,66.50,21.00,42.00,24.50,0.00,organic,Shopify,organic,tablet,S00204,TRUE,2025-07,0,0,623.00,Online
+ORD000204,1,C0108,2025-08-21,2025-08-21,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,5,3.50,66.50,21.00,42.00,24.50,0.00,organic,Shopify,organic,mobile,S00204,TRUE,2025-07,0,0,623.00,Online
 ORD000205,1,C0119,2025-08-22,2025-08-22,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,5,5.25,99.75,21.00,63.00,36.75,18.00,first_time_customer,Shopify,paid_social,mobile,S00205,TRUE,2025-07,0,0,205.00,COD
 ORD000205,2,C0119,2025-08-22,2025-08-22,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,5,1.80,34.20,9.00,18.00,16.20,18.00,first_time_customer,Shopify,paid_social,mobile,S00205,TRUE,2025-07,0,0,205.00,COD
 ORD000205,3,C0119,2025-08-22,2025-08-22,P005,Almond Crunch Bars,Bars,2,24.00,48.00,5,2.40,45.60,11.00,22.00,23.60,18.00,first_time_customer,Shopify,paid_social,mobile,S00205,TRUE,2025-07,0,0,205.00,COD
@@ -493,7 +493,7 @@ ORD000207,1,C0048,2025-08-26,2025-08-26,P002,Dark Choc Protein Butter,Butter,2,2
 ORD000207,2,C0048,2025-08-26,2025-08-26,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,11.50,organic,Shopify,paid_search,mobile,S00207,FALSE,2025-03,163,32,607.00,Online
 ORD000208,1,C0116,2025-08-27,2025-08-27,P008,Collagen Peptides - Berry,Powder,5,58.00,290.00,5,14.50,275.50,23.00,115.00,160.50,23.00,first_time_customer,Amazon,paid_search,mobile,S00208,TRUE,2025-07,0,0,68.00,Online
 ORD000208,2,C0116,2025-08-27,2025-08-27,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,5,7.00,133.00,21.00,84.00,49.00,23.00,first_time_customer,Amazon,paid_search,mobile,S00208,TRUE,2025-07,0,0,68.00,Online
-ORD000209,1,C0041,2025-08-27,2025-08-27,P006,Trial Discovery Kit,Kits,2,65.00,130.00,0,0.00,130.00,22.00,44.00,86.00,0.00,organic,Amazon,organic,tablet,S00209,FALSE,2025-02,191,75,319.00,Online
+ORD000209,1,C0041,2025-08-27,2025-08-27,P006,Trial Discovery Kit,Kits,2,65.00,130.00,0,0.00,130.00,22.00,44.00,86.00,0.00,organic,Amazon,organic,mobile,S00209,FALSE,2025-02,191,75,319.00,Online
 ORD000209,2,C0041,2025-08-27,2025-08-27,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,0.00,organic,Amazon,organic,tablet,S00209,FALSE,2025-02,191,75,319.00,Online
 ORD000210,1,C0046,2025-08-28,2025-08-28,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,0.00,organic,Amazon,organic,mobile,S00210,FALSE,2025-03,158,45,653.00,Online
 ORD000210,2,C0046,2025-08-28,2025-08-28,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,0.00,organic,Amazon,organic,mobile,S00210,FALSE,2025-03,158,45,653.00,Online
@@ -501,7 +501,7 @@ ORD000211,1,C0122,2025-09-01,2025-09-01,P009,Mango Protein Smoothie,Drinks,2,18.
 ORD000212,1,C0118,2025-09-01,2025-09-01,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,0.00,first_time_customer,Amazon,organic,mobile,S00212,TRUE,2025-07,0,0,189.00,Online
 ORD000212,2,C0118,2025-09-01,2025-09-01,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,0.00,first_time_customer,Amazon,organic,mobile,S00212,TRUE,2025-07,0,0,189.00,Online
 ORD000212,3,C0118,2025-09-01,2025-09-01,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,0,0.00,116.00,23.00,46.00,70.00,0.00,first_time_customer,Amazon,organic,mobile,S00212,TRUE,2025-07,0,0,189.00,Online
-ORD000213,1,C0033,2025-09-04,2025-09-04,P002,Dark Choc Protein Butter,Butter,4,28.00,112.00,0,0.00,112.00,21.00,84.00,28.00,38.00,organic,Shopify,paid_search,tablet,S00213,FALSE,2025-02,205,56,436.00,Online
+ORD000213,1,C0033,2025-09-04,2025-09-04,P002,Dark Choc Protein Butter,Butter,4,28.00,112.00,0,0.00,112.00,21.00,84.00,28.00,38.00,organic,Shopify,paid_search,mobile,S00213,FALSE,2025-02,205,56,436.00,Online
 ORD000214,1,C0013,2025-09-04,2025-09-04,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,0.00,organic,Amazon,organic,mobile,S00214,FALSE,2025-01,234,69,321.00,Online
 ORD000214,2,C0013,2025-09-04,2025-09-04,P006,Trial Discovery Kit,Kits,1,65.00,65.00,0,0.00,65.00,22.00,22.00,43.00,0.00,organic,Amazon,organic,mobile,S00214,FALSE,2025-01,234,69,321.00,Online
 ORD000215,1,C0023,2025-09-07,2025-09-07,P003,Himalayan Salt Chips,Chips,5,12.00,60.00,0,0.00,60.00,8.00,40.00,20.00,13.00,organic,Amazon,paid_social,mobile,S00215,FALSE,2025-02,195,84,206.00,Online
@@ -552,8 +552,8 @@ ORD000235,1,C0117,2025-09-25,2025-09-25,P006,Trial Discovery Kit,Kits,2,65.00,13
 ORD000235,2,C0117,2025-09-25,2025-09-25,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,7.25,organic,Shopify,paid_search,mobile,S00235,TRUE,2025-07,0,0,306.00,COD
 ORD000235,3,C0117,2025-09-25,2025-09-25,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,0,0.00,18.00,9.00,9.00,9.00,7.25,organic,Shopify,paid_search,mobile,S00235,TRUE,2025-07,0,0,306.00,COD
 ORD000235,4,C0117,2025-09-25,2025-09-25,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,7.25,organic,Shopify,paid_search,mobile,S00235,TRUE,2025-07,0,0,306.00,COD
-ORD000236,1,C0074,2025-09-25,2025-09-25,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,11.00,organic,Amazon,paid_search,tablet,S00236,FALSE,2025-04,174,127,154.00,Online
-ORD000236,2,C0074,2025-09-25,2025-09-25,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,11.00,organic,Amazon,paid_search,tablet,S00236,FALSE,2025-04,174,127,154.00,Online
+ORD000236,1,C0074,2025-09-25,2025-09-25,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,11.00,organic,Amazon,paid_search,mobile,S00236,FALSE,2025-04,174,127,154.00,Online
+ORD000236,2,C0074,2025-09-25,2025-09-25,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,11.00,organic,Amazon,paid_search,mobile,S00236,FALSE,2025-04,174,127,154.00,Online
 ORD000237,1,C0066,2025-09-27,2025-09-27,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,4.50,organic,Shopify,paid_social,desktop,S00237,FALSE,2025-04,155,45,472.00,Online
 ORD000237,2,C0066,2025-09-27,2025-09-27,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,4.50,organic,Shopify,paid_social,desktop,S00237,FALSE,2025-04,155,45,472.00,Online
 ORD000237,3,C0066,2025-09-27,2025-09-27,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,4.50,organic,Shopify,paid_social,desktop,S00237,FALSE,2025-04,155,45,472.00,Online
@@ -580,9 +580,9 @@ ORD000245,1,C0038,2025-10-04,2025-10-04,P005,Almond Crunch Bars,Bars,4,24.00,96.
 ORD000245,2,C0038,2025-10-04,2025-10-04,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,7.00,organic,Amazon,paid_search,mobile,S00245,FALSE,2025-02,228,60,680.00,Online
 ORD000245,3,C0038,2025-10-04,2025-10-04,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,0,0.00,116.00,23.00,46.00,70.00,7.00,organic,Amazon,paid_search,mobile,S00245,FALSE,2025-02,228,60,680.00,Online
 ORD000245,4,C0038,2025-10-04,2025-10-04,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,7.00,organic,Amazon,paid_search,mobile,S00245,FALSE,2025-02,228,60,680.00,Online
-ORD000246,1,C0064,2025-10-05,2025-10-05,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,12,6.96,51.04,23.00,23.00,28.04,20.00,big_billion_days,Shopify,paid_search,tablet,S00246,FALSE,2025-04,171,76,426.00,Online
-ORD000246,2,C0064,2025-10-05,2025-10-05,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,12,16.20,118.80,18.00,54.00,64.80,20.00,big_billion_days,Shopify,paid_search,tablet,S00246,FALSE,2025-04,171,76,426.00,Online
-ORD000246,3,C0064,2025-10-05,2025-10-05,P010,Mega Combo Box,Kits,3,89.00,267.00,12,32.04,234.96,35.00,105.00,129.96,20.00,big_billion_days,Shopify,paid_search,tablet,S00246,FALSE,2025-04,171,76,426.00,Online
+ORD000246,1,C0064,2025-10-05,2025-10-05,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,12,6.96,51.04,23.00,23.00,28.04,20.00,big_billion_days,Shopify,paid_search,mobile,S00246,FALSE,2025-04,171,76,426.00,Online
+ORD000246,2,C0064,2025-10-05,2025-10-05,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,12,16.20,118.80,18.00,54.00,64.80,20.00,big_billion_days,Shopify,paid_search,mobile,S00246,FALSE,2025-04,171,76,426.00,Online
+ORD000246,3,C0064,2025-10-05,2025-10-05,P010,Mega Combo Box,Kits,3,89.00,267.00,12,32.04,234.96,35.00,105.00,129.96,20.00,big_billion_days,Shopify,paid_search,mobile,S00246,FALSE,2025-04,171,76,426.00,Online
 ORD000247,1,C0131,2025-10-05,2025-10-05,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,12,10.80,79.20,18.00,36.00,43.20,56.00,big_billion_days,Shopify,paid_search,mobile,S00247,TRUE,2025-07,0,0,140.00,Online
 ORD000248,1,C0088,2025-10-05,2025-10-05,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,18,10.08,45.92,21.00,42.00,3.92,26.00,big_billion_days,Amazon,paid_search,desktop,S00248,FALSE,2025-05,156,95,523.00,Online
 ORD000248,2,C0088,2025-10-05,2025-10-05,P004,Daily Plant Protein,Powder,2,52.00,104.00,18,18.72,85.28,20.00,40.00,45.28,26.00,big_billion_days,Amazon,paid_search,desktop,S00248,FALSE,2025-05,156,95,523.00,Online
@@ -623,15 +623,15 @@ ORD000266,2,C0143,2025-10-19,2025-10-19,P001,Whey Isolate - Choc,Powder,2,45.00,
 ORD000266,3,C0143,2025-10-19,2025-10-19,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,10,4.80,43.20,8.00,32.00,11.20,0.00,first_time_customer,Amazon,organic,mobile,S00266,TRUE,2025-08,0,0,65.00,COD
 ORD000267,1,C0140,2025-10-20,2025-10-20,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,20.00,organic,Amazon,paid_social,desktop,S00267,TRUE,2025-08,0,0,339.00,COD
 ORD000267,2,C0140,2025-10-20,2025-10-20,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,20.00,organic,Amazon,paid_social,desktop,S00267,TRUE,2025-08,0,0,339.00,COD
-ORD000268,1,C0011,2025-10-20,2025-10-20,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,19.00,organic,Amazon,paid_search,tablet,S00268,FALSE,2025-01,271,109,135.00,Online
+ORD000268,1,C0011,2025-10-20,2025-10-20,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,19.00,organic,Amazon,paid_search,mobile,S00268,FALSE,2025-01,271,109,135.00,Online
 ORD000268,2,C0011,2025-10-20,2025-10-20,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,19.00,organic,Amazon,paid_search,tablet,S00268,FALSE,2025-01,271,109,135.00,Online
 ORD000269,1,C0145,2025-10-20,2025-10-20,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,26.50,first_time_customer,Amazon,paid_search,mobile,S00269,TRUE,2025-08,0,0,490.00,COD
 ORD000269,2,C0145,2025-10-20,2025-10-20,P004,Daily Plant Protein,Powder,3,52.00,156.00,0,0.00,156.00,20.00,60.00,96.00,26.50,first_time_customer,Amazon,paid_search,mobile,S00269,TRUE,2025-08,0,0,490.00,COD
 ORD000270,1,C0033,2025-10-21,2025-10-21,P006,Trial Discovery Kit,Kits,1,65.00,65.00,0,0.00,65.00,22.00,22.00,43.00,6.67,organic,Amazon,paid_search,tablet,S00270,FALSE,2025-02,252,47,436.00,Online
 ORD000270,2,C0033,2025-10-21,2025-10-21,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,6.67,organic,Amazon,paid_search,tablet,S00270,FALSE,2025-02,252,47,436.00,Online
-ORD000270,3,C0033,2025-10-21,2025-10-21,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,6.67,organic,Amazon,paid_search,tablet,S00270,FALSE,2025-02,252,47,436.00,Online
-ORD000271,1,C0137,2025-10-21,2025-10-21,P004,Daily Plant Protein,Powder,3,52.00,156.00,0,0.00,156.00,20.00,60.00,96.00,15.50,organic,Amazon,paid_social,tablet,S00271,TRUE,2025-08,0,0,156.00,Online
-ORD000271,2,C0137,2025-10-21,2025-10-21,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,15.50,organic,Amazon,paid_social,tablet,S00271,TRUE,2025-08,0,0,156.00,Online
+ORD000270,3,C0033,2025-10-21,2025-10-21,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,6.67,organic,Amazon,paid_search,mobile,S00270,FALSE,2025-02,252,47,436.00,Online
+ORD000271,1,C0137,2025-10-21,2025-10-21,P004,Daily Plant Protein,Powder,3,52.00,156.00,0,0.00,156.00,20.00,60.00,96.00,15.50,organic,Amazon,paid_social,mobile,S00271,TRUE,2025-08,0,0,156.00,Online
+ORD000271,2,C0137,2025-10-21,2025-10-21,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,15.50,organic,Amazon,paid_social,mobile,S00271,TRUE,2025-08,0,0,156.00,Online
 ORD000272,1,C0065,2025-10-21,2025-10-21,P006,Trial Discovery Kit,Kits,2,65.00,130.00,5,6.50,123.50,22.00,44.00,79.50,18.00,organic,Amazon,paid_social,desktop,S00272,FALSE,2025-04,200,39,311.00,COD
 ORD000272,2,C0065,2025-10-21,2025-10-21,P004,Daily Plant Protein,Powder,2,52.00,104.00,5,5.20,98.80,20.00,40.00,58.80,18.00,organic,Amazon,paid_social,desktop,S00272,FALSE,2025-04,200,39,311.00,COD
 ORD000273,1,C0141,2025-10-21,2025-10-21,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,8.00,organic,Amazon,paid_search,mobile,S00273,TRUE,2025-08,0,0,623.00,COD
@@ -660,10 +660,10 @@ ORD000282,2,C0151,2025-10-25,2025-10-25,P003,Himalayan Salt Chips,Chips,3,12.00,
 ORD000282,3,C0151,2025-10-25,2025-10-25,P002,Dark Choc Protein Butter,Butter,3,28.00,84.00,10,8.40,75.60,21.00,63.00,12.60,14.00,first_time_customer,Shopify,paid_social,desktop,S00282,TRUE,2025-09,0,0,138.00,Online
 ORD000283,1,C0096,2025-10-25,2025-10-25,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,30.00,organic,Amazon,paid_social,mobile,S00283,FALSE,2025-06,119,93,436.00,Online
 ORD000284,1,C0093,2025-10-26,2025-10-26,P005,Almond Crunch Bars,Bars,1,24.00,24.00,5,1.20,22.80,11.00,11.00,11.80,0.00,organic,Amazon,organic,desktop,S00284,FALSE,2025-06,142,98,412.00,Online
-ORD000285,1,C0101,2025-10-27,2025-10-27,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,10.50,organic,Amazon,paid_social,tablet,S00285,FALSE,2025-06,135,96,345.00,Online
-ORD000285,2,C0101,2025-10-27,2025-10-27,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,10.50,organic,Amazon,paid_social,tablet,S00285,FALSE,2025-06,135,96,345.00,Online
-ORD000285,3,C0101,2025-10-27,2025-10-27,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,10.50,organic,Amazon,paid_social,tablet,S00285,FALSE,2025-06,135,96,345.00,Online
-ORD000285,4,C0101,2025-10-27,2025-10-27,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,10.50,organic,Amazon,paid_social,tablet,S00285,FALSE,2025-06,135,96,345.00,Online
+ORD000285,1,C0101,2025-10-27,2025-10-27,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,10.50,organic,Amazon,paid_social,mobile,S00285,FALSE,2025-06,135,96,345.00,Online
+ORD000285,2,C0101,2025-10-27,2025-10-27,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,10.50,organic,Amazon,paid_social,mobile,S00285,FALSE,2025-06,135,96,345.00,Online
+ORD000285,3,C0101,2025-10-27,2025-10-27,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,10.50,organic,Amazon,paid_social,mobile,S00285,FALSE,2025-06,135,96,345.00,Online
+ORD000285,4,C0101,2025-10-27,2025-10-27,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,10.50,organic,Amazon,paid_social,mobile,S00285,FALSE,2025-06,135,96,345.00,Online
 ORD000286,1,C0076,2025-10-28,2025-10-28,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,0,0.00,35.00,21.00,21.00,14.00,35.00,organic,Amazon,paid_search,desktop,S00286,FALSE,2025-04,204,17,601.00,Online
 ORD000287,1,C0038,2025-11-01,2025-11-01,P010,Mega Combo Box,Kits,3,89.00,267.00,5,13.35,253.65,35.00,105.00,148.65,0.00,organic,Amazon,organic,mobile,S00287,FALSE,2025-02,256,28,680.00,Online
 ORD000287,2,C0038,2025-11-01,2025-11-01,P004,Daily Plant Protein,Powder,3,52.00,156.00,5,7.80,148.20,20.00,60.00,88.20,0.00,organic,Amazon,organic,mobile,S00287,FALSE,2025-02,256,28,680.00,Online
@@ -751,8 +751,8 @@ ORD000328,1,C0112,2025-11-23,2025-11-23,P004,Daily Plant Protein,Powder,1,52.00,
 ORD000328,2,C0112,2025-11-23,2025-11-23,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,15,13.50,76.50,18.00,36.00,40.50,18.25,black_friday,Amazon,paid_social,mobile,S00328,FALSE,2025-07,140,103,436.00,Online
 ORD000328,3,C0112,2025-11-23,2025-11-23,P009,Mango Protein Smoothie,Drinks,3,18.00,54.00,15,8.10,45.90,9.00,27.00,18.90,18.25,black_friday,Amazon,paid_social,mobile,S00328,FALSE,2025-07,140,103,436.00,Online
 ORD000328,4,C0112,2025-11-23,2025-11-23,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,15,17.40,98.60,23.00,46.00,52.60,18.25,black_friday,Amazon,paid_social,mobile,S00328,FALSE,2025-07,140,103,436.00,Online
-ORD000329,1,C0161,2025-11-24,2025-11-24,P004,Daily Plant Protein,Powder,2,52.00,104.00,15,15.60,88.40,20.00,40.00,48.40,43.50,black_friday,Shopify,paid_social,tablet,S00329,TRUE,2025-10,0,0,265.00,COD
-ORD000329,2,C0161,2025-11-24,2025-11-24,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,15,5.25,29.75,21.00,21.00,8.75,43.50,black_friday,Shopify,paid_social,tablet,S00329,TRUE,2025-10,0,0,265.00,COD
+ORD000329,1,C0161,2025-11-24,2025-11-24,P004,Daily Plant Protein,Powder,2,52.00,104.00,15,15.60,88.40,20.00,40.00,48.40,43.50,black_friday,Shopify,paid_social,mobile,S00329,TRUE,2025-10,0,0,265.00,COD
+ORD000329,2,C0161,2025-11-24,2025-11-24,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,15,5.25,29.75,21.00,21.00,8.75,43.50,black_friday,Shopify,paid_social,mobile,S00329,TRUE,2025-10,0,0,265.00,COD
 ORD000330,1,C0076,2025-11-24,2025-11-24,P004,Daily Plant Protein,Powder,1,52.00,52.00,15,7.80,44.20,20.00,20.00,24.20,46.00,black_friday,Amazon,paid_search,desktop,S00330,FALSE,2025-04,231,27,601.00,Online
 ORD000331,1,C0170,2025-11-25,2025-11-25,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,15,7.20,40.80,8.00,32.00,8.80,20.33,black_friday,Amazon,paid_search,desktop,S00331,TRUE,2025-10,0,0,135.00,Online
 ORD000331,2,C0170,2025-11-25,2025-11-25,P006,Trial Discovery Kit,Kits,1,65.00,65.00,15,9.75,55.25,22.00,22.00,33.25,20.33,black_friday,Amazon,paid_search,desktop,S00331,TRUE,2025-10,0,0,135.00,Online
@@ -773,7 +773,7 @@ ORD000337,2,C0118,2025-11-27,2025-11-27,P006,Trial Discovery Kit,Kits,1,65.00,65
 ORD000338,1,C0169,2025-11-27,2025-11-27,P004,Daily Plant Protein,Powder,2,52.00,104.00,15,15.60,88.40,20.00,40.00,48.40,20.00,black_friday,Amazon,paid_social,desktop,S00338,TRUE,2025-10,0,0,275.00,COD
 ORD000338,2,C0169,2025-11-27,2025-11-27,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,15,8.70,49.30,23.00,23.00,26.30,20.00,black_friday,Amazon,paid_social,desktop,S00338,TRUE,2025-10,0,0,275.00,COD
 ORD000338,3,C0169,2025-11-27,2025-11-27,P001,Whey Isolate - Choc,Powder,4,45.00,180.00,15,27.00,153.00,18.00,72.00,81.00,20.00,black_friday,Amazon,paid_social,desktop,S00338,TRUE,2025-10,0,0,275.00,COD
-ORD000339,1,C0086,2025-12-04,2025-12-04,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,20,11.20,44.80,21.00,42.00,2.80,0.00,black_friday,Amazon,organic,tablet,S00339,FALSE,2025-05,212,32,455.00,Online
+ORD000339,1,C0086,2025-12-04,2025-12-04,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,20,11.20,44.80,21.00,42.00,2.80,0.00,black_friday,Amazon,organic,mobile,S00339,FALSE,2025-05,212,32,455.00,Online
 ORD000339,2,C0086,2025-12-04,2025-12-04,P006,Trial Discovery Kit,Kits,1,65.00,65.00,20,13.00,52.00,22.00,22.00,30.00,0.00,black_friday,Amazon,organic,tablet,S00339,FALSE,2025-05,212,32,455.00,Online
 ORD000339,3,C0086,2025-12-04,2025-12-04,P010,Mega Combo Box,Kits,5,89.00,445.00,20,89.00,356.00,35.00,175.00,181.00,0.00,black_friday,Amazon,organic,tablet,S00339,FALSE,2025-05,212,32,455.00,Online
 ORD000339,4,C0086,2025-12-04,2025-12-04,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,20,9.00,36.00,18.00,18.00,18.00,0.00,black_friday,Amazon,organic,tablet,S00339,FALSE,2025-05,212,32,455.00,Online
@@ -793,7 +793,7 @@ ORD000344,1,C0093,2025-12-07,2025-12-07,P003,Himalayan Salt Chips,Chips,2,12.00,
 ORD000344,2,C0093,2025-12-07,2025-12-07,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,8.50,organic,Shopify,paid_search,desktop,S00344,FALSE,2025-06,184,42,412.00,Online
 ORD000344,3,C0093,2025-12-07,2025-12-07,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,0,0.00,35.00,21.00,21.00,14.00,8.50,organic,Shopify,paid_search,desktop,S00344,FALSE,2025-06,184,42,412.00,Online
 ORD000344,4,C0093,2025-12-07,2025-12-07,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,8.50,organic,Shopify,paid_search,desktop,S00344,FALSE,2025-06,184,42,412.00,Online
-ORD000345,1,C0176,2025-12-08,2025-12-08,P005,Almond Crunch Bars,Bars,3,24.00,72.00,10,7.20,64.80,11.00,33.00,31.80,20.00,first_time_customer,Amazon,paid_search,tablet,S00345,TRUE,2025-10,0,0,108.00,Online
+ORD000345,1,C0176,2025-12-08,2025-12-08,P005,Almond Crunch Bars,Bars,3,24.00,72.00,10,7.20,64.80,11.00,33.00,31.80,20.00,first_time_customer,Amazon,paid_search,mobile,S00345,TRUE,2025-10,0,0,108.00,Online
 ORD000345,2,C0176,2025-12-08,2025-12-08,P010,Mega Combo Box,Kits,2,89.00,178.00,10,17.80,160.20,35.00,70.00,90.20,20.00,first_time_customer,Amazon,paid_search,tablet,S00345,TRUE,2025-10,0,0,108.00,Online
 ORD000346,1,C0177,2025-12-09,2025-12-09,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,10,3.60,32.40,8.00,24.00,8.40,39.00,first_time_customer,Amazon,paid_search,mobile,S00346,TRUE,2025-10,0,0,179.00,COD
 ORD000347,1,C0059,2025-12-09,2025-12-09,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,0.00,organic,Amazon,organic,desktop,S00347,FALSE,2025-03,269,38,437.00,Online
@@ -830,9 +830,9 @@ ORD000361,2,C0101,2025-12-19,2025-12-19,P009,Mango Protein Smoothie,Drinks,1,18.
 ORD000362,1,C0072,2025-12-19,2025-12-19,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,8.33,organic,Amazon,paid_social,desktop,S00362,FALSE,2025-04,244,69,427.00,Online
 ORD000362,2,C0072,2025-12-19,2025-12-19,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,8.33,organic,Amazon,paid_social,desktop,S00362,FALSE,2025-04,244,69,427.00,Online
 ORD000362,3,C0072,2025-12-19,2025-12-19,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,8.33,organic,Amazon,paid_social,desktop,S00362,FALSE,2025-04,244,69,427.00,Online
-ORD000363,1,C0178,2025-12-25,2025-12-25,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,10,7.00,63.00,21.00,42.00,21.00,13.33,first_time_customer,Amazon,paid_social,tablet,S00363,TRUE,2025-10,0,0,275.00,Online
-ORD000363,2,C0178,2025-12-25,2025-12-25,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,10,4.50,40.50,18.00,18.00,22.50,13.33,first_time_customer,Amazon,paid_social,tablet,S00363,TRUE,2025-10,0,0,275.00,Online
-ORD000363,3,C0178,2025-12-25,2025-12-25,P006,Trial Discovery Kit,Kits,1,65.00,65.00,10,6.50,58.50,22.00,22.00,36.50,13.33,first_time_customer,Amazon,paid_social,tablet,S00363,TRUE,2025-10,0,0,275.00,Online
+ORD000363,1,C0178,2025-12-25,2025-12-25,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,10,7.00,63.00,21.00,42.00,21.00,13.33,first_time_customer,Amazon,paid_social,mobile,S00363,TRUE,2025-10,0,0,275.00,Online
+ORD000363,2,C0178,2025-12-25,2025-12-25,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,10,4.50,40.50,18.00,18.00,22.50,13.33,first_time_customer,Amazon,paid_social,mobile,S00363,TRUE,2025-10,0,0,275.00,Online
+ORD000363,3,C0178,2025-12-25,2025-12-25,P006,Trial Discovery Kit,Kits,1,65.00,65.00,10,6.50,58.50,22.00,22.00,36.50,13.33,first_time_customer,Amazon,paid_social,mobile,S00363,TRUE,2025-10,0,0,275.00,Online
 ORD000364,1,C0185,2025-12-26,2025-12-26,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,20.00,organic,Amazon,paid_social,desktop,S00364,TRUE,2025-11,0,0,140.00,COD
 ORD000364,2,C0185,2025-12-26,2025-12-26,P002,Dark Choc Protein Butter,Butter,3,28.00,84.00,0,0.00,84.00,21.00,63.00,21.00,20.00,organic,Amazon,paid_social,desktop,S00364,TRUE,2025-11,0,0,140.00,COD
 ORD000365,1,C0070,2025-12-28,2025-12-28,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,0,0.00,48.00,8.00,32.00,16.00,13.67,organic,Shopify,paid_search,desktop,S00365,FALSE,2025-04,259,51,433.00,Online
@@ -841,16 +841,16 @@ ORD000365,3,C0070,2025-12-28,2025-12-28,P002,Dark Choc Protein Butter,Butter,1,2
 ORD000366,1,C0066,2025-12-28,2025-12-28,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,0,0.00,28.00,21.00,21.00,7.00,12.67,organic,Amazon,paid_social,desktop,S00366,FALSE,2025-04,247,18,472.00,Online
 ORD000366,2,C0066,2025-12-28,2025-12-28,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,12.67,organic,Amazon,paid_social,desktop,S00366,FALSE,2025-04,247,18,472.00,Online
 ORD000366,3,C0066,2025-12-28,2025-12-28,P005,Almond Crunch Bars,Bars,4,24.00,96.00,0,0.00,96.00,11.00,44.00,52.00,12.67,organic,Amazon,paid_social,desktop,S00366,FALSE,2025-04,247,18,472.00,Online
-ORD000367,1,C0086,2026-01-01,2026-01-01,P009,Mango Protein Smoothie,Drinks,4,18.00,72.00,0,0.00,72.00,9.00,36.00,36.00,0.00,organic,Amazon,organic,tablet,S00367,FALSE,2025-05,240,28,455.00,Online
-ORD000367,2,C0086,2026-01-01,2026-01-01,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,0.00,organic,Amazon,organic,tablet,S00367,FALSE,2025-05,240,28,455.00,Online
+ORD000367,1,C0086,2026-01-01,2026-01-01,P009,Mango Protein Smoothie,Drinks,4,18.00,72.00,0,0.00,72.00,9.00,36.00,36.00,0.00,organic,Amazon,organic,mobile,S00367,FALSE,2025-05,240,28,455.00,Online
+ORD000367,2,C0086,2026-01-01,2026-01-01,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,0.00,organic,Amazon,organic,mobile,S00367,FALSE,2025-05,240,28,455.00,Online
 ORD000368,1,C0045,2026-01-02,2026-01-02,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,10.50,organic,Shopify,paid_search,mobile,S00368,FALSE,2025-03,293,53,384.00,Online
 ORD000368,2,C0045,2026-01-02,2026-01-02,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,10.50,organic,Shopify,paid_search,mobile,S00368,FALSE,2025-03,293,53,384.00,Online
 ORD000369,1,C0187,2026-01-03,2026-01-03,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,5,1.75,33.25,21.00,21.00,12.25,9.67,organic,Shopify,paid_search,mobile,S00369,TRUE,2025-11,0,0,141.00,COD
 ORD000369,2,C0187,2026-01-03,2026-01-03,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,5,4.50,85.50,18.00,36.00,49.50,9.67,organic,Shopify,paid_search,mobile,S00369,TRUE,2025-11,0,0,141.00,COD
 ORD000369,3,C0187,2026-01-03,2026-01-03,P010,Mega Combo Box,Kits,3,89.00,267.00,5,13.35,253.65,35.00,105.00,148.65,9.67,organic,Shopify,paid_search,mobile,S00369,TRUE,2025-11,0,0,141.00,COD
 ORD000370,1,C0092,2026-01-04,2026-01-04,P010,Mega Combo Box,Kits,2,89.00,178.00,0,0.00,178.00,35.00,70.00,108.00,0.00,organic,Amazon,organic,tablet,S00370,FALSE,2025-06,212,55,297.00,Online
-ORD000370,2,C0092,2026-01-04,2026-01-04,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,0.00,organic,Amazon,organic,tablet,S00370,FALSE,2025-06,212,55,297.00,Online
-ORD000370,3,C0092,2026-01-04,2026-01-04,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,0,0.00,28.00,21.00,21.00,7.00,0.00,organic,Amazon,organic,tablet,S00370,FALSE,2025-06,212,55,297.00,Online
+ORD000370,2,C0092,2026-01-04,2026-01-04,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,0.00,organic,Amazon,organic,mobile,S00370,FALSE,2025-06,212,55,297.00,Online
+ORD000370,3,C0092,2026-01-04,2026-01-04,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,0,0.00,28.00,21.00,21.00,7.00,0.00,organic,Amazon,organic,mobile,S00370,FALSE,2025-06,212,55,297.00,Online
 ORD000371,1,C0044,2026-01-06,2026-01-06,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,0.00,organic,Shopify,organic,desktop,S00371,FALSE,2025-03,291,46,621.00,Online
 ORD000372,1,C0186,2026-01-07,2026-01-07,P005,Almond Crunch Bars,Bars,3,24.00,72.00,5,3.60,68.40,11.00,33.00,35.40,22.00,first_time_customer,Shopify,paid_social,desktop,S00372,TRUE,2025-11,0,0,292.00,Online
 ORD000373,1,C0076,2026-01-08,2026-01-08,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,0.00,organic,Amazon,organic,desktop,S00373,FALSE,2025-04,276,20,601.00,Online
@@ -880,10 +880,10 @@ ORD000383,1,C0048,2026-01-15,2026-01-15,P001,Whey Isolate - Choc,Powder,2,45.00,
 ORD000384,1,C0038,2026-01-15,2026-01-15,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,0.00,organic,Amazon,organic,mobile,S00384,FALSE,2025-02,331,51,680.00,Online
 ORD000384,2,C0038,2026-01-15,2026-01-15,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,0,0.00,35.00,21.00,21.00,14.00,0.00,organic,Amazon,organic,mobile,S00384,FALSE,2025-02,331,51,680.00,Online
 ORD000385,1,C0066,2026-01-15,2026-01-15,P006,Trial Discovery Kit,Kits,2,65.00,130.00,0,0.00,130.00,22.00,44.00,86.00,0.00,organic,Amazon,organic,mobile,S00385,FALSE,2025-04,265,18,472.00,COD
-ORD000386,1,C0026,2026-01-15,2026-01-15,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,4.75,organic,Shopify,paid_search,tablet,S00386,FALSE,2025-02,329,30,468.00,Online
-ORD000386,2,C0026,2026-01-15,2026-01-15,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,4.75,organic,Shopify,paid_search,tablet,S00386,FALSE,2025-02,329,30,468.00,Online
-ORD000386,3,C0026,2026-01-15,2026-01-15,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,4.75,organic,Shopify,paid_search,tablet,S00386,FALSE,2025-02,329,30,468.00,Online
-ORD000386,4,C0026,2026-01-15,2026-01-15,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,4.75,organic,Shopify,paid_search,tablet,S00386,FALSE,2025-02,329,30,468.00,Online
+ORD000386,1,C0026,2026-01-15,2026-01-15,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,4.75,organic,Shopify,paid_search,mobile,S00386,FALSE,2025-02,329,30,468.00,Online
+ORD000386,2,C0026,2026-01-15,2026-01-15,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,4.75,organic,Shopify,paid_search,mobile,S00386,FALSE,2025-02,329,30,468.00,Online
+ORD000386,3,C0026,2026-01-15,2026-01-15,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,4.75,organic,Shopify,paid_search,mobile,S00386,FALSE,2025-02,329,30,468.00,Online
+ORD000386,4,C0026,2026-01-15,2026-01-15,P006,Trial Discovery Kit,Kits,3,65.00,195.00,0,0.00,195.00,22.00,66.00,129.00,4.75,organic,Shopify,paid_search,mobile,S00386,FALSE,2025-02,329,30,468.00,Online
 ORD000387,1,C0105,2026-01-18,2026-01-18,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,0,0.00,58.00,23.00,23.00,35.00,0.00,organic,Shopify,organic,desktop,S00387,FALSE,2025-07,180,168,417.00,Online
 ORD000387,2,C0105,2026-01-18,2026-01-18,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,0.00,organic,Shopify,organic,desktop,S00387,FALSE,2025-07,180,168,417.00,Online
 ORD000387,3,C0105,2026-01-18,2026-01-18,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,0.00,organic,Shopify,organic,desktop,S00387,FALSE,2025-07,180,168,417.00,Online
@@ -893,25 +893,25 @@ ORD000389,2,C0191,2026-01-18,2026-01-18,P005,Almond Crunch Bars,Bars,2,24.00,48.
 ORD000390,1,C0103,2026-01-18,2026-01-18,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,27.00,organic,Amazon,paid_social,desktop,S00390,FALSE,2025-06,224,63,454.00,Online
 ORD000391,1,C0085,2026-01-18,2026-01-18,P006,Trial Discovery Kit,Kits,1,65.00,65.00,0,0.00,65.00,22.00,22.00,43.00,0.00,organic,Amazon,organic,desktop,S00391,FALSE,2025-05,248,86,145.00,Online
 ORD000391,2,C0085,2026-01-18,2026-01-18,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,0.00,organic,Amazon,organic,desktop,S00391,FALSE,2025-05,248,86,145.00,Online
-ORD000392,1,C0096,2026-01-19,2026-01-19,P004,Daily Plant Protein,Powder,5,52.00,260.00,5,13.00,247.00,20.00,100.00,147.00,0.00,organic,Shopify,organic,tablet,S00392,FALSE,2025-06,205,45,436.00,Online
-ORD000392,2,C0096,2026-01-19,2026-01-19,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,5,1.40,26.60,21.00,21.00,5.60,0.00,organic,Shopify,organic,tablet,S00392,FALSE,2025-06,205,45,436.00,Online
+ORD000392,1,C0096,2026-01-19,2026-01-19,P004,Daily Plant Protein,Powder,5,52.00,260.00,5,13.00,247.00,20.00,100.00,147.00,0.00,organic,Shopify,organic,mobile,S00392,FALSE,2025-06,205,45,436.00,Online
+ORD000392,2,C0096,2026-01-19,2026-01-19,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,5,1.40,26.60,21.00,21.00,5.60,0.00,organic,Shopify,organic,mobile,S00392,FALSE,2025-06,205,45,436.00,Online
 ORD000393,1,C0093,2026-01-19,2026-01-19,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,0.00,organic,Amazon,organic,desktop,S00393,FALSE,2025-06,227,43,412.00,Online
 ORD000394,1,C0104,2026-01-22,2026-01-22,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,8.33,organic,Amazon,paid_social,tablet,S00394,FALSE,2025-06,223,75,481.00,Online
 ORD000394,2,C0104,2026-01-22,2026-01-22,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,8.33,organic,Amazon,paid_social,tablet,S00394,FALSE,2025-06,223,75,481.00,Online
 ORD000394,3,C0104,2026-01-22,2026-01-22,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,8.33,organic,Amazon,paid_social,tablet,S00394,FALSE,2025-06,223,75,481.00,Online
 ORD000395,1,C0192,2026-01-23,2026-01-23,P008,Collagen Peptides - Berry,Powder,5,58.00,290.00,5,14.50,275.50,23.00,115.00,160.50,0.00,first_time_customer,Amazon,organic,mobile,S00395,TRUE,2025-11,0,0,106.00,Online
 ORD000395,2,C0192,2026-01-23,2026-01-23,P005,Almond Crunch Bars,Bars,3,24.00,72.00,5,3.60,68.40,11.00,33.00,35.40,0.00,first_time_customer,Amazon,organic,mobile,S00395,TRUE,2025-11,0,0,106.00,Online
-ORD000396,1,C0086,2026-01-23,2026-01-23,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,10.00,organic,Amazon,paid_social,tablet,S00396,FALSE,2025-05,262,22,455.00,Online
-ORD000396,2,C0086,2026-01-23,2026-01-23,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,10.00,organic,Amazon,paid_social,tablet,S00396,FALSE,2025-05,262,22,455.00,Online
-ORD000396,3,C0086,2026-01-23,2026-01-23,P005,Almond Crunch Bars,Bars,4,24.00,96.00,0,0.00,96.00,11.00,44.00,52.00,10.00,organic,Amazon,paid_social,tablet,S00396,FALSE,2025-05,262,22,455.00,Online
+ORD000396,1,C0086,2026-01-23,2026-01-23,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,10.00,organic,Amazon,paid_social,mobile,S00396,FALSE,2025-05,262,22,455.00,Online
+ORD000396,2,C0086,2026-01-23,2026-01-23,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,10.00,organic,Amazon,paid_social,mobile,S00396,FALSE,2025-05,262,22,455.00,Online
+ORD000396,3,C0086,2026-01-23,2026-01-23,P005,Almond Crunch Bars,Bars,4,24.00,96.00,0,0.00,96.00,11.00,44.00,52.00,10.00,organic,Amazon,paid_social,mobile,S00396,FALSE,2025-05,262,22,455.00,Online
 ORD000397,1,C0182,2026-01-25,2026-01-25,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,10,1.80,16.20,9.00,9.00,7.20,34.00,first_time_customer,Shopify,paid_search,mobile,S00397,TRUE,2025-11,0,0,474.00,Online
 ORD000398,1,C0107,2026-01-25,2026-01-25,P009,Mango Protein Smoothie,Drinks,3,18.00,54.00,0,0.00,54.00,9.00,27.00,27.00,23.00,organic,Amazon,paid_search,desktop,S00398,FALSE,2025-07,202,171,451.00,Online
 ORD000399,1,C0050,2026-01-26,2026-01-26,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,0.00,organic,Amazon,organic,mobile,S00399,FALSE,2025-03,325,42,441.00,Online
 ORD000399,2,C0050,2026-01-26,2026-01-26,P007,Smooth Peanut Butter,Butter,5,35.00,175.00,0,0.00,175.00,21.00,105.00,70.00,0.00,organic,Amazon,organic,mobile,S00399,FALSE,2025-03,325,42,441.00,Online
 ORD000399,3,C0050,2026-01-26,2026-01-26,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,0.00,organic,Amazon,organic,mobile,S00399,FALSE,2025-03,325,42,441.00,Online
 ORD000400,1,C0112,2026-01-26,2026-01-26,P001,Whey Isolate - Choc,Powder,4,45.00,180.00,0,0.00,180.00,18.00,72.00,108.00,21.00,organic,Amazon,paid_social,mobile,S00400,FALSE,2025-07,204,64,436.00,Online
-ORD000401,1,C0193,2026-02-01,2026-02-01,P001,Whey Isolate - Choc,Powder,5,45.00,225.00,0,0.00,225.00,18.00,90.00,135.00,0.00,organic,Shopify,organic,tablet,S00401,TRUE,2025-11,0,0,159.00,Online
-ORD000402,1,C0195,2026-02-02,2026-02-02,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,14.00,organic,Amazon,paid_search,tablet,S00402,TRUE,2025-11,0,0,57.00,Online
+ORD000401,1,C0193,2026-02-01,2026-02-01,P001,Whey Isolate - Choc,Powder,5,45.00,225.00,0,0.00,225.00,18.00,90.00,135.00,0.00,organic,Shopify,organic,mobile,S00401,TRUE,2025-11,0,0,159.00,Online
+ORD000402,1,C0195,2026-02-02,2026-02-02,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,14.00,organic,Amazon,paid_search,mobile,S00402,TRUE,2025-11,0,0,57.00,Online
 ORD000403,1,C0106,2026-02-02,2026-02-02,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,0.00,organic,Shopify,organic,mobile,S00403,FALSE,2025-07,193,74,490.00,Online
 ORD000403,2,C0106,2026-02-02,2026-02-02,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,0.00,organic,Shopify,organic,mobile,S00403,FALSE,2025-07,193,74,490.00,Online
 ORD000403,3,C0106,2026-02-02,2026-02-02,P008,Collagen Peptides - Berry,Powder,5,58.00,290.00,0,0.00,290.00,23.00,115.00,175.00,0.00,organic,Shopify,organic,mobile,S00403,FALSE,2025-07,193,74,490.00,Online
@@ -931,9 +931,9 @@ ORD000408,1,C0038,2026-02-05,2026-02-05,P001,Whey Isolate - Choc,Powder,3,45.00,
 ORD000408,2,C0038,2026-02-05,2026-02-05,P002,Dark Choc Protein Butter,Butter,4,28.00,112.00,0,0.00,112.00,21.00,84.00,28.00,9.50,organic,Amazon,paid_social,desktop,S00408,FALSE,2025-02,352,21,680.00,Online
 ORD000409,1,C0088,2026-02-06,2026-02-06,P004,Daily Plant Protein,Powder,4,52.00,208.00,0,0.00,208.00,20.00,80.00,128.00,0.00,organic,Amazon,organic,mobile,S00409,FALSE,2025-05,280,124,523.00,Online
 ORD000410,1,C0115,2026-02-07,2026-02-07,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,0,0.00,58.00,23.00,23.00,35.00,24.00,organic,Amazon,paid_social,mobile,S00410,FALSE,2025-07,195,177,320.00,Online
-ORD000411,1,C0065,2026-02-07,2026-02-07,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,0.00,organic,Shopify,organic,tablet,S00411,FALSE,2025-04,309,73,311.00,Online
-ORD000411,2,C0065,2026-02-07,2026-02-07,P005,Almond Crunch Bars,Bars,3,24.00,72.00,0,0.00,72.00,11.00,33.00,39.00,0.00,organic,Shopify,organic,tablet,S00411,FALSE,2025-04,309,73,311.00,Online
-ORD000411,3,C0065,2026-02-07,2026-02-07,P006,Trial Discovery Kit,Kits,1,65.00,65.00,0,0.00,65.00,22.00,22.00,43.00,0.00,organic,Shopify,organic,tablet,S00411,FALSE,2025-04,309,73,311.00,Online
+ORD000411,1,C0065,2026-02-07,2026-02-07,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,0.00,organic,Shopify,organic,mobile,S00411,FALSE,2025-04,309,73,311.00,Online
+ORD000411,2,C0065,2026-02-07,2026-02-07,P005,Almond Crunch Bars,Bars,3,24.00,72.00,0,0.00,72.00,11.00,33.00,39.00,0.00,organic,Shopify,organic,mobile,S00411,FALSE,2025-04,309,73,311.00,Online
+ORD000411,3,C0065,2026-02-07,2026-02-07,P006,Trial Discovery Kit,Kits,1,65.00,65.00,0,0.00,65.00,22.00,22.00,43.00,0.00,organic,Shopify,organic,mobile,S00411,FALSE,2025-04,309,73,311.00,Online
 ORD000412,1,C0108,2026-02-07,2026-02-07,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,0,0.00,48.00,8.00,32.00,16.00,23.00,organic,Shopify,paid_social,desktop,S00412,FALSE,2025-07,217,170,623.00,Online
 ORD000413,1,C0190,2026-02-08,2026-02-08,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,5,2.40,45.60,8.00,32.00,13.60,29.00,first_time_customer,Shopify,paid_search,desktop,S00413,TRUE,2025-11,0,0,640.00,Online
 ORD000414,1,C0120,2026-02-09,2026-02-09,P005,Almond Crunch Bars,Bars,5,24.00,120.00,0,0.00,120.00,11.00,55.00,65.00,15.00,organic,Shopify,paid_social,mobile,S00414,FALSE,2025-07,215,171,675.00,Online
@@ -944,17 +944,17 @@ ORD000417,1,C0101,2026-02-13,2026-02-13,P010,Mega Combo Box,Kits,1,89.00,89.00,5
 ORD000417,2,C0101,2026-02-13,2026-02-13,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,5,1.20,22.80,8.00,16.00,6.80,9.00,organic,Amazon,paid_social,mobile,S00417,FALSE,2025-06,244,56,345.00,Online
 ORD000418,1,C0069,2026-02-15,2026-02-15,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,8.00,organic,Amazon,paid_search,desktop,S00418,FALSE,2025-04,319,59,440.00,Online
 ORD000418,2,C0069,2026-02-15,2026-02-15,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,8.00,organic,Amazon,paid_search,desktop,S00418,FALSE,2025-04,319,59,440.00,Online
-ORD000419,1,C0194,2026-02-17,2026-02-17,P004,Daily Plant Protein,Powder,3,52.00,156.00,5,7.80,148.20,20.00,60.00,88.20,8.67,first_time_customer,Amazon,paid_social,tablet,S00419,TRUE,2025-11,0,0,283.00,Online
-ORD000419,2,C0194,2026-02-17,2026-02-17,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,5,2.80,53.20,21.00,42.00,11.20,8.67,first_time_customer,Amazon,paid_social,tablet,S00419,TRUE,2025-11,0,0,283.00,Online
+ORD000419,1,C0194,2026-02-17,2026-02-17,P004,Daily Plant Protein,Powder,3,52.00,156.00,5,7.80,148.20,20.00,60.00,88.20,8.67,first_time_customer,Amazon,paid_social,mobile,S00419,TRUE,2025-11,0,0,283.00,Online
+ORD000419,2,C0194,2026-02-17,2026-02-17,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,5,2.80,53.20,21.00,42.00,11.20,8.67,first_time_customer,Amazon,paid_social,mobile,S00419,TRUE,2025-11,0,0,283.00,Online
 ORD000419,3,C0194,2026-02-17,2026-02-17,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,5,1.75,33.25,21.00,21.00,12.25,8.67,first_time_customer,Amazon,paid_social,tablet,S00419,TRUE,2025-11,0,0,283.00,Online
 ORD000420,1,C0086,2026-02-18,2026-02-18,P005,Almond Crunch Bars,Bars,3,24.00,72.00,5,3.60,68.40,11.00,33.00,35.40,3.75,organic,Amazon,paid_search,mobile,S00420,FALSE,2025-05,288,26,455.00,Online
 ORD000420,2,C0086,2026-02-18,2026-02-18,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,5,0.60,11.40,8.00,8.00,3.40,3.75,organic,Amazon,paid_search,mobile,S00420,FALSE,2025-05,288,26,455.00,Online
 ORD000420,3,C0086,2026-02-18,2026-02-18,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,5,1.40,26.60,21.00,21.00,5.60,3.75,organic,Amazon,paid_search,mobile,S00420,FALSE,2025-05,288,26,455.00,Online
 ORD000420,4,C0086,2026-02-18,2026-02-18,P004,Daily Plant Protein,Powder,1,52.00,52.00,5,2.60,49.40,20.00,20.00,29.40,3.75,organic,Amazon,paid_search,mobile,S00420,FALSE,2025-05,288,26,455.00,Online
-ORD000421,1,C0198,2026-02-18,2026-02-18,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,8.50,organic,Amazon,paid_search,tablet,S00421,TRUE,2025-11,0,0,393.00,Online
-ORD000421,2,C0198,2026-02-18,2026-02-18,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,8.50,organic,Amazon,paid_search,tablet,S00421,TRUE,2025-11,0,0,393.00,Online
-ORD000422,1,C0111,2026-02-18,2026-02-18,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,10.00,organic,Amazon,paid_social,tablet,S00422,FALSE,2025-07,223,99,596.00,Online
-ORD000422,2,C0111,2026-02-18,2026-02-18,P006,Trial Discovery Kit,Kits,2,65.00,130.00,0,0.00,130.00,22.00,44.00,86.00,10.00,organic,Amazon,paid_social,tablet,S00422,FALSE,2025-07,223,99,596.00,Online
+ORD000421,1,C0198,2026-02-18,2026-02-18,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,8.50,organic,Amazon,paid_search,mobile,S00421,TRUE,2025-11,0,0,393.00,Online
+ORD000421,2,C0198,2026-02-18,2026-02-18,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,8.50,organic,Amazon,paid_search,mobile,S00421,TRUE,2025-11,0,0,393.00,Online
+ORD000422,1,C0111,2026-02-18,2026-02-18,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,10.00,organic,Amazon,paid_social,mobile,S00422,FALSE,2025-07,223,99,596.00,Online
+ORD000422,2,C0111,2026-02-18,2026-02-18,P006,Trial Discovery Kit,Kits,2,65.00,130.00,0,0.00,130.00,22.00,44.00,86.00,10.00,organic,Amazon,paid_social,mobile,S00422,FALSE,2025-07,223,99,596.00,Online
 ORD000423,1,C0200,2026-02-19,2026-02-19,P003,Himalayan Salt Chips,Chips,4,12.00,48.00,0,0.00,48.00,8.00,32.00,16.00,10.00,organic,Amazon,paid_search,desktop,S00423,TRUE,2025-11,0,0,145.00,Online
 ORD000423,2,C0200,2026-02-19,2026-02-19,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,10.00,organic,Amazon,paid_search,desktop,S00423,TRUE,2025-11,0,0,145.00,Online
 ORD000424,1,C0048,2026-02-20,2026-02-20,P007,Smooth Peanut Butter,Butter,4,35.00,140.00,0,0.00,140.00,21.00,84.00,56.00,0.00,organic,Shopify,organic,tablet,S00424,FALSE,2025-03,341,36,607.00,Online
@@ -962,8 +962,8 @@ ORD000425,1,C0196,2026-02-20,2026-02-20,P001,Whey Isolate - Choc,Powder,1,45.00,
 ORD000425,2,C0196,2026-02-20,2026-02-20,P006,Trial Discovery Kit,Kits,1,65.00,65.00,0,0.00,65.00,22.00,22.00,43.00,0.00,organic,Shopify,organic,mobile,S00425,TRUE,2025-11,0,0,137.00,Online
 ORD000425,3,C0196,2026-02-20,2026-02-20,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,0,0.00,35.00,21.00,21.00,14.00,0.00,organic,Shopify,organic,mobile,S00425,TRUE,2025-11,0,0,137.00,Online
 ORD000425,4,C0196,2026-02-20,2026-02-20,P008,Collagen Peptides - Berry,Powder,4,58.00,232.00,0,0.00,232.00,23.00,92.00,140.00,0.00,organic,Shopify,organic,mobile,S00425,TRUE,2025-11,0,0,137.00,Online
-ORD000426,1,C0046,2026-02-23,2026-02-23,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,15.00,organic,Shopify,paid_search,tablet,S00426,FALSE,2025-03,337,42,653.00,Online
-ORD000426,2,C0046,2026-02-23,2026-02-23,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,0,0.00,58.00,23.00,23.00,35.00,15.00,organic,Shopify,paid_search,tablet,S00426,FALSE,2025-03,337,42,653.00,Online
+ORD000426,1,C0046,2026-02-23,2026-02-23,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,0,0.00,105.00,21.00,63.00,42.00,15.00,organic,Shopify,paid_search,mobile,S00426,FALSE,2025-03,337,42,653.00,Online
+ORD000426,2,C0046,2026-02-23,2026-02-23,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,0,0.00,58.00,23.00,23.00,35.00,15.00,organic,Shopify,paid_search,mobile,S00426,FALSE,2025-03,337,42,653.00,Online
 ORD000427,1,C0112,2026-02-24,2026-02-24,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,0,0.00,70.00,21.00,42.00,28.00,10.00,organic,Shopify,paid_search,mobile,S00427,FALSE,2025-07,233,29,436.00,Online
 ORD000427,2,C0112,2026-02-24,2026-02-24,P005,Almond Crunch Bars,Bars,3,24.00,72.00,0,0.00,72.00,11.00,33.00,39.00,10.00,organic,Shopify,paid_search,mobile,S00427,FALSE,2025-07,233,29,436.00,Online
 ORD000427,3,C0112,2026-02-24,2026-02-24,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,10.00,organic,Shopify,paid_search,mobile,S00427,FALSE,2025-07,233,29,436.00,Online
@@ -974,8 +974,8 @@ ORD000428,4,C0197,2026-02-26,2026-02-26,P007,Smooth Peanut Butter,Butter,1,35.00
 ORD000429,1,C0202,2026-02-27,2026-02-27,P010,Mega Combo Box,Kits,2,89.00,178.00,5,8.90,169.10,35.00,70.00,99.10,15.50,first_time_customer,Shopify,paid_social,mobile,S00429,TRUE,2025-11,0,0,229.00,Online
 ORD000429,2,C0202,2026-02-27,2026-02-27,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,5,3.50,66.50,21.00,42.00,24.50,15.50,first_time_customer,Shopify,paid_social,mobile,S00429,TRUE,2025-11,0,0,229.00,Online
 ORD000430,1,C0047,2026-02-27,2026-02-27,P001,Whey Isolate - Choc,Powder,4,45.00,180.00,0,0.00,180.00,18.00,72.00,108.00,17.00,organic,Amazon,paid_search,mobile,S00430,FALSE,2025-03,346,24,622.00,Online
-ORD000431,1,C0205,2026-02-27,2026-02-27,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,10,13.50,121.50,18.00,54.00,67.50,9.67,first_time_customer,Shopify,paid_social,tablet,S00431,TRUE,2025-12,0,0,324.00,COD
-ORD000431,2,C0205,2026-02-27,2026-02-27,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,10,3.60,32.40,9.00,18.00,14.40,9.67,first_time_customer,Shopify,paid_social,tablet,S00431,TRUE,2025-12,0,0,324.00,COD
+ORD000431,1,C0205,2026-02-27,2026-02-27,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,10,13.50,121.50,18.00,54.00,67.50,9.67,first_time_customer,Shopify,paid_social,mobile,S00431,TRUE,2025-12,0,0,324.00,COD
+ORD000431,2,C0205,2026-02-27,2026-02-27,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,10,3.60,32.40,9.00,18.00,14.40,9.67,first_time_customer,Shopify,paid_social,mobile,S00431,TRUE,2025-12,0,0,324.00,COD
 ORD000431,3,C0205,2026-02-27,2026-02-27,P006,Trial Discovery Kit,Kits,1,65.00,65.00,10,6.50,58.50,22.00,22.00,36.50,9.67,first_time_customer,Shopify,paid_social,tablet,S00431,TRUE,2025-12,0,0,324.00,COD
 ORD000432,1,C0206,2026-02-28,2026-02-28,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,13.50,organic,Amazon,paid_social,tablet,S00432,TRUE,2025-12,0,0,447.00,COD
 ORD000432,2,C0206,2026-02-28,2026-02-28,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,13.50,organic,Amazon,paid_social,tablet,S00432,TRUE,2025-12,0,0,447.00,COD
@@ -990,12 +990,12 @@ ORD000437,3,C0203,2026-03-02,2026-03-02,P003,Himalayan Salt Chips,Chips,4,12.00,
 ORD000438,1,C0076,2026-03-02,2026-03-02,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,4.33,organic,Amazon,paid_search,mobile,S00438,FALSE,2025-04,329,26,601.00,Online
 ORD000438,2,C0076,2026-03-02,2026-03-02,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,4.33,organic,Amazon,paid_search,mobile,S00438,FALSE,2025-04,329,26,601.00,Online
 ORD000438,3,C0076,2026-03-02,2026-03-02,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,0,0.00,135.00,18.00,54.00,81.00,4.33,organic,Amazon,paid_search,mobile,S00438,FALSE,2025-04,329,26,601.00,Online
-ORD000439,1,C0104,2026-03-02,2026-03-02,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,5.67,organic,Shopify,paid_search,tablet,S00439,FALSE,2025-06,262,39,481.00,Online
-ORD000439,2,C0104,2026-03-02,2026-03-02,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,5.67,organic,Shopify,paid_search,tablet,S00439,FALSE,2025-06,262,39,481.00,Online
-ORD000439,3,C0104,2026-03-02,2026-03-02,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,5.67,organic,Shopify,paid_search,tablet,S00439,FALSE,2025-06,262,39,481.00,Online
+ORD000439,1,C0104,2026-03-02,2026-03-02,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,5.67,organic,Shopify,paid_search,mobile,S00439,FALSE,2025-06,262,39,481.00,Online
+ORD000439,2,C0104,2026-03-02,2026-03-02,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,5.67,organic,Shopify,paid_search,mobile,S00439,FALSE,2025-06,262,39,481.00,Online
+ORD000439,3,C0104,2026-03-02,2026-03-02,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,5.67,organic,Shopify,paid_search,mobile,S00439,FALSE,2025-06,262,39,481.00,Online
 ORD000440,1,C0121,2026-03-03,2026-03-03,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,0,0.00,116.00,23.00,46.00,70.00,0.00,organic,Shopify,organic,desktop,S00440,FALSE,2025-07,244,150,151.00,Online
-ORD000441,1,C0201,2026-03-05,2026-03-05,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,0,0.00,35.00,21.00,21.00,14.00,0.00,organic,Amazon,organic,tablet,S00441,TRUE,2025-11,0,0,140.00,Online
-ORD000441,2,C0201,2026-03-05,2026-03-05,P010,Mega Combo Box,Kits,2,89.00,178.00,0,0.00,178.00,35.00,70.00,108.00,0.00,organic,Amazon,organic,tablet,S00441,TRUE,2025-11,0,0,140.00,Online
+ORD000441,1,C0201,2026-03-05,2026-03-05,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,0,0.00,35.00,21.00,21.00,14.00,0.00,organic,Amazon,organic,mobile,S00441,TRUE,2025-11,0,0,140.00,Online
+ORD000441,2,C0201,2026-03-05,2026-03-05,P010,Mega Combo Box,Kits,2,89.00,178.00,0,0.00,178.00,35.00,70.00,108.00,0.00,organic,Amazon,organic,mobile,S00441,TRUE,2025-11,0,0,140.00,Online
 ORD000442,1,C0066,2026-03-07,2026-03-07,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,0,0.00,36.00,9.00,18.00,18.00,14.50,organic,Amazon,paid_search,desktop,S00442,FALSE,2025-04,316,51,472.00,Online
 ORD000442,2,C0066,2026-03-07,2026-03-07,P006,Trial Discovery Kit,Kits,2,65.00,130.00,0,0.00,130.00,22.00,44.00,86.00,14.50,organic,Amazon,paid_search,desktop,S00442,FALSE,2025-04,316,51,472.00,Online
 ORD000443,1,C0106,2026-03-07,2026-03-07,P005,Almond Crunch Bars,Bars,3,24.00,72.00,0,0.00,72.00,11.00,33.00,39.00,10.00,organic,Shopify,paid_social,mobile,S00443,FALSE,2025-07,226,33,490.00,Online
@@ -1011,25 +1011,25 @@ ORD000450,1,C0127,2026-03-13,2026-03-13,P004,Daily Plant Protein,Powder,2,52.00,
 ORD000450,2,C0127,2026-03-13,2026-03-13,P005,Almond Crunch Bars,Bars,2,24.00,48.00,22,10.56,37.44,11.00,22.00,15.44,0.00,easter_special,Amazon,organic,desktop,S00450,FALSE,2025-07,242,159,234.00,Online
 ORD000450,3,C0127,2026-03-13,2026-03-13,P006,Trial Discovery Kit,Kits,5,65.00,325.00,22,71.50,253.50,22.00,110.00,143.50,0.00,easter_special,Amazon,organic,desktop,S00450,FALSE,2025-07,242,159,234.00,Online
 ORD000451,1,C0208,2026-03-15,2026-03-15,P006,Trial Discovery Kit,Kits,2,65.00,130.00,22,28.60,101.40,22.00,44.00,57.40,91.00,easter_special,Shopify,paid_social,mobile,S00451,TRUE,2025-12,0,0,105.00,Online
-ORD000452,1,C0119,2026-03-15,2026-03-15,P004,Daily Plant Protein,Powder,1,52.00,52.00,25,13.00,39.00,20.00,20.00,19.00,31.50,easter_special,Amazon,paid_search,tablet,S00452,FALSE,2025-07,244,205,205.00,Online
-ORD000452,2,C0119,2026-03-15,2026-03-15,P006,Trial Discovery Kit,Kits,1,65.00,65.00,25,16.25,48.75,22.00,22.00,26.75,31.50,easter_special,Amazon,paid_search,tablet,S00452,FALSE,2025-07,244,205,205.00,Online
-ORD000452,3,C0119,2026-03-15,2026-03-15,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,25,9.00,27.00,8.00,24.00,3.00,31.50,easter_special,Amazon,paid_search,tablet,S00452,FALSE,2025-07,244,205,205.00,Online
-ORD000452,4,C0119,2026-03-15,2026-03-15,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,25,43.50,130.50,23.00,69.00,61.50,31.50,easter_special,Amazon,paid_search,tablet,S00452,FALSE,2025-07,244,205,205.00,Online
+ORD000452,1,C0119,2026-03-15,2026-03-15,P004,Daily Plant Protein,Powder,1,52.00,52.00,25,13.00,39.00,20.00,20.00,19.00,31.50,easter_special,Amazon,paid_search,mobile,S00452,FALSE,2025-07,244,205,205.00,Online
+ORD000452,2,C0119,2026-03-15,2026-03-15,P006,Trial Discovery Kit,Kits,1,65.00,65.00,25,16.25,48.75,22.00,22.00,26.75,31.50,easter_special,Amazon,paid_search,mobile,S00452,FALSE,2025-07,244,205,205.00,Online
+ORD000452,3,C0119,2026-03-15,2026-03-15,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,25,9.00,27.00,8.00,24.00,3.00,31.50,easter_special,Amazon,paid_search,mobile,S00452,FALSE,2025-07,244,205,205.00,Online
+ORD000452,4,C0119,2026-03-15,2026-03-15,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,25,43.50,130.50,23.00,69.00,61.50,31.50,easter_special,Amazon,paid_search,mobile,S00452,FALSE,2025-07,244,205,205.00,Online
 ORD000453,1,C0105,2026-03-15,2026-03-15,P004,Daily Plant Protein,Powder,1,52.00,52.00,22,11.44,40.56,20.00,20.00,20.56,36.33,easter_special,Shopify,paid_search,mobile,S00453,FALSE,2025-07,236,56,417.00,Online
 ORD000453,2,C0105,2026-03-15,2026-03-15,P005,Almond Crunch Bars,Bars,3,24.00,72.00,22,15.84,56.16,11.00,33.00,23.16,36.33,easter_special,Shopify,paid_search,mobile,S00453,FALSE,2025-07,236,56,417.00,Online
 ORD000453,3,C0105,2026-03-15,2026-03-15,P006,Trial Discovery Kit,Kits,2,65.00,130.00,22,28.60,101.40,22.00,44.00,57.40,36.33,easter_special,Shopify,paid_search,mobile,S00453,FALSE,2025-07,236,56,417.00,Online
 ORD000454,1,C0204,2026-03-16,2026-03-16,P005,Almond Crunch Bars,Bars,4,24.00,96.00,22,21.12,74.88,11.00,44.00,30.88,0.00,easter_special,Amazon,organic,desktop,S00454,TRUE,2025-12,0,0,255.00,Online
 ORD000454,2,C0204,2026-03-16,2026-03-16,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,22,5.28,18.72,8.00,16.00,2.72,0.00,easter_special,Amazon,organic,desktop,S00454,TRUE,2025-12,0,0,255.00,Online
 ORD000454,3,C0204,2026-03-16,2026-03-16,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,22,6.16,21.84,21.00,21.00,0.84,0.00,easter_special,Amazon,organic,desktop,S00454,TRUE,2025-12,0,0,255.00,Online
-ORD000455,1,C0111,2026-03-17,2026-03-17,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,25,8.75,26.25,21.00,21.00,5.25,0.00,easter_special,Amazon,organic,tablet,S00455,FALSE,2025-07,250,27,596.00,Online
-ORD000455,2,C0111,2026-03-17,2026-03-17,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,25,9.00,27.00,8.00,24.00,3.00,0.00,easter_special,Amazon,organic,tablet,S00455,FALSE,2025-07,250,27,596.00,Online
+ORD000455,1,C0111,2026-03-17,2026-03-17,P007,Smooth Peanut Butter,Butter,1,35.00,35.00,25,8.75,26.25,21.00,21.00,5.25,0.00,easter_special,Amazon,organic,mobile,S00455,FALSE,2025-07,250,27,596.00,Online
+ORD000455,2,C0111,2026-03-17,2026-03-17,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,25,9.00,27.00,8.00,24.00,3.00,0.00,easter_special,Amazon,organic,mobile,S00455,FALSE,2025-07,250,27,596.00,Online
 ORD000456,1,C0207,2026-03-18,2026-03-18,P001,Whey Isolate - Choc,Powder,3,45.00,135.00,22,29.70,105.30,18.00,54.00,51.30,0.00,easter_special,Amazon,organic,desktop,S00456,TRUE,2025-12,0,0,365.00,Online
 ORD000456,2,C0207,2026-03-18,2026-03-18,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,22,12.32,43.68,21.00,42.00,1.68,0.00,easter_special,Amazon,organic,desktop,S00456,TRUE,2025-12,0,0,365.00,Online
 ORD000457,1,C0209,2026-03-19,2026-03-19,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,18,6.48,29.52,9.00,18.00,11.52,0.00,easter_special,Amazon,organic,mobile,S00457,TRUE,2025-12,0,0,132.00,COD
 ORD000458,1,C0213,2026-03-20,2026-03-20,P004,Daily Plant Protein,Powder,1,52.00,52.00,22,11.44,40.56,20.00,20.00,20.56,0.00,easter_special,Amazon,organic,tablet,S00458,TRUE,2026-01,0,0,139.00,COD
 ORD000458,2,C0213,2026-03-20,2026-03-20,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,22,2.64,9.36,8.00,8.00,1.36,0.00,easter_special,Amazon,organic,tablet,S00458,TRUE,2026-01,0,0,139.00,COD
 ORD000458,3,C0213,2026-03-20,2026-03-20,P010,Mega Combo Box,Kits,1,89.00,89.00,22,19.58,69.42,35.00,35.00,34.42,0.00,easter_special,Amazon,organic,tablet,S00458,TRUE,2026-01,0,0,139.00,COD
-ORD000458,4,C0213,2026-03-20,2026-03-20,P005,Almond Crunch Bars,Bars,2,24.00,48.00,22,10.56,37.44,11.00,22.00,15.44,0.00,easter_special,Amazon,organic,tablet,S00458,TRUE,2026-01,0,0,139.00,COD
+ORD000458,4,C0213,2026-03-20,2026-03-20,P005,Almond Crunch Bars,Bars,2,24.00,48.00,22,10.56,37.44,11.00,22.00,15.44,0.00,easter_special,Amazon,organic,mobile,S00458,TRUE,2026-01,0,0,139.00,COD
 ORD000459,1,C0211,2026-03-20,2026-03-20,P006,Trial Discovery Kit,Kits,4,65.00,260.00,18,46.80,213.20,22.00,88.00,125.20,0.00,easter_special,Amazon,organic,desktop,S00459,TRUE,2025-12,0,0,323.00,Online
 ORD000459,2,C0211,2026-03-20,2026-03-20,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,18,8.10,36.90,18.00,18.00,18.90,0.00,easter_special,Amazon,organic,desktop,S00459,TRUE,2025-12,0,0,323.00,Online
 ORD000459,3,C0211,2026-03-20,2026-03-20,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,18,12.60,57.40,21.00,42.00,15.40,0.00,easter_special,Amazon,organic,desktop,S00459,TRUE,2025-12,0,0,323.00,Online
@@ -1039,10 +1039,10 @@ ORD000461,1,C0120,2026-03-22,2026-03-22,P002,Dark Choc Protein Butter,Butter,2,2
 ORD000461,2,C0120,2026-03-22,2026-03-22,P005,Almond Crunch Bars,Bars,1,24.00,24.00,25,6.00,18.00,11.00,11.00,7.00,45.50,easter_special,Shopify,paid_social,desktop,S00461,FALSE,2025-07,256,41,675.00,Online
 ORD000462,1,C0214,2026-03-24,2026-03-24,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,18,16.20,73.80,18.00,36.00,37.80,0.00,easter_special,Shopify,organic,mobile,S00462,TRUE,2026-01,0,0,558.00,Online
 ORD000462,2,C0214,2026-03-24,2026-03-24,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,18,10.44,47.56,23.00,23.00,24.56,0.00,easter_special,Shopify,organic,mobile,S00462,TRUE,2026-01,0,0,558.00,Online
-ORD000463,1,C0086,2026-03-24,2026-03-24,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,22,25.52,90.48,23.00,46.00,44.48,27.25,easter_special,Amazon,paid_social,tablet,S00463,FALSE,2025-05,322,34,455.00,COD
-ORD000463,2,C0086,2026-03-24,2026-03-24,P009,Mango Protein Smoothie,Drinks,3,18.00,54.00,22,11.88,42.12,9.00,27.00,15.12,27.25,easter_special,Amazon,paid_social,tablet,S00463,FALSE,2025-05,322,34,455.00,COD
-ORD000463,3,C0086,2026-03-24,2026-03-24,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,22,9.90,35.10,18.00,18.00,17.10,27.25,easter_special,Amazon,paid_social,tablet,S00463,FALSE,2025-05,322,34,455.00,COD
-ORD000463,4,C0086,2026-03-24,2026-03-24,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,22,15.40,54.60,21.00,42.00,12.60,27.25,easter_special,Amazon,paid_social,tablet,S00463,FALSE,2025-05,322,34,455.00,COD
+ORD000463,1,C0086,2026-03-24,2026-03-24,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,22,25.52,90.48,23.00,46.00,44.48,27.25,easter_special,Amazon,paid_social,mobile,S00463,FALSE,2025-05,322,34,455.00,COD
+ORD000463,2,C0086,2026-03-24,2026-03-24,P009,Mango Protein Smoothie,Drinks,3,18.00,54.00,22,11.88,42.12,9.00,27.00,15.12,27.25,easter_special,Amazon,paid_social,mobile,S00463,FALSE,2025-05,322,34,455.00,COD
+ORD000463,3,C0086,2026-03-24,2026-03-24,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,22,9.90,35.10,18.00,18.00,17.10,27.25,easter_special,Amazon,paid_social,mobile,S00463,FALSE,2025-05,322,34,455.00,COD
+ORD000463,4,C0086,2026-03-24,2026-03-24,P007,Smooth Peanut Butter,Butter,2,35.00,70.00,22,15.40,54.60,21.00,42.00,12.60,27.25,easter_special,Amazon,paid_social,mobile,S00463,FALSE,2025-05,322,34,455.00,COD
 ORD000464,1,C0046,2026-03-24,2026-03-24,P005,Almond Crunch Bars,Bars,2,24.00,48.00,18,8.64,39.36,11.00,22.00,17.36,0.00,easter_special,Shopify,organic,mobile,S00464,FALSE,2025-03,366,29,653.00,Online
 ORD000464,2,C0046,2026-03-24,2026-03-24,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,18,6.48,29.52,8.00,24.00,5.52,0.00,easter_special,Shopify,organic,mobile,S00464,FALSE,2025-03,366,29,653.00,Online
 ORD000464,3,C0046,2026-03-24,2026-03-24,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,18,16.20,73.80,18.00,36.00,37.80,0.00,easter_special,Shopify,organic,mobile,S00464,FALSE,2025-03,366,29,653.00,Online
@@ -1050,9 +1050,9 @@ ORD000464,4,C0046,2026-03-24,2026-03-24,P006,Trial Discovery Kit,Kits,1,65.00,65
 ORD000465,1,C0212,2026-03-25,2026-03-25,P005,Almond Crunch Bars,Bars,2,24.00,48.00,25,12.00,36.00,11.00,22.00,14.00,92.00,easter_special,Amazon,paid_search,desktop,S00465,TRUE,2025-12,0,0,433.00,Online
 ORD000466,1,C0210,2026-03-25,2026-03-25,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,22,19.80,70.20,18.00,36.00,34.20,56.50,easter_special,Shopify,paid_social,mobile,S00466,TRUE,2025-12,0,0,161.00,Online
 ORD000466,2,C0210,2026-03-25,2026-03-25,P004,Daily Plant Protein,Powder,1,52.00,52.00,22,11.44,40.56,20.00,20.00,20.56,56.50,easter_special,Shopify,paid_social,mobile,S00466,TRUE,2025-12,0,0,161.00,Online
-ORD000467,1,C0108,2026-03-25,2026-03-25,P003,Himalayan Salt Chips,Chips,5,12.00,60.00,22,13.20,46.80,8.00,40.00,6.80,89.00,easter_special,Shopify,paid_search,tablet,S00467,FALSE,2025-07,263,46,623.00,Online
-ORD000468,1,C0137,2026-03-28,2026-03-28,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,18,4.32,19.68,8.00,16.00,3.68,56.50,easter_special,Amazon,paid_search,tablet,S00468,FALSE,2025-08,215,158,156.00,Online
-ORD000468,2,C0137,2026-03-28,2026-03-28,P001,Whey Isolate - Choc,Powder,4,45.00,180.00,18,32.40,147.60,18.00,72.00,75.60,56.50,easter_special,Amazon,paid_search,tablet,S00468,FALSE,2025-08,215,158,156.00,Online
+ORD000467,1,C0108,2026-03-25,2026-03-25,P003,Himalayan Salt Chips,Chips,5,12.00,60.00,22,13.20,46.80,8.00,40.00,6.80,89.00,easter_special,Shopify,paid_search,mobile,S00467,FALSE,2025-07,263,46,623.00,Online
+ORD000468,1,C0137,2026-03-28,2026-03-28,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,18,4.32,19.68,8.00,16.00,3.68,56.50,easter_special,Amazon,paid_search,mobile,S00468,FALSE,2025-08,215,158,156.00,Online
+ORD000468,2,C0137,2026-03-28,2026-03-28,P001,Whey Isolate - Choc,Powder,4,45.00,180.00,18,32.40,147.60,18.00,72.00,75.60,56.50,easter_special,Amazon,paid_search,mobile,S00468,FALSE,2025-08,215,158,156.00,Online
 ORD000469,1,C0216,2026-04-01,2026-04-01,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,18,6.48,29.52,8.00,24.00,5.52,33.00,easter_special,Shopify,paid_search,mobile,S00469,TRUE,2026-01,0,0,375.00,Online
 ORD000469,2,C0216,2026-04-01,2026-04-01,P002,Dark Choc Protein Butter,Butter,3,28.00,84.00,18,15.12,68.88,21.00,63.00,5.88,33.00,easter_special,Shopify,paid_search,mobile,S00469,TRUE,2026-01,0,0,375.00,Online
 ORD000469,3,C0216,2026-04-01,2026-04-01,P005,Almond Crunch Bars,Bars,2,24.00,48.00,18,8.64,39.36,11.00,22.00,17.36,33.00,easter_special,Shopify,paid_search,mobile,S00469,TRUE,2026-01,0,0,375.00,Online
@@ -1061,9 +1061,9 @@ ORD000470,2,C0115,2026-04-01,2026-04-01,P010,Mega Combo Box,Kits,1,89.00,89.00,2
 ORD000471,1,C0096,2026-04-02,2026-04-02,P006,Trial Discovery Kit,Kits,2,65.00,130.00,22,28.60,101.40,22.00,44.00,57.40,39.00,easter_special,Amazon,paid_social,mobile,S00471,FALSE,2025-06,278,32,436.00,Online
 ORD000471,2,C0096,2026-04-02,2026-04-02,P008,Collagen Peptides - Berry,Powder,1,58.00,58.00,22,12.76,45.24,23.00,23.00,22.24,39.00,easter_special,Amazon,paid_social,mobile,S00471,FALSE,2025-06,278,32,436.00,Online
 ORD000471,3,C0096,2026-04-02,2026-04-02,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,22,7.92,28.08,9.00,18.00,10.08,39.00,easter_special,Amazon,paid_social,mobile,S00471,FALSE,2025-06,278,32,436.00,Online
-ORD000472,1,C0066,2026-04-02,2026-04-02,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,25,9.00,27.00,9.00,18.00,9.00,29.67,easter_special,Amazon,paid_search,tablet,S00472,FALSE,2025-04,342,26,472.00,Online
-ORD000472,2,C0066,2026-04-02,2026-04-02,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,25,3.00,9.00,8.00,8.00,1.00,29.67,easter_special,Amazon,paid_search,tablet,S00472,FALSE,2025-04,342,26,472.00,Online
-ORD000472,3,C0066,2026-04-02,2026-04-02,P004,Daily Plant Protein,Powder,2,52.00,104.00,25,26.00,78.00,20.00,40.00,38.00,29.67,easter_special,Amazon,paid_search,tablet,S00472,FALSE,2025-04,342,26,472.00,Online
+ORD000472,1,C0066,2026-04-02,2026-04-02,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,25,9.00,27.00,9.00,18.00,9.00,29.67,easter_special,Amazon,paid_search,mobile,S00472,FALSE,2025-04,342,26,472.00,Online
+ORD000472,2,C0066,2026-04-02,2026-04-02,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,25,3.00,9.00,8.00,8.00,1.00,29.67,easter_special,Amazon,paid_search,mobile,S00472,FALSE,2025-04,342,26,472.00,Online
+ORD000472,3,C0066,2026-04-02,2026-04-02,P004,Daily Plant Protein,Powder,2,52.00,104.00,25,26.00,78.00,20.00,40.00,38.00,29.67,easter_special,Amazon,paid_search,mobile,S00472,FALSE,2025-04,342,26,472.00,Online
 ORD000473,1,C0199,2026-04-02,2026-04-02,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,25,6.00,18.00,8.00,16.00,2.00,52.00,easter_special,Shopify,paid_social,desktop,S00473,TRUE,2025-11,0,0,151.00,Online
 ORD000473,2,C0199,2026-04-02,2026-04-02,P002,Dark Choc Protein Butter,Butter,3,28.00,84.00,25,21.00,63.00,21.00,63.00,0.00,52.00,easter_special,Shopify,paid_social,desktop,S00473,TRUE,2025-11,0,0,151.00,Online
 ORD000474,1,C0219,2026-04-03,2026-04-03,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,22,19.80,70.20,18.00,36.00,34.20,99.00,easter_special,Shopify,paid_search,mobile,S00474,TRUE,2026-01,0,0,268.00,Online
@@ -1071,8 +1071,8 @@ ORD000475,1,C0044,2026-04-05,2026-04-05,P004,Daily Plant Protein,Powder,3,52.00,
 ORD000475,2,C0044,2026-04-05,2026-04-05,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,22,9.90,35.10,18.00,18.00,17.10,31.25,easter_special,Shopify,paid_social,mobile,S00475,FALSE,2025-03,380,54,621.00,Online
 ORD000475,3,C0044,2026-04-05,2026-04-05,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,22,7.92,28.08,8.00,24.00,4.08,31.25,easter_special,Shopify,paid_social,mobile,S00475,FALSE,2025-03,380,54,621.00,Online
 ORD000475,4,C0044,2026-04-05,2026-04-05,P005,Almond Crunch Bars,Bars,2,24.00,48.00,22,10.56,37.44,11.00,22.00,15.44,31.25,easter_special,Shopify,paid_social,mobile,S00475,FALSE,2025-03,380,54,621.00,Online
-ORD000476,1,C0026,2026-04-05,2026-04-05,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,25,29.00,87.00,23.00,46.00,41.00,0.00,easter_special,Shopify,organic,tablet,S00476,FALSE,2025-02,409,59,468.00,Online
-ORD000476,2,C0026,2026-04-05,2026-04-05,P005,Almond Crunch Bars,Bars,3,24.00,72.00,25,18.00,54.00,11.00,33.00,21.00,0.00,easter_special,Shopify,organic,tablet,S00476,FALSE,2025-02,409,59,468.00,Online
+ORD000476,1,C0026,2026-04-05,2026-04-05,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,25,29.00,87.00,23.00,46.00,41.00,0.00,easter_special,Shopify,organic,mobile,S00476,FALSE,2025-02,409,59,468.00,Online
+ORD000476,2,C0026,2026-04-05,2026-04-05,P005,Almond Crunch Bars,Bars,3,24.00,72.00,25,18.00,54.00,11.00,33.00,21.00,0.00,easter_special,Shopify,organic,mobile,S00476,FALSE,2025-02,409,59,468.00,Online
 ORD000477,1,C0070,2026-04-06,2026-04-06,P004,Daily Plant Protein,Powder,3,52.00,156.00,18,28.08,127.92,20.00,60.00,67.92,53.50,easter_special,Amazon,paid_search,desktop,S00477,FALSE,2025-04,358,36,433.00,Online
 ORD000477,2,C0070,2026-04-06,2026-04-06,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,18,6.48,29.52,9.00,18.00,11.52,53.50,easter_special,Amazon,paid_search,desktop,S00477,FALSE,2025-04,358,36,433.00,Online
 ORD000478,1,C0124,2026-04-06,2026-04-06,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,18,16.20,73.80,18.00,36.00,37.80,25.67,easter_special,Shopify,paid_social,mobile,S00478,FALSE,2025-07,275,202,402.00,Online
@@ -1082,7 +1082,7 @@ ORD000479,1,C0094,2026-04-09,2026-04-09,P005,Almond Crunch Bars,Bars,3,24.00,72.
 ORD000480,1,C0217,2026-04-09,2026-04-09,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,22,5.28,18.72,8.00,16.00,2.72,114.00,easter_special,Shopify,paid_social,desktop,S00480,TRUE,2026-01,0,0,137.00,COD
 ORD000481,1,C0120,2026-04-12,2026-04-12,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,12.50,organic,Shopify,paid_search,desktop,S00481,FALSE,2025-07,277,21,675.00,Online
 ORD000481,2,C0120,2026-04-12,2026-04-12,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,0,0.00,24.00,8.00,16.00,8.00,12.50,organic,Shopify,paid_search,desktop,S00481,FALSE,2025-07,277,21,675.00,Online
-ORD000482,1,C0104,2026-04-14,2026-04-14,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,0.00,organic,Shopify,organic,tablet,S00482,FALSE,2025-06,305,43,481.00,Online
+ORD000482,1,C0104,2026-04-14,2026-04-14,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,0.00,organic,Shopify,organic,mobile,S00482,FALSE,2025-06,305,43,481.00,Online
 ORD000483,1,C0222,2026-04-15,2026-04-15,P010,Mega Combo Box,Kits,1,89.00,89.00,5,4.45,84.55,35.00,35.00,49.55,0.00,first_time_customer,Amazon,organic,desktop,S00483,TRUE,2026-01,0,0,619.00,Online
 ORD000483,2,C0222,2026-04-15,2026-04-15,P007,Smooth Peanut Butter,Butter,3,35.00,105.00,5,5.25,99.75,21.00,63.00,36.75,0.00,first_time_customer,Amazon,organic,desktop,S00483,TRUE,2026-01,0,0,619.00,Online
 ORD000484,1,C0223,2026-04-15,2026-04-15,P009,Mango Protein Smoothie,Drinks,1,18.00,18.00,0,0.00,18.00,9.00,9.00,9.00,27.00,organic,Amazon,paid_search,desktop,S00484,TRUE,2026-01,0,0,266.00,Online
@@ -1093,8 +1093,8 @@ ORD000486,1,C0220,2026-04-16,2026-04-16,P007,Smooth Peanut Butter,Butter,4,35.00
 ORD000486,2,C0220,2026-04-16,2026-04-16,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,0.00,first_time_customer,Shopify,organic,mobile,S00486,TRUE,2026-01,0,0,534.00,Online
 ORD000487,1,C0215,2026-04-16,2026-04-16,P006,Trial Discovery Kit,Kits,2,65.00,130.00,5,6.50,123.50,22.00,44.00,79.50,0.00,first_time_customer,Amazon,organic,mobile,S00487,TRUE,2026-01,0,0,586.00,COD
 ORD000487,2,C0215,2026-04-16,2026-04-16,P002,Dark Choc Protein Butter,Butter,3,28.00,84.00,5,4.20,79.80,21.00,63.00,16.80,0.00,first_time_customer,Amazon,organic,mobile,S00487,TRUE,2026-01,0,0,586.00,COD
-ORD000488,1,C0126,2026-04-17,2026-04-17,P005,Almond Crunch Bars,Bars,3,24.00,72.00,0,0.00,72.00,11.00,33.00,39.00,15.00,organic,Shopify,paid_social,tablet,S00488,FALSE,2025-07,285,206,283.00,Online
-ORD000488,2,C0126,2026-04-17,2026-04-17,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,15.00,organic,Shopify,paid_social,tablet,S00488,FALSE,2025-07,285,206,283.00,Online
+ORD000488,1,C0126,2026-04-17,2026-04-17,P005,Almond Crunch Bars,Bars,3,24.00,72.00,0,0.00,72.00,11.00,33.00,39.00,15.00,organic,Shopify,paid_social,mobile,S00488,FALSE,2025-07,285,206,283.00,Online
+ORD000488,2,C0126,2026-04-17,2026-04-17,P001,Whey Isolate - Choc,Powder,2,45.00,90.00,0,0.00,90.00,18.00,36.00,54.00,15.00,organic,Shopify,paid_social,mobile,S00488,FALSE,2025-07,285,206,283.00,Online
 ORD000489,1,C0221,2026-04-18,2026-04-18,P006,Trial Discovery Kit,Kits,4,65.00,260.00,10,26.00,234.00,22.00,88.00,146.00,0.00,first_time_customer,Shopify,organic,desktop,S00489,TRUE,2026-01,0,0,258.00,Online
 ORD000489,2,C0221,2026-04-18,2026-04-18,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,10,4.50,40.50,18.00,18.00,22.50,0.00,first_time_customer,Shopify,organic,desktop,S00489,TRUE,2026-01,0,0,258.00,Online
 ORD000490,1,C0076,2026-04-21,2026-04-21,P005,Almond Crunch Bars,Bars,1,24.00,24.00,0,0.00,24.00,11.00,11.00,13.00,0.00,organic,Amazon,organic,desktop,S00490,FALSE,2025-04,379,50,601.00,COD
@@ -1102,17 +1102,17 @@ ORD000490,2,C0076,2026-04-21,2026-04-21,P007,Smooth Peanut Butter,Butter,2,35.00
 ORD000491,1,C0089,2026-04-22,2026-04-22,P008,Collagen Peptides - Berry,Powder,2,58.00,116.00,0,0.00,116.00,23.00,46.00,70.00,7.67,organic,Amazon,paid_search,desktop,S00491,FALSE,2025-05,354,44,383.00,Online
 ORD000491,2,C0089,2026-04-22,2026-04-22,P004,Daily Plant Protein,Powder,2,52.00,104.00,0,0.00,104.00,20.00,40.00,64.00,7.67,organic,Amazon,paid_search,desktop,S00491,FALSE,2025-05,354,44,383.00,Online
 ORD000491,3,C0089,2026-04-22,2026-04-22,P005,Almond Crunch Bars,Bars,3,24.00,72.00,0,0.00,72.00,11.00,33.00,39.00,7.67,organic,Amazon,paid_search,desktop,S00491,FALSE,2025-05,354,44,383.00,Online
-ORD000492,1,C0224,2026-04-22,2026-04-22,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,10,5.60,50.40,21.00,42.00,8.40,0.00,first_time_customer,Shopify,organic,tablet,S00492,TRUE,2026-01,0,0,84.00,Online
-ORD000492,2,C0224,2026-04-22,2026-04-22,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,10,2.40,21.60,8.00,16.00,5.60,0.00,first_time_customer,Shopify,organic,tablet,S00492,TRUE,2026-01,0,0,84.00,Online
-ORD000492,3,C0224,2026-04-22,2026-04-22,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,10,3.60,32.40,9.00,18.00,14.40,0.00,first_time_customer,Shopify,organic,tablet,S00492,TRUE,2026-01,0,0,84.00,Online
+ORD000492,1,C0224,2026-04-22,2026-04-22,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,10,5.60,50.40,21.00,42.00,8.40,0.00,first_time_customer,Shopify,organic,mobile,S00492,TRUE,2026-01,0,0,84.00,Online
+ORD000492,2,C0224,2026-04-22,2026-04-22,P003,Himalayan Salt Chips,Chips,2,12.00,24.00,10,2.40,21.60,8.00,16.00,5.60,0.00,first_time_customer,Shopify,organic,mobile,S00492,TRUE,2026-01,0,0,84.00,Online
+ORD000492,3,C0224,2026-04-22,2026-04-22,P009,Mango Protein Smoothie,Drinks,2,18.00,36.00,10,3.60,32.40,9.00,18.00,14.40,0.00,first_time_customer,Shopify,organic,mobile,S00492,TRUE,2026-01,0,0,84.00,Online
 ORD000493,1,C0108,2026-04-23,2026-04-23,P002,Dark Choc Protein Butter,Butter,1,28.00,28.00,0,0.00,28.00,21.00,21.00,7.00,0.00,organic,Shopify,organic,desktop,S00493,FALSE,2025-07,292,29,623.00,Online
 ORD000494,1,C0088,2026-04-24,2026-04-24,P003,Himalayan Salt Chips,Chips,1,12.00,12.00,0,0.00,12.00,8.00,8.00,4.00,0.00,organic,Amazon,organic,desktop,S00494,FALSE,2025-05,357,46,523.00,Online
 ORD000494,2,C0088,2026-04-24,2026-04-24,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,0.00,organic,Amazon,organic,desktop,S00494,FALSE,2025-05,357,46,523.00,Online
 ORD000495,1,C0106,2026-04-24,2026-04-24,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,0.00,organic,Shopify,organic,mobile,S00495,FALSE,2025-07,274,48,490.00,Online
 ORD000496,1,C0227,2026-04-25,2026-04-25,P003,Himalayan Salt Chips,Chips,3,12.00,36.00,0,0.00,36.00,8.00,24.00,12.00,0.00,organic,Amazon,organic,mobile,S00496,TRUE,2026-01,0,0,88.00,Online
 ORD000496,2,C0227,2026-04-25,2026-04-25,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,0.00,organic,Amazon,organic,mobile,S00496,TRUE,2026-01,0,0,88.00,Online
-ORD000497,1,C0111,2026-04-27,2026-04-27,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,0.00,organic,Amazon,organic,tablet,S00497,FALSE,2025-07,291,41,596.00,COD
-ORD000497,2,C0111,2026-04-27,2026-04-27,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,0.00,organic,Amazon,organic,tablet,S00497,FALSE,2025-07,291,41,596.00,COD
-ORD000497,3,C0111,2026-04-27,2026-04-27,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,0.00,organic,Amazon,organic,tablet,S00497,FALSE,2025-07,291,41,596.00,COD
+ORD000497,1,C0111,2026-04-27,2026-04-27,P008,Collagen Peptides - Berry,Powder,3,58.00,174.00,0,0.00,174.00,23.00,69.00,105.00,0.00,organic,Amazon,organic,mobile,S00497,FALSE,2025-07,291,41,596.00,COD
+ORD000497,2,C0111,2026-04-27,2026-04-27,P004,Daily Plant Protein,Powder,1,52.00,52.00,0,0.00,52.00,20.00,20.00,32.00,0.00,organic,Amazon,organic,mobile,S00497,FALSE,2025-07,291,41,596.00,COD
+ORD000497,3,C0111,2026-04-27,2026-04-27,P005,Almond Crunch Bars,Bars,2,24.00,48.00,0,0.00,48.00,11.00,22.00,26.00,0.00,organic,Amazon,organic,mobile,S00497,FALSE,2025-07,291,41,596.00,COD
 ORD000498,1,C0093,2026-04-28,2026-04-28,P002,Dark Choc Protein Butter,Butter,2,28.00,56.00,0,0.00,56.00,21.00,42.00,14.00,0.00,organic,Amazon,organic,desktop,S00498,FALSE,2025-06,326,49,412.00,Online
 ORD000498,2,C0093,2026-04-28,2026-04-28,P001,Whey Isolate - Choc,Powder,1,45.00,45.00,0,0.00,45.00,18.00,18.00,27.00,0.00,organic,Amazon,organic,desktop,S00498,FALSE,2025-06,326,49,412.00,Online

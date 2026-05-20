@@ -274,6 +274,21 @@ for (let dateIdx = 0; dateIdx < dateBuckets.length; dateIdx++) {
   }
 }
 
+// ─── POST-PROCESS: Fix device split for mobile-first story ─────
+// Remap ~60% of tablet orders to mobile (deterministic by row index, no random calls)
+for (let i = 0; i < rows.length; i++) {
+  const parts = rows[i].split(',');
+  if (parts[21] === 'tablet') {
+    const year = parts[3].split('-')[0];
+    // CY: convert 70% of tablet → mobile, PY: convert 50%
+    const threshold = year === '2026' ? 0.7 : 0.5;
+    if ((i % 10) / 10 < threshold) {
+      parts[21] = 'mobile';
+      rows[i] = parts.join(',');
+    }
+  }
+}
+
 const headers = 'order_id,order_line_id,customer_id,order_date,created_at,product_id,product_name,category,quantity,unit_price,line_subtotal,discount_pct,line_discount,line_total,cogs_per_unit,line_cogs,line_gross_profit,ad_spend_allocated,campaign,channel,source,device,session_id,is_first_time_customer,cohort,days_since_first,days_since_last_order,customer_lifetime_value,payment_method';
 fs.writeFileSync('C:\\Users\\jaina\\OneDrive\\Desktop\\POC\\lightdash\\sample_data\\ecommerce_orders.csv', headers + '\n' + rows.join('\n') + '\n');
 
