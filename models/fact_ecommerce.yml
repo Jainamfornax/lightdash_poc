@@ -652,22 +652,22 @@ models:
           format: percent
           round: 1
 
-        # Avg Revenue per Unit
-        cy_avg_revenue_per_unit:
+        # Bundle Attach Rate % (orders with 2+ categories)
+        cy_bundle_attach_rate:
           type: number
-          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END), 0))"
-          label: "CY Avg Revenue per Unit"
-          description: "Average selling price per unit in CY YTD. Tracks pricing power."
-          format: usd
-          round: 2
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${basket_size} >= 2 THEN ${order_id} END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END), 0))"
+          label: "CY Bundle Attach Rate %"
+          description: "Percentage of CY YTD orders with 2+ products. Higher = better cross-sell."
+          format: percent
+          round: 1
 
-        py_ytd_avg_revenue_per_unit:
+        py_ytd_bundle_attach_rate:
           type: number
-          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${quantity} ELSE 0 END), 0))"
-          label: "PY Avg Revenue per Unit"
-          description: "Average selling price per unit in PY YTD."
-          format: usd
-          round: 2
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${basket_size} >= 2 THEN ${order_id} END), NULLIF(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END), 0))"
+          label: "PY Bundle Attach Rate %"
+          description: "Percentage of PY YTD orders with 2+ products."
+          format: percent
+          round: 1
 
         # Avg Categories per Customer
         cy_avg_categories_per_customer:
