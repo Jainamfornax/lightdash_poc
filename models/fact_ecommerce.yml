@@ -486,6 +486,14 @@ models:
           format: usd
           round: 1
 
+        ad_spend_per_order:
+          type: number
+          sql: "SAFE_DIVIDE(${total_ad_spend}, ${total_orders})"
+          label: "Ad Spend per Order"
+          description: "Average marketing cost per order. Use with campaign dimension to compare acquisition cost across campaigns."
+          format: usd
+          round: 0
+
         campaign_net_roi:
           type: number
           sql: "SAFE_DIVIDE((${total_profit} - ${total_ad_spend}), NULLIF(${total_ad_spend}, 0))"
