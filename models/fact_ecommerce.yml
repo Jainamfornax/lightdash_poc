@@ -514,6 +514,76 @@ models:
           format: percent
           round: 1
 
+        # ─── SECTION 4: CHANNEL & TRAFFIC (CY vs PY) ──
+
+        # Amazon Revenue Share %
+        cy_amazon_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${channel} = 'Amazon' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "CY Amazon Revenue Share %"
+          description: "Percentage of CY YTD revenue from Amazon channel."
+          format: percent
+          round: 1
+
+        py_ytd_amazon_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${channel} = 'Amazon' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "PY Amazon Revenue Share %"
+          description: "Percentage of PY YTD revenue from Amazon channel."
+          format: percent
+          round: 1
+
+        # Shopify Revenue Share %
+        cy_shopify_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${channel} = 'Shopify' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "CY Shopify Revenue Share %"
+          description: "Percentage of CY YTD revenue from Shopify channel."
+          format: percent
+          round: 1
+
+        py_ytd_shopify_revenue_share:
+          type: number
+          sql: "SAFE_DIVIDE(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${channel} = 'Shopify' THEN ${line_total} ELSE 0 END), NULLIF(SUM(CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${line_total} ELSE 0 END), 0))"
+          label: "PY Shopify Revenue Share %"
+          description: "Percentage of PY YTD revenue from Shopify channel."
+          format: percent
+          round: 1
+
+        # Organic Traffic %
+        cy_organic_traffic_pct:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${source} = 'organic' THEN ${order_id} END), COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END))"
+          label: "CY Organic Traffic %"
+          description: "Percentage of CY YTD orders from organic (non-paid) traffic."
+          format: percent
+          round: 1
+
+        py_ytd_organic_traffic_pct:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${source} = 'organic' THEN ${order_id} END), COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END))"
+          label: "PY Organic Traffic %"
+          description: "Percentage of PY YTD orders from organic (non-paid) traffic."
+          format: percent
+          round: 1
+
+        # COD Share % (CY vs PY)
+        cy_cod_share:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${payment_method} = 'COD' THEN ${order_id} END), COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2026 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END))"
+          label: "CY COD Share %"
+          description: "Percentage of CY YTD orders paid via COD. Lower = more trust."
+          format: percent
+          round: 1
+
+        py_ytd_cod_share:
+          type: number
+          sql: "SAFE_DIVIDE(COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 AND ${payment_method} = 'COD' THEN ${order_id} END), COUNT(DISTINCT CASE WHEN EXTRACT(YEAR FROM ${order_date}) = 2025 AND EXTRACT(MONTH FROM ${order_date}) <= 4 THEN ${order_id} END))"
+          label: "PY COD Share %"
+          description: "Percentage of PY YTD orders paid via COD."
+          format: percent
+          round: 1
+
     columns:
       # ─── ORDER IDENTIFIERS ─────────────────────────
       - name: order_id
