@@ -40,6 +40,10 @@ SELECT
   category_b,
   CONCAT(product_a_name, ' + ', product_b_name) AS bundle_pair,
   CASE
+    WHEN category_a <= category_b THEN CONCAT(category_a, ' + ', category_b)
+    ELSE CONCAT(category_b, ' + ', category_a)
+  END AS category_pair,
+  CASE
     WHEN category_a = category_b THEN 'Same Category'
     ELSE 'Cross Category'
   END AS bundle_type,
@@ -49,5 +53,5 @@ SELECT
   SAFE_DIVIDE(SUM(pair_profit), SUM(pair_revenue)) AS pair_margin_pct,
   AVG(pair_revenue) AS avg_pair_revenue
 FROM product_pairs
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9
 ORDER BY times_bought_together DESC

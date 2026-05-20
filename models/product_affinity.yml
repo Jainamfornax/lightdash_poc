@@ -98,6 +98,13 @@ models:
             type: string
             label: "Bundle Pair"
 
+      - name: category_pair
+        description: "Category-level bundle label: 'Powder + Kits'. Use to group product pairs into category-level affinity for cleaner analysis."
+        meta:
+          dimension:
+            type: string
+            label: "Category Pair"
+
       - name: bundle_type
         description: "Whether the pair is Same Category or Cross Category. Cross-category bundles indicate better catalog exploration."
         meta:
